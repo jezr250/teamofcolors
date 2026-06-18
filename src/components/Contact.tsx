@@ -10,13 +10,35 @@ const fields = [
 
 export default function Contact() {
   const [sent, setSent] = useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setError("");
+    setLoading(true);
     const data = new FormData(e.currentTarget);
-    if (!data.get("name") || !data.get("email") || !data.get("message")) return;
-    // TODO: 実運用時は /api/contact または EmailJS を設定
-    setSent(true);
+    const body = {
+      name: data.get("name"),
+      company: data.get("company"),
+      email: data.get("email"),
+      phone: data.get("phone"),
+      message: data.get("message"),
+    };
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error || "送信に失敗しました");
+      setSent(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "送信に失敗しました");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -92,10 +114,14 @@ export default function Contact() {
               />
             </div>
 
+            {error && (
+              <p className="text-red-400 text-xs tracking-wide mb-4">{error}</p>
+            )}
+
             {/* 送信ボタン */}
-            <button type="submit" className="btn-service">
-              送信する / SEND MESSAGE
-              <span className="text-base leading-none">→</span>
+            <button type="submit" disabled={loading} className="btn-service disabled:opacity-50">
+              {loading ? "送信中..." : "送信する / SEND MESSAGE"}
+              {!loading && <span className="text-base leading-none">→</span>}
             </button>
           </form>
         )}
