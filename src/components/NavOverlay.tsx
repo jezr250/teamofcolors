@@ -1,5 +1,6 @@
 "use client";
 import { useEffect } from "react";
+import { SITE_INSTAGRAM_URL } from "@/lib/siteConfig";
 
 const links = [
   { label: "ABOUT",    href: "#about" },
@@ -37,16 +38,32 @@ export default function NavOverlay({ open, onClose }: Props) {
           ))}
         </nav>
 
-        <div className="mt-12 flex gap-6">
-          <a href="https://www.instagram.com/"
-            className="text-[10px] tracking-[0.3em] text-white/30
-                       hover:text-[#C9A84C] transition-colors font-heading">
-            INSTAGRAM
+        <div className="mt-12 flex items-center gap-8">
+          <a href={SITE_INSTAGRAM_URL}
+            target="_blank" rel="noopener noreferrer"
+            className="flex items-center gap-2 text-xs tracking-[0.25em] text-white/60
+                       hover:text-[#C9A84C] active:text-[#C9A84C] transition-colors font-heading">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="6" ry="6" />
+              <circle cx="12" cy="12" r="5" />
+              <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none" />
+            </svg>
+            Instagram
           </a>
-          <a href="#contact"
-            className="text-[10px] tracking-[0.3em] text-white/30
-                       hover:text-[#C9A84C] transition-colors font-heading"
-            onClick={onClose}>
+          <a href="#contact-tel"
+            onClick={onClose}
+            className="flex items-center gap-2 text-xs tracking-[0.25em] text-white/60
+                       hover:text-[#C9A84C] active:text-[#C9A84C] transition-colors font-heading">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07
+                       A19.5 19.5 0 0 1 5.45 13a19.79 19.79 0 0 1-3.07-8.67
+                       A2 2 0 0 1 4.36 2h3a2 2 0 0 1 2 1.72
+                       c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91
+                       a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45
+                       c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+            </svg>
             TEL
           </a>
         </div>
@@ -64,13 +81,16 @@ export default function NavOverlay({ open, onClose }: Props) {
         </svg>
       </div>
 
-      {/* 閉じるボタン（左上） */}
+      {/* 閉じるボタン */}
       <button
         onClick={onClose}
-        className="absolute top-6 right-8 md:right-12 text-white/30
-                   hover:text-white transition-colors text-[10px] tracking-[0.3em] font-heading"
+        className="absolute top-6 right-8 md:right-12 text-white/70
+                   hover:text-white active:text-white transition-colors
+                   text-sm tracking-[0.3em] font-heading
+                   flex items-center gap-2 py-2 px-1"
       >
-        CLOSE ✕
+        <span className="text-base leading-none">✕</span>
+        <span className="text-xs">CLOSE</span>
       </button>
     </div>
   );

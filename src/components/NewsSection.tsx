@@ -80,13 +80,13 @@ export default function NewsSection() {
         {/* ヘッダー — Artizan風 */}
         <div className="reveal flex items-end justify-between mb-12 pb-6 border-b border-white/5">
           <div>
-            <p className="font-label text-[10px] tracking-[0.5em] text-gold uppercase mb-3">Works & News</p>
+            <p className="font-label text-xs tracking-[0.5em] text-gold uppercase mb-3">Works & News</p>
             <h2 className="font-heading italic text-5xl md:text-6xl tracking-[0.04em] silver-grad">
               NEWS
             </h2>
           </div>
-          <a href="#contact"
-            className="hidden md:block text-[9px] tracking-[0.3em] text-white/50
+          <a href="#news"
+            className="hidden md:block text-xs tracking-[0.3em] text-white/60
                        hover:text-gold transition-colors font-label gold-hover">
             ALL PROJECTS →
           </a>
@@ -115,10 +115,10 @@ export default function NewsSection() {
               {/* テキスト */}
               <div className="p-5 md:p-6">
                 <div className="flex items-center gap-3 mb-3">
-                  <span className="font-label text-[8px] tracking-[0.25em] text-gold uppercase">
+                  <span className="font-label text-[11px] tracking-[0.25em] text-gold uppercase">
                     CATEGORY
                   </span>
-                  <span className="font-label text-[8px] tracking-[0.1em] text-white/50 border border-white/15 px-2 py-0.5">
+                  <span className="font-label text-[11px] tracking-[0.1em] text-white/60 border border-white/15 px-2 py-0.5">
                     {project.category}
                   </span>
                 </div>
@@ -127,7 +127,7 @@ export default function NewsSection() {
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {project.tags.map((tag) => (
-                    <span key={tag} className="font-label text-[7px] tracking-[0.1em] text-white/35 uppercase">
+                    <span key={tag} className="font-label text-[11px] tracking-[0.1em] text-white/55 uppercase">
                       #{tag}
                     </span>
                   ))}

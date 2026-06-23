@@ -36,7 +36,7 @@ export default function OrderSection() {
         </p>
 
         <div className="-mt-8 md:-mt-16">
-          <p className="font-label text-[11px] tracking-[0.5em] text-gold uppercase mb-6">
+          <p className="font-label text-xs tracking-[0.5em] text-gold uppercase mb-6">
             No Border
           </p>
           <h2 className="font-heading italic tracking-[0.05em] leading-tight mb-10 silver-grad"
@@ -49,7 +49,7 @@ export default function OrderSection() {
             ゼロから創り上げることが私たちの仕事です。
           </p>
           <a href="#contact"
-            className="inline-block bg-gold text-black text-[10px] tracking-[0.3em]
+            className="inline-block bg-gold text-black text-xs tracking-[0.3em]
                        font-label px-12 py-4 hover:bg-gold-light transition-colors duration-300">
             ORDER →
           </a>

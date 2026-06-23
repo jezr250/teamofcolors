@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { SITE_TEL, SITE_TEL_HREF } from "@/lib/siteConfig";
 
 const fields = [
   { id: "name",    label: "お名前",    labelEn: "NAME",    type: "text",  required: true },
@@ -47,7 +48,7 @@ export default function Contact() {
 
         {/* ヘッダー */}
         <div className="text-center mb-16">
-          <p className="font-label text-[10px] tracking-[0.5em] text-gold uppercase mb-4">
+          <p className="font-label text-xs tracking-[0.5em] text-gold uppercase mb-4">
             Contact
           </p>
           <h2 className="font-heading text-6xl md:text-7xl tracking-[0.06em] mb-6 silver-grad">
@@ -72,10 +73,10 @@ export default function Contact() {
                 <div key={f.id} className={f.id === "company" || f.id === "phone" ? "" : ""}>
                   <label
                     htmlFor={f.id}
-                    className="block font-label text-[9px] tracking-[0.4em] text-white/55 mb-2 uppercase"
+                    className="block font-label text-xs tracking-[0.4em] text-white/65 mb-2 uppercase"
                   >
                     {f.label}
-                    <span className="text-white/30 ml-1 font-sans normal-case tracking-normal text-[9px]">
+                    <span className="text-white/50 ml-1 font-sans normal-case tracking-normal text-[11px]">
                       / {f.labelEn}
                     </span>
                     {f.required && <span className="text-gold ml-1">*</span>}
@@ -96,10 +97,10 @@ export default function Contact() {
             <div className="mb-6">
               <label
                 htmlFor="message"
-                className="block font-label text-[9px] tracking-[0.4em] text-white/55 mb-2 uppercase"
+                className="block font-label text-xs tracking-[0.4em] text-white/65 mb-2 uppercase"
               >
                 お問い合わせ内容
-                <span className="text-white/30 ml-1 font-sans normal-case tracking-normal text-[9px]">
+                <span className="text-white/50 ml-1 font-sans normal-case tracking-normal text-[11px]">
                   / MESSAGE
                 </span>
                 <span className="text-gold ml-1">*</span>
@@ -127,13 +128,15 @@ export default function Contact() {
         )}
 
         {/* TEL */}
-        <div className="mt-12 pt-10 border-t border-white/8 text-center">
-          <p className="font-label text-[9px] tracking-[0.5em] text-white/35 mb-3">
+        <div id="contact-tel" className="mt-12 pt-10 border-t border-white/8 text-center">
+          <p className="font-label text-xs tracking-[0.4em] text-white/55 mb-3">
             TEL（平日 10:00 – 18:00）
           </p>
-          <p className="font-label text-2xl text-white/55 tracking-[0.2em]">
-            000-0000-0000
-          </p>
+          <a href={SITE_TEL_HREF}
+            className="font-label text-2xl text-white/55 tracking-[0.2em]
+                       hover:text-gold active:text-gold transition-colors">
+            {SITE_TEL}
+          </a>
         </div>
       </div>
     </section>

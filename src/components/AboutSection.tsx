@@ -42,7 +42,7 @@ export default function AboutSection() {
               <div className="absolute bottom-4 right-4 w-10 h-10 border-r border-b border-[#C9A84C]/40" />
               {/* キャプション */}
               <div className="absolute bottom-6 left-6">
-                <p className="font-label text-[10px] tracking-[0.3em] text-[#C9A84C] uppercase">
+                <p className="font-label text-xs tracking-[0.3em] text-[#C9A84C] uppercase">
                   Artificial Rock
                 </p>
                 <p className="font-label text-xs tracking-[0.15em] text-white/60 mt-1">
@@ -55,7 +55,7 @@ export default function AboutSection() {
           {/* テキスト */}
           <div className="reveal space-y-8" style={{ transitionDelay: "0.15s" }}>
             <div>
-              <p className="font-label text-[10px] tracking-[0.5em] text-gold uppercase mb-4">About</p>
+              <p className="font-label text-xs tracking-[0.5em] text-gold uppercase mb-4">About</p>
               <h2 className="font-heading italic text-5xl md:text-6xl tracking-[0.04em] leading-tight silver-grad">
                 WORK &<br />BELIEF
               </h2>
@@ -77,15 +77,15 @@ export default function AboutSection() {
               {[["15+", "Years"], ["200+", "Projects"], ["100%", "Scratch"]].map(([num, label]) => (
                 <div key={label}>
                   <p className="font-heading text-3xl text-gold">{num}</p>
-                  <p className="font-label text-[9px] tracking-[0.2em] text-white/40 mt-1 uppercase">{label}</p>
+                  <p className="font-label text-[11px] tracking-[0.2em] text-white/60 mt-1 uppercase">{label}</p>
                 </div>
               ))}
             </div>
 
-            <a href="#order"
-              className="inline-flex items-center gap-3 text-[10px] tracking-[0.3em]
+            <a href="#works"
+              className="inline-flex items-center gap-3 text-xs tracking-[0.3em]
                          text-white/50 hover:text-gold transition-colors font-label gold-hover">
-              VIEW MORE
+              VIEW MORE →
             </a>
           </div>
         </div>

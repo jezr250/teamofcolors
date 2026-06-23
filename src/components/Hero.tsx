@@ -103,7 +103,7 @@ export default function Hero() {
         }}
       >
         {/* 小ラベル */}
-        <p className="font-label text-[10px] tracking-[0.6em] uppercase mb-6 silver-grad">
+        <p className="font-label text-xs tracking-[0.6em] uppercase mb-6 silver-grad">
           is genuine works
         </p>
 
@@ -117,13 +117,13 @@ export default function Hero() {
 
         {/* サブタイトル */}
         <div className="mb-2">
-          <p className="font-label text-[11px] tracking-[0.4em] text-white/60 uppercase">
+          <p className="font-label text-xs tracking-[0.4em] text-white/70 uppercase">
             Artificial Rock
           </p>
-          <p className="font-label text-[11px] tracking-[0.4em] text-white/60 uppercase">
+          <p className="font-label text-xs tracking-[0.4em] text-white/70 uppercase">
             Interior Design
           </p>
-          <p className="font-label text-[11px] tracking-[0.4em] text-white/60 uppercase">
+          <p className="font-label text-xs tracking-[0.4em] text-white/70 uppercase">
             Aging Paint
           </p>
         </div>
@@ -137,7 +137,7 @@ export default function Hero() {
           <a
             href="#news"
             className="inline-flex items-center justify-center gap-5
-                       font-label text-[11px] tracking-[0.28em] text-white
+                       font-label text-xs tracking-[0.28em] text-white
                        px-9 py-4 transition-all duration-300"
             style={{
               background: "rgba(8,8,8,0.6)",
@@ -159,7 +159,7 @@ export default function Hero() {
           <a
             href="#contact"
             className="inline-flex items-center justify-center gap-5
-                       font-label text-[11px] tracking-[0.28em] text-white/75
+                       font-label text-xs tracking-[0.28em] text-white/75
                        px-9 py-4 transition-all duration-300"
             style={{
               background: "transparent",
@@ -185,7 +185,7 @@ export default function Hero() {
             ([num, label]) => (
               <div key={label}>
                 <p className="font-heading text-2xl text-gold leading-none">{num}</p>
-                <p className="font-label text-[8px] tracking-[0.2em] text-white/40 mt-1 uppercase">
+                <p className="font-label text-[11px] tracking-[0.2em] text-white/60 mt-1 uppercase">
                   {label}
                 </p>
               </div>
@@ -201,7 +201,7 @@ export default function Hero() {
       {/* ── スクロールライン ── */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 lg:left-14 lg:translate-x-0 xl:left-20 flex items-center gap-3">
         <div className="w-px h-10 bg-gradient-to-b from-white/20 to-transparent" />
-        <span className="font-label text-[8px] tracking-[0.5em] text-white/25 uppercase">Scroll</span>
+        <span className="font-label text-[11px] tracking-[0.5em] text-white/50 uppercase">Scroll</span>
       </div>
     </section>
   );

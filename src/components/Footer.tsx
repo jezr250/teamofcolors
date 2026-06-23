@@ -29,7 +29,7 @@ export default function Footer() {
         </p>
 
         {/* サービス説明 */}
-        <p className="font-label text-[10px] tracking-[0.3em] text-white/45 uppercase text-center">
+        <p className="font-label text-xs tracking-[0.3em] text-white/60 uppercase text-center">
           Artificial Rock · Interior Design · Aging Paint
         </p>
 
@@ -39,7 +39,7 @@ export default function Footer() {
             <a
               key={item}
               href={`#${item.toLowerCase()}`}
-              className="font-label text-[10px] tracking-[0.25em] text-white/50
+              className="font-label text-xs tracking-[0.25em] text-white/60
                          hover:text-gold transition-colors duration-300 gold-hover"
             >
               {item}
@@ -51,7 +51,7 @@ export default function Footer() {
         <div className="w-16 h-px bg-white/20" />
 
         {/* コピーライト */}
-        <p className="font-label text-[9px] tracking-[0.2em] text-white/40">
+        <p className="font-label text-xs tracking-[0.2em] text-white/55">
           © 2025 TEAM OF COLORS. ALL RIGHTS RESERVED.
         </p>
       </div>

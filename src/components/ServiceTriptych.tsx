@@ -4,21 +4,21 @@ import { useEffect, useRef } from "react";
 
 const tiles = [
   {
-    href: "#service",
+    href: "#order",
     img: "https://images.unsplash.com/photo-1714828180412-063a6eab7bae?w=900&auto=format&fit=crop&q=85",
     alt: "擬岩制作",
     label: "擬岩制作",
     labelEn: "ARTIFICIAL ROCK",
   },
   {
-    href: "#service",
+    href: "#order",
     img: "https://images.unsplash.com/photo-1531973968078-9bb02785f13d?w=900&auto=format&fit=crop&q=85",
     alt: "店舗内装",
     label: "内装・インテリア",
     labelEn: "INTERIOR DESIGN",
   },
   {
-    href: "#service",
+    href: "#order",
     img: "https://images.unsplash.com/photo-1578922427288-a47338083a57?w=900&auto=format&fit=crop&q=85",
     alt: "エイジング塗装",
     label: "エイジング塗装",
@@ -71,7 +71,7 @@ export default function ServiceTriptych() {
           />
           <div className="triptych-overlay">
             <div className="text-center">
-              <p className="font-label text-[9px] tracking-[0.4em] text-gold mb-2 uppercase">
+              <p className="font-label text-[11px] tracking-[0.4em] text-gold mb-2 uppercase">
                 {tile.labelEn}
               </p>
               <p className="font-heading italic text-2xl tracking-[0.08em] silver-grad">
