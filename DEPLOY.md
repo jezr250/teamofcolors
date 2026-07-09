@@ -105,5 +105,16 @@ docker compose run --rm -e NODE_ENV=production web npm run build
 - **News/Blog（microCMS）**: ブラウザから直接microCMSを呼ぶとAPIキーが露出する
   ため、`server/api/news.php` にPHP中継（プロキシ）を作る方式で実装予定。
   キーはサーバー側だけに置き、レスポンスは数分ファイルキャッシュしてAPI枠を節約する。
-- **Xserver契約後**（2026-07中旬予定）: CORESERVERでテスト済みの手順をそのまま実行 →
-  問題なければ xserver ブランチを main に統合して一本化する。
+- **Xserver契約後**（2026-07中旬予定）: 上記デプロイ手順を実行 → 問題なければ
+  xserver ブランチを main に統合して一本化する。
+  （CORESERVERでの事前テストはローカルDocker検証で代替済みのため省略）
+
+## Xserver本番デプロイ時のチェックリスト
+
+ローカルの模擬環境では検証できていない、サーバー固有の確認事項：
+
+1. **PHPバージョン**: サーバーパネルで PHP 8.1 以上を選択（コードが8.1+前提）
+2. **DBはMariaDB**: XserverのMySQLは実体がMariaDB。schema.sqlは互換構文のみだが認識しておく
+3. **.htaccessの確認**: デプロイ後、ブラウザで `https://ドメイン/lib/config.php` を開き、
+   中身が表示されない（真っ白 or 403）ことを確認する
+   （ローカルのApacheコンテナは.htaccessを読まない設定のため未検証）
