@@ -1,0 +1,2 @@
+# lib/ 以下への直接アクセスを禁止（設定ファイル保護）
+Require all denied

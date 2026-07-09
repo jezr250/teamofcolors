@@ -1,13 +1,51 @@
 services:
+  # Next.js開発サーバー（デザイン確認用）
+  # main側(teamofcolors)の3000番と衝突しないよう3001番で公開
   web:
     build:
       context: .
       dockerfile: Dockerfile.dev
     ports:
-      - "3000:3000"
+      - "3001:3000"
     volumes:
       - .:/app
       - /app/node_modules
     environment:
       - NODE_ENV=development
     restart: unless-stopped
+
+  # Xserver本番を模したApache+PHP環境
+  # ./build-xserver.sh で組み立てた dist/public_html を配信する
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile.php
+    ports:
+      - "8080:80"
+    volumes:
+      - ./dist/public_html:/var/www/html
+    environment:
+      - DB_HOST=db
+      - DB_NAME=teamofcolors
+      - DB_USER=toc
+      - DB_PASS=tocpass
+      - ADMIN_PASSWORD=admin
+    depends_on:
+      - db
+    restart: unless-stopped
+
+  # Xserver本番を模したMySQL（初回起動時に server/schema.sql を自動実行）
+  db:
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=teamofcolors
+      - MYSQL_USER=toc
+      - MYSQL_PASSWORD=tocpass
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./server/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
+    restart: unless-stopped
+
+volumes:
+  db-data:
