@@ -19,7 +19,7 @@ rm -rf dist/public_html
 mkdir -p dist/public_html/api
 
 cp -r out/. dist/public_html/
-cp server/api/contact.php dist/public_html/api/
+cp server/api/*.php dist/public_html/api/
 cp -r server/admin dist/public_html/admin
 cp -r server/lib dist/public_html/lib
 

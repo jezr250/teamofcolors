@@ -17,7 +17,7 @@ export default function BlogDetailPage() {
       <main className="pt-32 pb-24 bg-[#0a0a0a] min-h-screen">
         <div className="max-w-3xl mx-auto px-6 md:px-12">
           <Suspense>
-            <PostDetailView apiPath="/api/news" backHref="/blog" backLabel="ALL NEWS" />
+            <PostDetailView apiPath="/api/news.php" backHref="/blog" backLabel="ALL NEWS" />
           </Suspense>
         </div>
       </main>

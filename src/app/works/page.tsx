@@ -20,7 +20,7 @@ export default function WorksPage() {
             title="WORKS"
             description="擬岩制作・店舗内装・エイジング塗装の施工実績をご紹介します。"
           />
-          <PostArchive apiPath="/api/works" detailPath="/works/detail" />
+          <PostArchive apiPath="/api/works.php" detailPath="/works/detail" />
         </div>
       </main>
       <Footer />

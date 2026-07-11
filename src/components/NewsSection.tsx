@@ -12,7 +12,7 @@ export default function NewsSection() {
   const [failed, setFailed] = useState(false);
 
   useEffect(() => {
-    fetch("/api/news?limit=3")
+    fetch("/api/news.php?limit=3")
       .then((res) => {
         if (!res.ok) throw new Error(String(res.status));
         return res.json() as Promise<PostListResponse>;

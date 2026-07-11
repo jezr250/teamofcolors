@@ -16,3 +16,8 @@ define('DB_PASS', getenv('DB_PASS') ?: 'tocpass');
 
 // 管理画面（/admin/）のログインパスワード。本番では必ず変更すること。
 define('ADMIN_PASSWORD', getenv('ADMIN_PASSWORD') ?: 'admin');
+
+// microCMS（News/Blog・施工実績）。未設定の間はサンプルデータが表示される。
+// サービス作成後に https://<サービスID>.microcms.io の <サービスID> とAPIキーを設定する。
+define('MICROCMS_SERVICE_DOMAIN', getenv('MICROCMS_SERVICE_DOMAIN') ?: '');
+define('MICROCMS_API_KEY', getenv('MICROCMS_API_KEY') ?: '');

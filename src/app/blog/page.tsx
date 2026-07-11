@@ -20,7 +20,7 @@ export default function BlogPage() {
             title="NEWS"
             description="お知らせ・イベント情報・活動報告をお届けします。"
           />
-          <PostArchive apiPath="/api/news" detailPath="/blog/detail" />
+          <PostArchive apiPath="/api/news.php" detailPath="/blog/detail" />
         </div>
       </main>
       <Footer />

@@ -17,7 +17,7 @@ export default function WorkDetailPage() {
       <main className="pt-32 pb-24 bg-[#0a0a0a] min-h-screen">
         <div className="max-w-3xl mx-auto px-6 md:px-12">
           <Suspense>
-            <PostDetailView apiPath="/api/works" backHref="/works" backLabel="ALL PROJECTS" />
+            <PostDetailView apiPath="/api/works.php" backHref="/works" backLabel="ALL PROJECTS" />
           </Suspense>
         </div>
       </main>

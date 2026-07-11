@@ -33,8 +33,12 @@ Xserver / CORESERVER などの共用レンタルサーバーは **Node.js を常
 server/
 ├── api/contact.php    # お問い合わせ受信API（JSON受信→MySQL保存）
 ├── admin/index.php    # 問い合わせ管理画面（一覧・フィルター・ステータス変更）
-├── lib/config.php     # DB接続情報・管理画面パスワード ★本番アップ時に書き換える
+├── api/news.php       # お知らせ・ブログ中継API（microCMS news）GET ?limit&offset / ?id=xxx
+├── api/works.php      # 施工実績中継API（microCMS works）同上
+├── lib/config.php     # DB接続情報・管理画面パスワード・microCMSキー ★本番アップ時に書き換える
 ├── lib/db.php         # PDO接続
+├── lib/microcms.php   # microCMS中継の共通ロジック（キー未設定時はサンプルJSONを返す）
+├── lib/sample-news.json / sample-works.json  # microCMS未設定時のサンプルデータ
 ├── lib/.htaccess      # lib/への直接アクセス禁止
 └── schema.sql         # Contactテーブル定義（初回にphpMyAdminでインポート）
 build-xserver.sh       # out/ + server/ → dist/public_html/ に組み立てるスクリプト
@@ -86,6 +90,8 @@ PHP環境がないので8080側で確認する）。
    - `DB_HOST` → Xserverは `localhost`（CORESERVERはパネル記載のホスト名）
    - `DB_NAME` / `DB_USER` / `DB_PASS` → 手順1で控えた値
    - `ADMIN_PASSWORD` → 推測されない強いパスワードに必ず変更
+   - `MICROCMS_SERVICE_DOMAIN` / `MICROCMS_API_KEY` → microCMSのサービスID・APIキー
+     （未設定のままだとNews/Worksはサンプルデータ表示になる）
 
 ### 毎回のデプロイ
 
@@ -100,11 +106,15 @@ docker compose run --rm -e NODE_ENV=production web npm run build
   2回目以降は `lib/` を除いてアップロードするか、アップ後に再度書き換える。
 - `schema.sql` はアップロード不要（DBに一度流すだけ）
 
-## 今後の予定
+## News/Blog（microCMS）中継 — 実装済み（2026-07-11）
 
-- **News/Blog（microCMS）**: ブラウザから直接microCMSを呼ぶとAPIキーが露出する
-  ため、`server/api/news.php` にPHP中継（プロキシ）を作る方式で実装予定。
-  キーはサーバー側だけに置き、レスポンスは数分ファイルキャッシュしてAPI枠を節約する。
+ブラウザから直接microCMSを呼ぶとAPIキーが露出するため、PHP中継（プロキシ）方式。
+- `server/api/news.php`・`works.php` が microCMS を中継（キーはサーバー側のみ）
+- レスポンス形式は main の `/api/news`・`/api/works`（Route Handler）と同一。
+  フロント側の違いは fetch 先が `.php` 付きな点だけ（Contact.tsxと同じパターン。
+  対象: NewsSection.tsx / works・blog 各ページの apiPath）
+- キー未設定時は `lib/sample-*.json` のサンプルデータを返す（登録前でも画面確認可）
+- TODO: 転送量・API枠の節約用に、レスポンスの数分ファイルキャッシュを検討
 - **Xserver契約後**（2026-07中旬予定）: 上記デプロイ手順を実行 → 問題なければ
   xserver ブランチを main に統合して一本化する。
   （CORESERVERでの事前テストはローカルDocker検証で代替済みのため省略）
