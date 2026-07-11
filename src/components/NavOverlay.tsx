@@ -2,13 +2,14 @@
 import { useEffect } from "react";
 import { SITE_INSTAGRAM_URL } from "@/lib/siteConfig";
 
+// "/#xxx" 形式にしておくと /works・/blog などの下層ページからでもトップの各セクションに戻れる
 const links = [
-  { label: "ABOUT",    href: "#about" },
-  { label: "SERVICE",  href: "#service" },
-  { label: "WORKS",    href: "#works" },
-  { label: "ORDER",    href: "#order" },
-  { label: "NEWS",     href: "#news" },
-  { label: "CONTACT",  href: "#contact" },
+  { label: "ABOUT",    href: "/#about" },
+  { label: "SERVICE",  href: "/#service" },
+  { label: "WORKS",    href: "/#works" },
+  { label: "ORDER",    href: "/#order" },
+  { label: "NEWS",     href: "/#news" },
+  { label: "CONTACT",  href: "/#contact" },
 ];
 
 type Props = { open: boolean; onClose: () => void };
@@ -51,7 +52,7 @@ export default function NavOverlay({ open, onClose }: Props) {
             </svg>
             Instagram
           </a>
-          <a href="#contact-tel"
+          <a href="/#contact-tel"
             onClick={onClose}
             className="flex items-center gap-2 text-xs tracking-[0.25em] text-white/60
                        hover:text-[#C9A84C] active:text-[#C9A84C] transition-colors font-heading">

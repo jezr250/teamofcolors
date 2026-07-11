@@ -14,6 +14,11 @@ const nextConfig: NextConfig = {
         hostname: "plus.unsplash.com",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "images.microcms-assets.io",
+        pathname: "/**",
+      },
     ],
   },
 };

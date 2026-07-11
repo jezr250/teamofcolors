@@ -259,3 +259,40 @@ body {
   border-color: var(--gold);
   filter: brightness(1.06);
 }
+
+/* ===== 記事本文（microCMS richEditorのHTMLを描画する領域） ===== */
+.article-content {
+  color: rgba(255,255,255,0.78);
+  font-size: 0.9375rem;
+  line-height: 2.1;
+  letter-spacing: 0.02em;
+}
+.article-content h2 {
+  font-family: var(--font-cormorant), serif;
+  font-size: 1.5rem;
+  color: #e8e8e8;
+  margin: 2.5em 0 1em;
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.article-content h3 {
+  font-size: 1.125rem;
+  color: #e0e0e0;
+  margin: 2em 0 0.8em;
+}
+.article-content p { margin: 1.2em 0; }
+.article-content a { color: var(--gold); text-decoration: underline; }
+.article-content a:hover { opacity: 0.8; }
+.article-content ul, .article-content ol { margin: 1.2em 0; padding-left: 1.5em; }
+.article-content ul { list-style: disc; }
+.article-content ol { list-style: decimal; }
+.article-content li { margin: 0.4em 0; }
+.article-content img { max-width: 100%; height: auto; margin: 2em 0; }
+.article-content blockquote {
+  border-left: 2px solid var(--gold);
+  padding-left: 1.2em;
+  margin: 1.5em 0;
+  color: rgba(255,255,255,0.6);
+}
+.article-content strong { color: #f0f0f0; }
+.article-content hr { border-color: rgba(255,255,255,0.1); margin: 2.5em 0; }

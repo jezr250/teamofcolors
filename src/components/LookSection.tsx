@@ -17,7 +17,7 @@ export default function LookSection() {
   }, []);
 
   return (
-    <section id="works" className="parallax-wrap h-[85vh] flex items-center justify-center">
+    <section id="look" className="parallax-wrap h-[85vh] flex items-center justify-center">
       {/* パラックス画像 */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
@@ -40,7 +40,7 @@ export default function LookSection() {
         <p className="font-label text-xs tracking-[0.4em] text-white/70 uppercase mb-10">
           施工実績の一部をご紹介します
         </p>
-        <a href="#news"
+        <a href="#works"
           className="inline-block border border-white/35 text-white/75 text-xs
                      tracking-[0.3em] px-8 py-3 font-label
                      hover:border-gold hover:text-gold transition-all duration-300">
