@@ -61,6 +61,9 @@ docker compose run --rm -e NODE_ENV=production web npm run build
 
 # 3. 本番模擬環境を起動（Apache+PHP+MySQL。Xserverと同等の構成）
 docker compose up -d php db
+#    ※ phpコンテナ起動中に build-xserver.sh を再実行した場合は、
+#      rm -rf でバインドマウント元が消えて全ページ404になるため
+#      `docker compose up -d --force-recreate php` で作り直すこと
 
 # 4. ブラウザで確認
 #    サイト:    http://localhost:8080/
@@ -81,6 +84,21 @@ http://localhost:3001 に開発サーバーが立つ（ただしフォーム送�
 PHP環境がないので8080側で確認する）。
 
 ## 本番デプロイ手順（Xserver / CORESERVER 共通）
+
+### 初回のみ：Basic認証をかける（正式公開まで）
+
+正式公開までサイト全体をBasic認証で保護する（Googleクローラー・第三者のアクセスを遮断）。
+Xserverの機能で設定するため **コード変更・ファイルアップロードは不要**：
+
+1. サーバーパネル →「ホームページ」内の **「アクセス制限」** を開く
+2. 対象ドメインを選択 → `public_html/`（カレントディレクトリ）の access制限を **ONにする**
+3. 「ユーザー設定」からユーザー名・パスワードを追加（自分用に1つでOK）
+4. ブラウザでサイトを開き、認証ダイアログが出ることを確認
+
+- 認証は同一サイト内のフォーム送信（/api/contact.php）や管理画面にも透過的に効く
+  （一度認証すればブラウザが自動で認証情報を送るので、動作確認に支障なし）
+- **正式公開時**: 同じ画面でアクセス制限をOFFにするだけ。その後
+  Google Search Console にサイトマップを登録してインデックスを促す
 
 ### 初回のみ：サーバー側の準備
 
@@ -128,3 +146,5 @@ docker compose run --rm -e NODE_ENV=production web npm run build
 3. **.htaccessの確認**: デプロイ後、ブラウザで `https://ドメイン/lib/config.php` を開き、
    中身が表示されない（真っ白 or 403）ことを確認する
    （ローカルのApacheコンテナは.htaccessを読まない設定のため未検証）
+4. **Basic認証の確認**: シークレットウィンドウでサイトを開き、認証ダイアログが
+   出ること（未認証では中身が見えないこと）を確認する
