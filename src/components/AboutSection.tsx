@@ -31,7 +31,7 @@ export default function AboutSection() {
             <div className="relative aspect-[4/5] overflow-hidden reveal-clip">
               <Image
                 src="https://images.unsplash.com/photo-1714828180412-063a6eab7bae?w=900&auto=format&fit=crop&q=85"
-                alt="洞窟 擬岩制作"
+                alt="モルタル造形制作の現場"
                 fill
                 className="object-cover transition-transform duration-700 hover:scale-103"
                 sizes="(max-width: 1024px) 100vw, 50vw"
@@ -46,7 +46,7 @@ export default function AboutSection() {
                   Artificial Rock
                 </p>
                 <p className="font-label text-xs tracking-[0.15em] text-white/60 mt-1">
-                  擬岩制作の現場
+                  モルタル造形制作の現場
                 </p>
               </div>
             </div>
@@ -64,7 +64,7 @@ export default function AboutSection() {
             <div className="w-8 h-px bg-gold" />
 
             <p className="text-white/75 text-sm leading-[2.2]">
-              Team of Colors は、擬岩制作を核とした空間創造集団です。
+              Team of Colors は、モルタル造形制作を核とした空間創造集団です。
               コンクリートや FRP を素材に、本物と見紛う岩・石・洞窟を手作りで制作し、
               テーマパーク・飲食店・商業施設に唯一無二の空間を提供します。
             </p>

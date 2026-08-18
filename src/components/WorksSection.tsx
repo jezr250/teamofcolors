@@ -6,7 +6,7 @@ const projects = [
   {
     id: 1,
     title: "洞窟テーマカフェ「岩窟」内装",
-    category: "擬岩制作",
+    category: "モルタル造形制作",
     tags: ["ARTISTIC", "FULL SCRATCH"],
     img: "https://images.unsplash.com/photo-1702847341686-ba2c2b173371?w=800&auto=format&fit=crop&q=85",
     alt: "洞窟 カフェ 擬岩",
@@ -22,7 +22,7 @@ const projects = [
   {
     id: 3,
     title: "商業施設 大型岩石オブジェ",
-    category: "擬岩制作",
+    category: "モルタル造形制作",
     tags: ["LARGE SCALE", "FRP"],
     img: "https://images.unsplash.com/photo-1613981371672-98fcc5a1b59e?w=800&auto=format&fit=crop&q=85",
     alt: "岩石 オブジェ",
@@ -38,7 +38,7 @@ const projects = [
   {
     id: 5,
     title: "アミューズメント洞窟エリア",
-    category: "擬岩制作",
+    category: "モルタル造形制作",
     tags: ["THEME PARK", "CAVE"],
     img: "https://images.unsplash.com/photo-1760119547261-2acb17d8ae71?w=800&auto=format&fit=crop&q=85",
     alt: "洞窟 テーマパーク",

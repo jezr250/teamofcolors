@@ -134,7 +134,7 @@ const SAMPLE_WORKS: Post[] = [
     eyecatch: {
       url: "https://images.unsplash.com/photo-1702847341686-ba2c2b173371?w=1200&auto=format&fit=crop&q=85",
     },
-    category: { id: "rock", name: "擬岩制作" },
+    category: { id: "rock", name: "モルタル造形制作" },
     tags: ["ARTISTIC", "FULL SCRATCH"],
     publishedAt: "2026-06-20T09:00:00.000Z",
   },
@@ -156,7 +156,7 @@ const SAMPLE_WORKS: Post[] = [
     eyecatch: {
       url: "https://images.unsplash.com/photo-1613981371672-98fcc5a1b59e?w=1200&auto=format&fit=crop&q=85",
     },
-    category: { id: "rock", name: "擬岩制作" },
+    category: { id: "rock", name: "モルタル造形制作" },
     tags: ["LARGE SCALE", "FRP"],
     publishedAt: "2026-05-25T09:00:00.000Z",
   },
@@ -178,7 +178,7 @@ const SAMPLE_WORKS: Post[] = [
     eyecatch: {
       url: "https://images.unsplash.com/photo-1760119547261-2acb17d8ae71?w=1200&auto=format&fit=crop&q=85",
     },
-    category: { id: "rock", name: "擬岩制作" },
+    category: { id: "rock", name: "モルタル造形制作" },
     tags: ["THEME PARK", "CAVE"],
     publishedAt: "2026-04-15T09:00:00.000Z",
   },

@@ -6,9 +6,9 @@ const tiles = [
   {
     href: "#order",
     img: "https://images.unsplash.com/photo-1714828180412-063a6eab7bae?w=900&auto=format&fit=crop&q=85",
-    alt: "擬岩制作",
-    label: "擬岩制作",
-    labelEn: "ARTIFICIAL ROCK",
+    alt: "モルタル造形制作",
+    label: "モルタル造形制作",
+    labelEn: "MORTAR SCULPTURE",
   },
   {
     href: "#order",
