@@ -1,5 +1,5 @@
 <?php
-// microCMS中継の共通ロジック（api/news.php・api/works.php から利用）
+// microCMS中継の共通ロジック（api/works.php から利用）
 // mainブランチの src/app/api/_lib/postsHandler.ts と同じレスポンス形式:
 //   - 一覧: GET ?limit=12&offset=0 → {contents, totalCount, offset, limit}
 //   - 詳細: GET ?id=xxx            → 記事オブジェクト（無ければ404）
@@ -46,7 +46,7 @@ function loadSamplePosts(string $endpoint): array
 }
 
 /**
- * 中継APIのエントリポイント。$endpoint は 'news' か 'works'。
+ * 中継APIのエントリポイント。$endpoint は 'works'。
  */
 function handlePostsRequest(string $endpoint): never
 {
@@ -79,11 +79,19 @@ function handlePostsRequest(string $endpoint): never
         }
 
         // ── 一覧 ──
-        $limit  = min(max((int)($_GET['limit'] ?? 12), 1), 50);
-        $offset = max((int)($_GET['offset'] ?? 0), 0);
+        $limit    = min(max((int)($_GET['limit'] ?? 12), 1), 50);
+        $offset   = max((int)($_GET['offset'] ?? 0), 0);
+        // カテゴリー絞り込み（未指定=全件）。mainの getPostList({category}) と同じ挙動。
+        $category = isset($_GET['category']) ? (string)$_GET['category'] : '';
 
         if (!$configured) {
             $posts = loadSamplePosts($endpoint);
+            if ($category !== '') {
+                $posts = array_values(array_filter(
+                    $posts,
+                    fn($p) => ($p['category']['id'] ?? '') === $category
+                ));
+            }
             $page  = array_slice($posts, $offset, $limit);
             // 一覧では本文(content)を省略（mainのfields指定と同じ挙動）
             foreach ($page as &$post) {
@@ -98,12 +106,17 @@ function handlePostsRequest(string $endpoint): never
             ]);
         }
 
-        $res = fetchMicroCMS($endpoint, [
+        $params = [
             'limit'  => $limit,
             'offset' => $offset,
             'fields' => 'id,title,eyecatch,category,tags,publishedAt',
             'orders' => '-publishedAt',
-        ]);
+        ];
+        // microCMSのフィルタ構文で該当カテゴリーのみ取得
+        if ($category !== '') {
+            $params['filters'] = 'category[equals]' . $category;
+        }
+        $res = fetchMicroCMS($endpoint, $params);
         if ($res['status'] !== 200) {
             throw new RuntimeException('microCMS request failed: ' . $res['status']);
         }

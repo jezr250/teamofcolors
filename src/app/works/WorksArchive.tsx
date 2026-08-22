@@ -34,7 +34,7 @@ export default function WorksArchive() {
         description={category ? category.description : DEFAULT_DESCRIPTION}
       />
       <PostArchive
-        apiPath="/api/works"
+        apiPath="/api/works.php"
         detailPath="/works/detail"
         category={category?.id}
       />
