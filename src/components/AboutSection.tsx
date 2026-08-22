@@ -30,7 +30,7 @@ export default function AboutSection() {
           <div className="reveal">
             <div className="relative aspect-[4/5] overflow-hidden reveal-clip">
               <Image
-                src="https://images.unsplash.com/photo-1714828180412-063a6eab7bae?w=900&auto=format&fit=crop&q=85"
+                src="/about-mortar.jpg"
                 alt="モルタル造形制作の現場"
                 fill
                 className="object-cover transition-transform duration-700 hover:scale-103"
@@ -43,7 +43,7 @@ export default function AboutSection() {
               {/* キャプション */}
               <div className="absolute bottom-6 left-6">
                 <p className="font-label text-xs tracking-[0.3em] text-[#C9A84C] uppercase">
-                  Artificial Rock
+                  Mortar Sculpture
                 </p>
                 <p className="font-label text-xs tracking-[0.15em] text-white/60 mt-1">
                   モルタル造形制作の現場

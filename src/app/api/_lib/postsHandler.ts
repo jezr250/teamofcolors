@@ -2,10 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { getPostList, getPostDetail, type Endpoint } from "@/lib/microcms";
 
 // microCMS中継APIの共通ハンドラ（APIキーをクライアントに出さないための中継）
-// - GET /api/news?limit=12&offset=0 → 記事一覧（PostListResponse）
-// - GET /api/news?id=xxx            → 記事詳細（Post）
-// /api/works も同形式。Xserver版では同じレスポンス形式の
-// server/api/news.php・works.php に置き換える。
+// - GET /api/works?limit=12&offset=0&category=xxx → 記事一覧（PostListResponse）
+// - GET /api/works?id=xxx                         → 記事詳細（Post）
+// Xserver版では同じレスポンス形式の server/api/works.php に置き換える。
 
 export function createPostsHandler(endpoint: Endpoint) {
   return async function GET(req: NextRequest) {
@@ -23,7 +22,8 @@ export function createPostsHandler(endpoint: Endpoint) {
 
       const limit = Math.min(Math.max(Number(searchParams.get("limit")) || 12, 1), 50);
       const offset = Math.max(Number(searchParams.get("offset")) || 0, 0);
-      const list = await getPostList(endpoint, { limit, offset });
+      const category = searchParams.get("category") || undefined;
+      const list = await getPostList(endpoint, { limit, offset, category });
       return NextResponse.json(list);
     } catch {
       return NextResponse.json(

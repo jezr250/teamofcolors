@@ -5,14 +5,14 @@ import Image from "next/image";
 import type { Post } from "@/lib/microcms";
 import { formatDate } from "@/lib/formatDate";
 
-// 記事詳細（/blog/detail・/works/detail 共通）
-// 静的exportでは動的ルート（/blog/[id]）が使えないため ?id=xxx クエリ方式。
+// 施工実績の詳細（/works/detail で使用）
+// 静的exportでは動的ルート（/works/[id]）が使えないため ?id=xxx クエリ方式。
 // useSearchParams を使うので、ページ側で <Suspense> に包むこと。
 
 type Props = {
-  apiPath: string;   // 例: "/api/news"
-  backHref: string;  // 例: "/blog"
-  backLabel: string; // 例: "ALL NEWS"
+  apiPath: string;   // 例: "/api/works"
+  backHref: string;  // 例: "/works"
+  backLabel: string; // 例: "ALL WORKS"
 };
 
 export default function PostDetailView({ apiPath, backHref, backLabel }: Props) {

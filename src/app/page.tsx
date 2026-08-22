@@ -5,7 +5,6 @@ import AboutSection from "@/components/AboutSection";
 import LookSection from "@/components/LookSection";
 import OrderSection from "@/components/OrderSection";
 import WorksSection from "@/components/WorksSection";
-import NewsSection from "@/components/NewsSection";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
@@ -21,7 +20,6 @@ export default function Home() {
         <LookSection />       {/* LOOK — パラックスポートフォリオ */}
         <OrderSection />      {/* ORDER — フルスクラッチCTA */}
         <WorksSection />      {/* WORKS — 施工実績ギャラリー（代表6件ハードコード） */}
-        <NewsSection />       {/* NEWS — お知らせ最新3件（microCMSからCSR取得） */}
         <Contact />           {/* CONTACT */}
       </main>
       <Footer />

@@ -3,10 +3,9 @@ import { useEffect, useRef } from "react";
 
 /**
  * PDF参考: PATTERN ONEスタイル
- * 左：大テキスト  右：金色の馬が黒背景から浮かび上がる
+ * 左：大テキスト  右：モルタル造形による岩肌テクスチャが黒背景から浮かび上がる
  *
- * mix-blend-mode: screen  → 暗い部分が透明になり馬が浮かぶ
- * CSS filter sepia+gold   → 白馬を金色に変換
+ * mix-blend-mode: lighten → 岩の暗部が黒背景に沈み、明るい岩肌が浮かぶ
  */
 export default function Hero() {
   const ref = useRef<HTMLDivElement>(null);
@@ -25,16 +24,16 @@ export default function Hero() {
 
       {/* ── 右パネル：馬画像（PC: 右60% / SP: フル画面背景） ── */}
       <div className="absolute right-0 top-0 bottom-0 w-full lg:w-[62%] select-none pointer-events-none">
-        {/* 霧の中の騎馬像 — Ken Burns + lighten blend */}
+        {/* モルタル造形の岩肌テクスチャ — Ken Burns + lighten blend */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="https://images.unsplash.com/photo-1762377374688-6f33003bf7b4?w=1400&auto=format&fit=crop&q=90"
-          alt="騎馬像"
+          src="/hero-rock.jpg"
+          alt="モルタル造形による岩肌のテクスチャ"
           className="absolute inset-0 w-full h-full object-cover object-center ken-burns"
           style={{
             mixBlendMode: "lighten",
-            filter: "brightness(1.15) contrast(1.1) saturate(0.8)",
-            opacity: 0.85,
+            filter: "brightness(1.05) contrast(1.08) saturate(0.85)",
+            opacity: 0.9,
           }}
         />
 
@@ -47,34 +46,6 @@ export default function Hero() {
           }}
         />
 
-        {/* ゼッケン型 TOC バッジ — 馬の胴体あたりに重ねる */}
-        <div
-          className="absolute"
-          style={{ bottom: "28%", left: "18%", transform: "rotate(-8deg)" }}
-        >
-          <svg width="108" height="72" viewBox="0 0 108 72" fill="none">
-            <rect
-              x="2" y="2" width="104" height="68" rx="10"
-              stroke="#C9A84C" strokeWidth="1.5"
-              fill="rgba(5,5,5,0.75)"
-            />
-            <rect
-              x="8" y="8" width="92" height="56" rx="6"
-              stroke="#C9A84C" strokeWidth="0.5" strokeDasharray="3 3"
-              fill="none"
-            />
-            <text
-              x="54" y="44"
-              textAnchor="middle"
-              fill="#C9A84C"
-              fontSize="28"
-              fontFamily="var(--font-bebas), sans-serif"
-              letterSpacing="6"
-            >
-              TOC
-            </text>
-          </svg>
-        </div>
       </div>
 
       {/* ── グラデーション（モバイル: 全体覆う / PC: 左から右） ── */}
@@ -118,7 +89,7 @@ export default function Hero() {
         {/* サブタイトル */}
         <div className="mb-2">
           <p className="font-label text-xs tracking-[0.4em] text-white/70 uppercase">
-            Artificial Rock
+            Mortar Sculpture
           </p>
           <p className="font-label text-xs tracking-[0.4em] text-white/70 uppercase">
             Interior Design
@@ -135,7 +106,7 @@ export default function Hero() {
         <div className="flex flex-col sm:flex-row gap-4">
           {/* OUR SERVICES 相当：半透明ダーク＋白ボーダー */}
           <a
-            href="#news"
+            href="#works"
             className="inline-flex items-center justify-center gap-5
                        font-label text-xs tracking-[0.28em] text-white
                        px-9 py-4 transition-all duration-300"

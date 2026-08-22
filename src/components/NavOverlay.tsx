@@ -2,13 +2,12 @@
 import { useEffect } from "react";
 import { SITE_INSTAGRAM_URL } from "@/lib/siteConfig";
 
-// "/#xxx" 形式にしておくと /works・/blog などの下層ページからでもトップの各セクションに戻れる
+// "/#xxx" 形式にしておくと /works などの下層ページからでもトップの各セクションに戻れる
 const links = [
   { label: "ABOUT",    href: "/#about" },
   { label: "SERVICE",  href: "/#service" },
   { label: "WORKS",    href: "/#works" },
   { label: "ORDER",    href: "/#order" },
-  { label: "NEWS",     href: "/#news" },
   { label: "CONTACT",  href: "/#contact" },
 ];
 

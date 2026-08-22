@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SubpageHero from "@/components/SubpageHero";
-import PostArchive from "@/components/PostArchive";
+import WorksArchive from "./WorksArchive";
 
 export const metadata: Metadata = {
   title: "WORKS | TEAM OF COLORS",
@@ -15,12 +16,17 @@ export default function WorksPage() {
       <Header />
       <main className="pt-32 pb-24 bg-[#0a0a0a] min-h-screen">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <SubpageHero
-            label="All Projects"
-            title="WORKS"
-            description="モルタル造形制作・内装・インテリア・エイジング塗装の施工実績をご紹介します。"
-          />
-          <PostArchive apiPath="/api/works" detailPath="/works/detail" />
+          <Suspense
+            fallback={
+              <SubpageHero
+                label="All Projects"
+                title="WORKS"
+                description="モルタル造形制作・内装・インテリア・エイジング塗装の施工実績をご紹介します。"
+              />
+            }
+          >
+            <WorksArchive />
+          </Suspense>
         </div>
       </main>
       <Footer />

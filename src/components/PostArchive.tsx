@@ -4,17 +4,18 @@ import Image from "next/image";
 import type { Post, PostListResponse } from "@/lib/microcms";
 import { formatDate } from "@/lib/formatDate";
 
-// 記事一覧グリッド（/works・/blog 共通）
-// 中継API（/api/works・/api/news）からCSRで取得し、「MORE」で12件ずつ追加読み込み。
+// 施工実績の一覧グリッド（/works で使用）
+// 中継API（/api/works）からCSRで取得し、「MORE」で12件ずつ追加読み込み。
 
 const PAGE_SIZE = 12;
 
 type Props = {
   apiPath: string;    // 例: "/api/works"
   detailPath: string; // 例: "/works/detail"
+  category?: string;  // 指定時はそのカテゴリーのみ取得（未指定=全件）
 };
 
-export default function PostArchive({ apiPath, detailPath }: Props) {
+export default function PostArchive({ apiPath, detailPath, category }: Props) {
   const [posts, setPosts] = useState<Post[]>([]);
   const [totalCount, setTotalCount] = useState<number | null>(null); // null = 初回読み込み中
   const [loading, setLoading] = useState(false);
@@ -22,7 +23,9 @@ export default function PostArchive({ apiPath, detailPath }: Props) {
 
   const load = (offset: number) => {
     setLoading(true);
-    fetch(`${apiPath}?limit=${PAGE_SIZE}&offset=${offset}`)
+    const params = new URLSearchParams({ limit: String(PAGE_SIZE), offset: String(offset) });
+    if (category) params.set("category", category);
+    fetch(`${apiPath}?${params.toString()}`)
       .then((res) => {
         if (!res.ok) throw new Error(String(res.status));
         return res.json() as Promise<PostListResponse>;
@@ -36,9 +39,13 @@ export default function PostArchive({ apiPath, detailPath }: Props) {
   };
 
   useEffect(() => {
+    // apiPath / category が変わったら先頭から読み直し（スケルトン表示に戻す）
+    setPosts([]);
+    setTotalCount(null);
+    setFailed(false);
     load(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [apiPath]);
+  }, [apiPath, category]);
 
   if (failed) {
     return (
