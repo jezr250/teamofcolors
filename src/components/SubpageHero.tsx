@@ -1,4 +1,4 @@
-// 下層ページ（/works・/blog など）共通のページ見出し
+// 下層ページ（/works など）共通のページ見出し
 type Props = { label: string; title: string; description?: string };
 
 export default function SubpageHero({ label, title, description }: Props) {

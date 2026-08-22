@@ -30,12 +30,12 @@ export default function Footer() {
 
         {/* サービス説明 */}
         <p className="font-label text-xs tracking-[0.3em] text-white/60 uppercase text-center">
-          Artificial Rock · Interior Design · Aging Paint
+          Mortar Sculpture · Interior Design · Aging Paint
         </p>
 
         {/* ナビ */}
         <nav className="flex flex-wrap justify-center gap-5 md:gap-8 pt-4 border-t border-white/10 w-full">
-          {["ABOUT","SERVICE","WORKS","ORDER","NEWS","CONTACT"].map((item) => (
+          {["ABOUT","SERVICE","WORKS","ORDER","CONTACT"].map((item) => (
             <a
               key={item}
               href={`#${item.toLowerCase()}`}

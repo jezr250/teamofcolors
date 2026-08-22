@@ -2,23 +2,25 @@
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 
+// href は各サービスの category で絞り込んだ WORKS 一覧（/works?category=xxx）へ。
+// category 値は src/lib/serviceCategories.ts で一元管理（microCMS確定後はそちらを差し替え）。
 const tiles = [
   {
-    href: "#order",
-    img: "https://images.unsplash.com/photo-1714828180412-063a6eab7bae?w=900&auto=format&fit=crop&q=85",
-    alt: "擬岩制作",
-    label: "擬岩制作",
-    labelEn: "ARTIFICIAL ROCK",
+    category: "mortar",
+    img: "/service-mortar.jpg",
+    alt: "モルタル造形制作",
+    label: "モルタル造形制作",
+    labelEn: "MORTAR SCULPTURE",
   },
   {
-    href: "#order",
+    category: "interior",
     img: "https://images.unsplash.com/photo-1531973968078-9bb02785f13d?w=900&auto=format&fit=crop&q=85",
     alt: "店舗内装",
     label: "内装・インテリア",
     labelEn: "INTERIOR DESIGN",
   },
   {
-    href: "#order",
+    category: "aging",
     img: "https://images.unsplash.com/photo-1578922427288-a47338083a57?w=900&auto=format&fit=crop&q=85",
     alt: "エイジング塗装",
     label: "エイジング塗装",
@@ -55,7 +57,7 @@ export default function ServiceTriptych() {
       {tiles.map((tile, i) => (
         <a
           key={tile.labelEn}
-          href={tile.href}
+          href={`/works?category=${tile.category}`}
           className="triptych-item tile-item opacity-0"
           style={{
             transition: `opacity 0.7s ease ${i * 0.12}s, transform 0.7s ease ${i * 0.12}s`,

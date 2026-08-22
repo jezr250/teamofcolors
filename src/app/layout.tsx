@@ -35,16 +35,16 @@ const notoSansJP = Noto_Sans_JP({
 });
 
 export const metadata: Metadata = {
-  title: "TEAM OF COLORS | 擬岩・内装・エイジング塗装",
+  title: "TEAM OF COLORS | モルタル造形・内装・エイジング塗装",
   description:
-    "Team of Colors は擬岩制作・店舗内装・エイジング塗装を手がけるアーティスティックな施工会社です。",
+    "Team of Colors はモルタル造形制作・内装・インテリア・エイジング塗装を手がけるアーティスティックな施工会社です。",
   icons: {
     icon: "/favicon.ico",
     apple: "/apple-touch-icon.png",
   },
   openGraph: {
     title: "TEAM OF COLORS",
-    description: "擬岩制作・店舗内装・エイジング塗装",
+    description: "モルタル造形制作・内装・インテリア・エイジング塗装",
     type: "website",
   },
 };
