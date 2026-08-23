@@ -122,6 +122,40 @@ docker compose run --rm -e NODE_ENV=production web npm run build
   2回目以降は `lib/` を除いてアップロードするか、アップ後に再度書き換える。
 - `schema.sql` はアップロード不要（DBに一度流すだけ）
 
+## 管理画面（/admin/）の保護 — 2026-08-23 設定
+
+対応状況の管理をGmailに移し、管理画面は記録簿になった。とはいえ全問い合わせの
+個人情報が見えるので、保護は3層にしてある。
+
+1. **`/admin/` 専用のBasic認証**（サーバー上にのみ存在。リポジトリには入れていない）
+2. アプリのパスワードログイン（`config.php` の `ADMIN_PASSWORD`）
+3. ログイン試行の回数制限（IP単位で15分に5回失敗 → 15分ロック）
+
+**⚠ 正式公開時にサイト全体のBasic認証（`public_html/.htaccess`）を外すが、
+`/admin/.htaccess` は外さないこと。** 外すと守りが2と3だけになる。
+
+`/admin/.htaccess` と認証ファイルはサーバー上で直接作成した（本番固有のパスを
+含むため）。rsyncは `--exclude '.htaccess'` しているので上書き・削除されない。
+作り直す場合:
+
+```bash
+PWFILE=~/teamofcolors.jp/htpasswd/.htpasswd-admin
+HASH=$(php -r 'echo password_hash("パスワード", PASSWORD_BCRYPT);')
+printf "admin:%s\n" "$HASH" > $PWFILE
+chmod 644 $PWFILE   # ★600だとApacheが読めず500エラーになる
+
+cat > ~/teamofcolors.jp/public_html/admin/.htaccess <<EOF
+AuthUserFile $PWFILE
+AuthName "Team of Colors Admin"
+AuthType Basic
+require valid-user
+EOF
+```
+
+- ユーザー名は `admin`。**パスワードは暫定で `teamofcolors`。正式公開前に必ず変更する**
+- bcrypt（`$2y$`）で動作確認済み。既存のサイト全体用は `$apr1$` 形式だが、どちらでも可
+- 認証ファイルは公開ディレクトリの外（`~/teamofcolors.jp/htpasswd/`）に置くこと
+
 ## 施工実績（WORKS）中継 — 実装済み（2026-07-11 / 2026-08-23に2層化）
 
 ブラウザから直接microCMSを呼ぶとAPIキーが露出するため、PHP中継（プロキシ）方式。
