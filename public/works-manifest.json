@@ -1,0 +1,648 @@
+[
+  {
+    "id": "static-mortar-03",
+    "title": "モルタル造形制作",
+    "category": {
+      "id": "mortar",
+      "name": "モルタル造形制作"
+    },
+    "eyecatch": {
+      "url": "/works/mortar-03-thumb.webp",
+      "width": 800,
+      "height": 600
+    },
+    "thumb": {
+      "url": "/works/mortar-03-thumb.webp",
+      "width": 800,
+      "height": 600
+    },
+    "photoOnly": true
+  },
+  {
+    "id": "static-mortar-04",
+    "title": "モルタル造形制作",
+    "category": {
+      "id": "mortar",
+      "name": "モルタル造形制作"
+    },
+    "eyecatch": {
+      "url": "/works/mortar-04-thumb.webp",
+      "width": 800,
+      "height": 600
+    },
+    "thumb": {
+      "url": "/works/mortar-04-thumb.webp",
+      "width": 800,
+      "height": 600
+    },
+    "photoOnly": true
+  },
+  {
+    "id": "static-mortar-11",
+    "title": "モルタル造形制作",
+    "category": {
+      "id": "mortar",
+      "name": "モルタル造形制作"
+    },
+    "eyecatch": {
+      "url": "/works/mortar-11.webp",
+      "width": 1200,
+      "height": 1600
+    },
+    "thumb": {
+      "url": "/works/mortar-11-thumb.webp",
+      "width": 600,
+      "height": 800
+    },
+    "photoOnly": true
+  },
+  {
+    "id": "static-mortar-12",
+    "title": "モルタル造形制作",
+    "category": {
+      "id": "mortar",
+      "name": "モルタル造形制作"
+    },
+    "eyecatch": {
+      "url": "/works/mortar-12.webp",
+      "width": 1478,
+      "height": 1108
+    },
+    "thumb": {
+      "url": "/works/mortar-12-thumb.webp",
+      "width": 800,
+      "height": 600
+    },
+    "photoOnly": true
+  },
+  {
+    "id": "static-mortar-13",
+    "title": "モルタル造形制作",
+    "category": {
+      "id": "mortar",
+      "name": "モルタル造形制作"
+    },
+    "eyecatch": {
+      "url": "/works/mortar-13.webp",
+      "width": 1108,
+      "height": 1477
+    },
+    "thumb": {
+      "url": "/works/mortar-13-thumb.webp",
+      "width": 600,
+      "height": 800
+    },
+    "photoOnly": true
+  },
+  {
+    "id": "static-mortar-14",
+    "title": "モルタル造形制作",
+    "category": {
+      "id": "mortar",
+      "name": "モルタル造形制作"
+    },
+    "eyecatch": {
+      "url": "/works/mortar-14.webp",
+      "width": 1108,
+      "height": 1477
+    },
+    "thumb": {
+      "url": "/works/mortar-14-thumb.webp",
+      "width": 600,
+      "height": 800
+    },
+    "photoOnly": true
+  },
+  {
+    "id": "static-mortar-15",
+    "title": "モルタル造形制作",
+    "category": {
+      "id": "mortar",
+      "name": "モルタル造形制作"
+    },
+    "eyecatch": {
+      "url": "/works/mortar-15.webp",
+      "width": 1108,
+      "height": 1477
+    },
+    "thumb": {
+      "url": "/works/mortar-15-thumb.webp",
+      "width": 600,
+      "height": 800
+    },
+    "photoOnly": true
+  },
+  {
+    "id": "static-mortar-16",
+    "title": "モルタル造形制作",
+    "category": {
+      "id": "mortar",
+      "name": "モルタル造形制作"
+    },
+    "eyecatch": {
+      "url": "/works/mortar-16.webp",
+      "width": 1477,
+      "height": 1108
+    },
+    "thumb": {
+      "url": "/works/mortar-16-thumb.webp",
+      "width": 800,
+      "height": 600
+    },
+    "photoOnly": true
+  },
+  {
+    "id": "static-mortar-17",
+    "title": "モルタル造形制作",
+    "category": {
+      "id": "mortar",
+      "name": "モルタル造形制作"
+    },
+    "eyecatch": {
+      "url": "/works/mortar-17.webp",
+      "width": 1477,
+      "height": 1108
+    },
+    "thumb": {
+      "url": "/works/mortar-17-thumb.webp",
+      "width": 800,
+      "height": 600
+    },
+    "photoOnly": true
+  },
+  {
+    "id": "static-mortar-18",
+    "title": "モルタル造形制作",
+    "category": {
+      "id": "mortar",
+      "name": "モルタル造形制作"
+    },
+    "eyecatch": {
+      "url": "/works/mortar-18-thumb.webp",
+      "width": 600,
+      "height": 800
+    },
+    "thumb": {
+      "url": "/works/mortar-18-thumb.webp",
+      "width": 600,
+      "height": 800
+    },
+    "photoOnly": true
+  },
+  {
+    "id": "static-mortar-19",
+    "title": "モルタル造形制作",
+    "category": {
+      "id": "mortar",
+      "name": "モルタル造形制作"
+    },
+    "eyecatch": {
+      "url": "/works/mortar-19-thumb.webp",
+      "width": 600,
+      "height": 800
+    },
+    "thumb": {
+      "url": "/works/mortar-19-thumb.webp",
+      "width": 600,
+      "height": 800
+    },
+    "photoOnly": true
+  },
+  {
+    "id": "static-mortar-22",
+    "title": "モルタル造形制作",
+    "category": {
+      "id": "mortar",
+      "name": "モルタル造形制作"
+    },
+    "eyecatch": {
+      "url": "/works/mortar-22-thumb.webp",
+      "width": 800,
+      "height": 600
+    },
+    "thumb": {
+      "url": "/works/mortar-22-thumb.webp",
+      "width": 800,
+      "height": 600
+    },
+    "photoOnly": true
+  },
+  {
+    "id": "static-mortar-23",
+    "title": "モルタル造形制作",
+    "category": {
+      "id": "mortar",
+      "name": "モルタル造形制作"
+    },
+    "eyecatch": {
+      "url": "/works/mortar-23-thumb.webp",
+      "width": 800,
+      "height": 600
+    },
+    "thumb": {
+      "url": "/works/mortar-23-thumb.webp",
+      "width": 800,
+      "height": 600
+    },
+    "photoOnly": true
+  },
+  {
+    "id": "static-mortar-24",
+    "title": "モルタル造形制作",
+    "category": {
+      "id": "mortar",
+      "name": "モルタル造形制作"
+    },
+    "eyecatch": {
+      "url": "/works/mortar-24-thumb.webp",
+      "width": 800,
+      "height": 600
+    },
+    "thumb": {
+      "url": "/works/mortar-24-thumb.webp",
+      "width": 800,
+      "height": 600
+    },
+    "photoOnly": true
+  },
+  {
+    "id": "static-mortar-28",
+    "title": "モルタル造形制作",
+    "category": {
+      "id": "mortar",
+      "name": "モルタル造形制作"
+    },
+    "eyecatch": {
+      "url": "/works/mortar-28-thumb.webp",
+      "width": 600,
+      "height": 800
+    },
+    "thumb": {
+      "url": "/works/mortar-28-thumb.webp",
+      "width": 600,
+      "height": 800
+    },
+    "photoOnly": true
+  },
+  {
+    "id": "static-mortar-29",
+    "title": "モルタル造形制作",
+    "category": {
+      "id": "mortar",
+      "name": "モルタル造形制作"
+    },
+    "eyecatch": {
+      "url": "/works/mortar-29-thumb.webp",
+      "width": 600,
+      "height": 800
+    },
+    "thumb": {
+      "url": "/works/mortar-29-thumb.webp",
+      "width": 600,
+      "height": 800
+    },
+    "photoOnly": true
+  },
+  {
+    "id": "static-mortar-30",
+    "title": "モルタル造形制作",
+    "category": {
+      "id": "mortar",
+      "name": "モルタル造形制作"
+    },
+    "eyecatch": {
+      "url": "/works/mortar-30-thumb.webp",
+      "width": 600,
+      "height": 800
+    },
+    "thumb": {
+      "url": "/works/mortar-30-thumb.webp",
+      "width": 600,
+      "height": 800
+    },
+    "photoOnly": true
+  },
+  {
+    "id": "static-mortar-31",
+    "title": "モルタル造形制作",
+    "category": {
+      "id": "mortar",
+      "name": "モルタル造形制作"
+    },
+    "eyecatch": {
+      "url": "/works/mortar-31-thumb.webp",
+      "width": 600,
+      "height": 800
+    },
+    "thumb": {
+      "url": "/works/mortar-31-thumb.webp",
+      "width": 600,
+      "height": 800
+    },
+    "photoOnly": true
+  },
+  {
+    "id": "static-mortar-35",
+    "title": "モルタル造形制作",
+    "category": {
+      "id": "mortar",
+      "name": "モルタル造形制作"
+    },
+    "eyecatch": {
+      "url": "/works/mortar-35.webp",
+      "width": 1477,
+      "height": 1108
+    },
+    "thumb": {
+      "url": "/works/mortar-35-thumb.webp",
+      "width": 800,
+      "height": 600
+    },
+    "photoOnly": true
+  },
+  {
+    "id": "static-mortar-37",
+    "title": "モルタル造形制作",
+    "category": {
+      "id": "mortar",
+      "name": "モルタル造形制作"
+    },
+    "eyecatch": {
+      "url": "/works/mortar-37.webp",
+      "width": 1108,
+      "height": 1477
+    },
+    "thumb": {
+      "url": "/works/mortar-37-thumb.webp",
+      "width": 600,
+      "height": 800
+    },
+    "photoOnly": true
+  },
+  {
+    "id": "static-mortar-38",
+    "title": "モルタル造形制作",
+    "category": {
+      "id": "mortar",
+      "name": "モルタル造形制作"
+    },
+    "eyecatch": {
+      "url": "/works/mortar-38.webp",
+      "width": 1478,
+      "height": 1108
+    },
+    "thumb": {
+      "url": "/works/mortar-38-thumb.webp",
+      "width": 800,
+      "height": 600
+    },
+    "photoOnly": true
+  },
+  {
+    "id": "static-mortar-39",
+    "title": "モルタル造形制作",
+    "category": {
+      "id": "mortar",
+      "name": "モルタル造形制作"
+    },
+    "eyecatch": {
+      "url": "/works/mortar-39.webp",
+      "width": 1600,
+      "height": 1200
+    },
+    "thumb": {
+      "url": "/works/mortar-39-thumb.webp",
+      "width": 800,
+      "height": 600
+    },
+    "photoOnly": true
+  },
+  {
+    "id": "static-interior-01",
+    "title": "内装・インテリア",
+    "category": {
+      "id": "interior",
+      "name": "内装・インテリア"
+    },
+    "eyecatch": {
+      "url": "/works/interior-01.webp",
+      "width": 1477,
+      "height": 1108
+    },
+    "thumb": {
+      "url": "/works/interior-01-thumb.webp",
+      "width": 800,
+      "height": 600
+    },
+    "photoOnly": true
+  },
+  {
+    "id": "static-interior-03",
+    "title": "内装・インテリア",
+    "category": {
+      "id": "interior",
+      "name": "内装・インテリア"
+    },
+    "eyecatch": {
+      "url": "/works/interior-03.webp",
+      "width": 1108,
+      "height": 1477
+    },
+    "thumb": {
+      "url": "/works/interior-03-thumb.webp",
+      "width": 600,
+      "height": 800
+    },
+    "photoOnly": true
+  },
+  {
+    "id": "static-interior-06",
+    "title": "内装・インテリア",
+    "category": {
+      "id": "interior",
+      "name": "内装・インテリア"
+    },
+    "eyecatch": {
+      "url": "/works/interior-06.webp",
+      "width": 1108,
+      "height": 1477
+    },
+    "thumb": {
+      "url": "/works/interior-06-thumb.webp",
+      "width": 600,
+      "height": 800
+    },
+    "photoOnly": true
+  },
+  {
+    "id": "static-interior-07",
+    "title": "内装・インテリア",
+    "category": {
+      "id": "interior",
+      "name": "内装・インテリア"
+    },
+    "eyecatch": {
+      "url": "/works/interior-07.webp",
+      "width": 1108,
+      "height": 1477
+    },
+    "thumb": {
+      "url": "/works/interior-07-thumb.webp",
+      "width": 600,
+      "height": 800
+    },
+    "photoOnly": true
+  },
+  {
+    "id": "static-interior-08",
+    "title": "内装・インテリア",
+    "category": {
+      "id": "interior",
+      "name": "内装・インテリア"
+    },
+    "eyecatch": {
+      "url": "/works/interior-08.webp",
+      "width": 1477,
+      "height": 1108
+    },
+    "thumb": {
+      "url": "/works/interior-08-thumb.webp",
+      "width": 800,
+      "height": 600
+    },
+    "photoOnly": true
+  },
+  {
+    "id": "static-interior-09",
+    "title": "内装・インテリア",
+    "category": {
+      "id": "interior",
+      "name": "内装・インテリア"
+    },
+    "eyecatch": {
+      "url": "/works/interior-09.webp",
+      "width": 1477,
+      "height": 1108
+    },
+    "thumb": {
+      "url": "/works/interior-09-thumb.webp",
+      "width": 800,
+      "height": 600
+    },
+    "photoOnly": true
+  },
+  {
+    "id": "static-aging-11",
+    "title": "エイジング塗装",
+    "category": {
+      "id": "aging",
+      "name": "エイジング塗装"
+    },
+    "eyecatch": {
+      "url": "/works/aging-11-thumb.webp",
+      "width": 600,
+      "height": 800
+    },
+    "thumb": {
+      "url": "/works/aging-11-thumb.webp",
+      "width": 600,
+      "height": 800
+    },
+    "photoOnly": true
+  },
+  {
+    "id": "static-aging-17",
+    "title": "エイジング塗装",
+    "category": {
+      "id": "aging",
+      "name": "エイジング塗装"
+    },
+    "eyecatch": {
+      "url": "/works/aging-17.webp",
+      "width": 1108,
+      "height": 1477
+    },
+    "thumb": {
+      "url": "/works/aging-17-thumb.webp",
+      "width": 600,
+      "height": 800
+    },
+    "photoOnly": true
+  },
+  {
+    "id": "static-aging-18",
+    "title": "エイジング塗装",
+    "category": {
+      "id": "aging",
+      "name": "エイジング塗装"
+    },
+    "eyecatch": {
+      "url": "/works/aging-18.webp",
+      "width": 1108,
+      "height": 1477
+    },
+    "thumb": {
+      "url": "/works/aging-18-thumb.webp",
+      "width": 600,
+      "height": 800
+    },
+    "photoOnly": true
+  },
+  {
+    "id": "static-aging-19",
+    "title": "エイジング塗装",
+    "category": {
+      "id": "aging",
+      "name": "エイジング塗装"
+    },
+    "eyecatch": {
+      "url": "/works/aging-19.webp",
+      "width": 1108,
+      "height": 1477
+    },
+    "thumb": {
+      "url": "/works/aging-19-thumb.webp",
+      "width": 600,
+      "height": 800
+    },
+    "photoOnly": true
+  },
+  {
+    "id": "static-aging-41",
+    "title": "エイジング塗装",
+    "category": {
+      "id": "aging",
+      "name": "エイジング塗装"
+    },
+    "eyecatch": {
+      "url": "/works/aging-41.webp",
+      "width": 1004,
+      "height": 1600
+    },
+    "thumb": {
+      "url": "/works/aging-41-thumb.webp",
+      "width": 502,
+      "height": 800
+    },
+    "photoOnly": true
+  },
+  {
+    "id": "static-aging-42",
+    "title": "エイジング塗装",
+    "category": {
+      "id": "aging",
+      "name": "エイジング塗装"
+    },
+    "eyecatch": {
+      "url": "/works/aging-42.webp",
+      "width": 1004,
+      "height": 1600
+    },
+    "thumb": {
+      "url": "/works/aging-42-thumb.webp",
+      "width": 502,
+      "height": 800
+    },
+    "photoOnly": true
+  }
+]
