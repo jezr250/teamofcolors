@@ -33,12 +33,10 @@ Xserver / CORESERVER などの共用レンタルサーバーは **Node.js を常
 server/
 ├── api/contact.php    # お問い合わせ受信API（JSON受信→MySQL保存）
 ├── admin/index.php    # 問い合わせ管理画面（一覧・フィルター・ステータス変更）
-├── api/news.php       # お知らせ・ブログ中継API（microCMS news）GET ?limit&offset / ?id=xxx
-├── api/works.php      # 施工実績中継API（microCMS works）同上
+├── api/works.php      # 施工実績中継API（microCMS works）GET ?limit&offset / ?id=xxx
 ├── lib/config.php     # DB接続情報・管理画面パスワード・microCMSキー ★本番アップ時に書き換える
 ├── lib/db.php         # PDO接続
-├── lib/microcms.php   # microCMS中継の共通ロジック（キー未設定時はサンプルJSONを返す）
-├── lib/sample-news.json / sample-works.json  # microCMS未設定時のサンプルデータ
+├── lib/microcms.php   # 中継の共通ロジック（静的写真＋microCMS記事のマージ）
 ├── lib/.htaccess      # lib/への直接アクセス禁止
 └── schema.sql         # Contactテーブル定義（初回にphpMyAdminでインポート）
 build-xserver.sh       # out/ + server/ → dist/public_html/ に組み立てるスクリプト
@@ -124,14 +122,21 @@ docker compose run --rm -e NODE_ENV=production web npm run build
   2回目以降は `lib/` を除いてアップロードするか、アップ後に再度書き換える。
 - `schema.sql` はアップロード不要（DBに一度流すだけ）
 
-## News/Blog（microCMS）中継 — 実装済み（2026-07-11）
+## 施工実績（WORKS）中継 — 実装済み（2026-07-11 / 2026-08-23に2層化）
 
 ブラウザから直接microCMSを呼ぶとAPIキーが露出するため、PHP中継（プロキシ）方式。
-- `server/api/news.php`・`works.php` が microCMS を中継（キーはサーバー側のみ）
-- レスポンス形式は main の `/api/news`・`/api/works`（Route Handler）と同一。
+- `server/api/works.php` が microCMS を中継（キーはサーバー側のみ）
+- レスポンス形式は main の `/api/works`（Route Handler）と同一。
   フロント側の違いは fetch 先が `.php` 付きな点だけ（Contact.tsxと同じパターン。
-  対象: NewsSection.tsx / works・blog 各ページの apiPath）
-- キー未設定時は `lib/sample-*.json` のサンプルデータを返す（登録前でも画面確認可）
+  対象: works ページの apiPath）
+- 一覧は「静的写真（土台）＋ microCMS記事（追記）」の2層。
+  静的写真は `works-manifest.json`（`out/` 由来なのでサイトのルートに置かれる）を
+  `lib/microcms.php` が読む。キー未設定の間は静的写真だけを返す。
+  キーを設定すると microCMS 記事が新しい順で上に積まれ、静的写真はその下に残る。
+- 実績写真の実体は `works/*.webp`。`/works` ページのHTML（`works/index.html`）と
+  同じディレクトリに同居するが、ファイル名が衝突しないため問題ない。
+- 写真の追加・除外は main 側の `scripts/works-selection.json` を編集して
+  `scripts/build-works-images.py` を再実行 → main をマージし直す。
 - TODO: 転送量・API枠の節約用に、レスポンスの数分ファイルキャッシュを検討
 - **Xserver契約後**（2026-07中旬予定）: 上記デプロイ手順を実行 → 問題なければ
   xserver ブランチを main に統合して一本化する。

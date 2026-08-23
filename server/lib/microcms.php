@@ -1,10 +1,14 @@
 <?php
 // microCMS中継の共通ロジック（api/works.php から利用）
-// mainブランチの src/app/api/_lib/postsHandler.ts と同じレスポンス形式:
+// mainブランチの src/lib/microcms.ts と同じレスポンス形式:
 //   - 一覧: GET ?limit=12&offset=0 → {contents, totalCount, offset, limit}
 //   - 詳細: GET ?id=xxx            → 記事オブジェクト（無ければ404）
-// MICROCMS_SERVICE_DOMAIN / MICROCMS_API_KEY 未設定時は lib/ 内の
-// サンプルJSONを返す（microCMS登録前でも画面確認できるように）。
+//
+// 施工実績一覧は「静的写真（土台）＋ microCMS記事（追記）」の2層構成:
+//   - 静的写真 … works-manifest.json。実写真を選別・最適化したもの
+//                （scripts/build-works-images.py が生成。main側の src/lib/staticWorks.ts と同じJSONを読む）
+//   - microCMS … 契約後に登録した実績記事。新しい順で静的写真の"上"に積まれる
+// MICROCMS_SERVICE_DOMAIN / MICROCMS_API_KEY 未設定の間は静的写真だけを返す。
 
 require_once __DIR__ . '/config.php';
 
@@ -39,10 +43,24 @@ function fetchMicroCMS(string $path, array $params): array
     return ['status' => $status, 'json' => json_decode($body, true)];
 }
 
-function loadSamplePosts(string $endpoint): array
+/**
+ * 静的写真の実績を読む。build-xserver.sh が out/ をそのまま公開ディレクトリに置くので、
+ * マニフェストは lib/ の1つ上（＝サイトのルート）に来る。
+ * retired が立っているものは microCMS へ記事として移行済みなので一覧から外す。
+ */
+function loadStaticWorks(string $category = ''): array
 {
-    $file = __DIR__ . '/sample-' . $endpoint . '.json';
-    return json_decode(file_get_contents($file), true) ?? [];
+    $file = __DIR__ . '/../works-manifest.json';
+    if (!is_file($file)) {
+        return [];
+    }
+    $all = json_decode(file_get_contents($file), true) ?? [];
+    return array_values(array_filter($all, function ($w) use ($category) {
+        if (!empty($w['retired'])) {
+            return false;
+        }
+        return $category === '' || ($w['category']['id'] ?? '') === $category;
+    }));
 }
 
 /**
@@ -60,12 +78,8 @@ function handlePostsRequest(string $endpoint): never
     try {
         // ── 詳細 ──
         if ($id !== '') {
-            if (!$configured) {
-                foreach (loadSamplePosts($endpoint) as $post) {
-                    if ($post['id'] === $id) {
-                        respondJson(200, $post);
-                    }
-                }
+            // 静的写真は写真のみで本文を持たないため詳細ページを作らない（一覧でライトボックス表示）
+            if (str_starts_with($id, 'static-') || !$configured) {
                 respondJson(404, ['error' => '記事が見つかりません']);
             }
             $res = fetchMicroCMS($endpoint . '/' . rawurlencode($id), []);
@@ -84,23 +98,12 @@ function handlePostsRequest(string $endpoint): never
         // カテゴリー絞り込み（未指定=全件）。mainの getPostList({category}) と同じ挙動。
         $category = isset($_GET['category']) ? (string)$_GET['category'] : '';
 
+        $statics = loadStaticWorks($category);
+
         if (!$configured) {
-            $posts = loadSamplePosts($endpoint);
-            if ($category !== '') {
-                $posts = array_values(array_filter(
-                    $posts,
-                    fn($p) => ($p['category']['id'] ?? '') === $category
-                ));
-            }
-            $page  = array_slice($posts, $offset, $limit);
-            // 一覧では本文(content)を省略（mainのfields指定と同じ挙動）
-            foreach ($page as &$post) {
-                unset($post['content']);
-            }
-            unset($post);
             respondJson(200, [
-                'contents'   => $page,
-                'totalCount' => count($posts),
+                'contents'   => array_slice($statics, $offset, $limit),
+                'totalCount' => count($statics),
                 'offset'     => $offset,
                 'limit'      => $limit,
             ]);
@@ -120,7 +123,22 @@ function handlePostsRequest(string $endpoint): never
         if ($res['status'] !== 200) {
             throw new RuntimeException('microCMS request failed: ' . $res['status']);
         }
-        respondJson(200, $res['json']);
+
+        // microCMS記事を先に並べ、要求件数に足りない分を静的写真で埋める。
+        // offset が microCMS の総件数を超えていれば、その超過分が静的写真側の開始位置になる。
+        $cmsContents = $res['json']['contents'] ?? [];
+        $cmsTotal    = (int)($res['json']['totalCount'] ?? 0);
+        $shortfall   = $limit - count($cmsContents);
+        $filler      = $shortfall > 0
+            ? array_slice($statics, max(0, $offset - $cmsTotal), $shortfall)
+            : [];
+
+        respondJson(200, [
+            'contents'   => array_merge($cmsContents, $filler),
+            'totalCount' => $cmsTotal + count($statics),
+            'offset'     => $offset,
+            'limit'      => $limit,
+        ]);
     } catch (Throwable $e) {
         respondJson(502, ['error' => '記事の取得に失敗しました。しばらくしてから再度お試しください。']);
     }
