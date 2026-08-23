@@ -1,8 +1,11 @@
 <?php
 // お問い合わせフォーム受信API
-// 旧 src/app/api/contact/route.ts と同じ仕様（JSON受信・検証・DB保存）
+// JSON受信・検証・DB保存 → 担当者へ通知メール（lib/mail.php）
+// メール送信は「おまけ」であり、失敗してもレスポンスは 201 のまま返す。
+// 内容はDBに保存済みで /admin/ から確認できるため、通知が落ちても問い合わせは失われない。
 
 require_once __DIR__ . '/../lib/db.php';
+require_once __DIR__ . '/../lib/mail.php';
 
 header('Content-Type: application/json; charset=utf-8');
 
@@ -44,7 +47,22 @@ try {
         $phone !== '' ? $phone : null,
         $message,
     ]);
-    respond(201, ['success' => true, 'id' => (int)$pdo->lastInsertId()]);
+    $id = (int)$pdo->lastInsertId();
 } catch (Throwable $e) {
     respond(500, ['error' => '送信に失敗しました。しばらくしてから再度お試しください。']);
 }
+
+// DB保存後に通知。ここで例外が出ても利用者には成功として返す。
+try {
+    $sent = sendContactNotification(
+        compact('name', 'company', 'email', 'phone', 'message'),
+        $id
+    );
+    if (!$sent) {
+        error_log("contact: 通知メールの送信に失敗しました (id=$id)");
+    }
+} catch (Throwable $e) {
+    error_log("contact: 通知メールで例外 (id=$id): " . $e->getMessage());
+}
+
+respond(201, ['success' => true, 'id' => $id]);
