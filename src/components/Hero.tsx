@@ -169,10 +169,12 @@ export default function Hero() {
       <div className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none"
            style={{ background: "linear-gradient(to top, #0a0a0a, transparent)" }} />
 
-      {/* ── スクロールライン ── */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 lg:left-14 lg:translate-x-0 xl:left-20 flex items-center gap-3">
+      {/* ── 下のセクションのラベル ──
+          リンクではなく見出し。表記は AboutSection の「About」と同じスタイルに揃えている */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 lg:left-14 lg:translate-x-0 xl:left-20
+                      flex items-center gap-3">
         <div className="w-px h-10 bg-gradient-to-b from-white/20 to-transparent" />
-        <span className="font-label text-[11px] tracking-[0.5em] text-white/50 uppercase">Scroll</span>
+        <p className="font-label text-xs tracking-[0.5em] text-gold uppercase">Service</p>
       </div>
     </section>
   );
