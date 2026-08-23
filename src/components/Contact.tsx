@@ -1,6 +1,11 @@
 "use client";
 import { useState } from "react";
-import { SITE_TEL, SITE_TEL_HREF } from "@/lib/siteConfig";
+import {
+  SITE_TEL,
+  SITE_TEL_HREF,
+  SITE_BUSINESS_HOURS,
+  SITE_CLOSED_DAYS,
+} from "@/lib/siteConfig";
 
 const fields = [
   { id: "name",    label: "お名前",    labelEn: "NAME",    type: "text",  required: true },
@@ -130,7 +135,7 @@ export default function Contact() {
         {/* TEL */}
         <div id="contact-tel" className="mt-12 pt-10 border-t border-white/8 text-center">
           <p className="font-label text-xs tracking-[0.4em] text-white/55 mb-3">
-            TEL（平日 10:00 – 18:00）
+            TEL（{SITE_BUSINESS_HOURS}／定休日 {SITE_CLOSED_DAYS}）
           </p>
           <a href={SITE_TEL_HREF}
             className="font-label text-2xl text-white/55 tracking-[0.2em]

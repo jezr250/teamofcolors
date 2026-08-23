@@ -1,3 +1,12 @@
+import {
+  COMPANY_NAME,
+  SITE_ADDRESS_FULL,
+  SITE_TEL,
+  SITE_TEL_HREF,
+  SITE_BUSINESS_HOURS,
+  SITE_CLOSED_DAYS,
+} from "@/lib/siteConfig";
+
 export default function Footer() {
   return (
     <footer className="bg-[#050505] py-16 border-t border-white/10">
@@ -28,31 +37,38 @@ export default function Footer() {
           TEAM OF COLORS
         </p>
 
-        {/* サービス説明 */}
-        <p className="font-label text-xs tracking-[0.3em] text-white/60 uppercase text-center">
-          Mortar Sculpture · Interior Design · Aging Paint
-        </p>
-
-        {/* ナビ */}
-        <nav className="flex flex-wrap justify-center gap-5 md:gap-8 pt-4 border-t border-white/10 w-full">
-          {["ABOUT","SERVICE","WORKS","ORDER","CONTACT"].map((item) => (
-            <a
-              key={item}
-              href={`#${item.toLowerCase()}`}
-              className="font-label text-xs tracking-[0.25em] text-white/60
-                         hover:text-gold transition-colors duration-300 gold-hover"
-            >
-              {item}
-            </a>
-          ))}
-        </nav>
-
-        {/* 区切り */}
+        {/* 区切り — 各ページへのリンクはハンバーガーメニューに集約しているのでここには置かない */}
         <div className="w-16 h-px bg-white/20" />
+
+        {/* 会社情報 — 検索サイトが会社を認識する手がかりになるので全ページに置く */}
+        <address className="not-italic text-center space-y-1.5">
+          <p className="text-xs text-white/70 tracking-[0.1em]">{COMPANY_NAME}</p>
+          <p className="text-xs text-white/50 tracking-[0.05em]">{SITE_ADDRESS_FULL}</p>
+          <p className="text-xs text-white/50 tracking-[0.05em]">
+            TEL{" "}
+            <a href={SITE_TEL_HREF} className="hover:text-gold transition-colors">
+              {SITE_TEL}
+            </a>
+          </p>
+          <p className="text-xs text-white/40 tracking-[0.05em]">
+            営業時間 {SITE_BUSINESS_HOURS}／定休日 {SITE_CLOSED_DAYS}
+          </p>
+        </address>
+
+        {/* 上の要約を読んだ流れで詳細ページへ行けるようにする */}
+        <a
+          href="/company"
+          className="inline-block border border-white/25 text-white/70 font-label text-xs
+                     tracking-[0.3em] px-8 py-3
+                     hover:border-gold hover:text-gold active:border-gold active:text-gold
+                     transition-all duration-300"
+        >
+          COMPANY →
+        </a>
 
         {/* コピーライト */}
         <p className="font-label text-xs tracking-[0.2em] text-white/55">
-          © 2025 TEAM OF COLORS. ALL RIGHTS RESERVED.
+          © 2026 TEAM OF COLORS. ALL RIGHTS RESERVED.
         </p>
       </div>
     </footer>

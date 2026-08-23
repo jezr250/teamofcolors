@@ -15,7 +15,9 @@
   --input-placeholder: rgba(255,255,255,0.35);
 }
 
-html { scroll-behavior: smooth; }
+/* scroll-padding-top はヘッダーの高さぶん。これが無いと #service などへ飛んだとき
+   セクションの先頭が固定ヘッダーの下に潜り込んで、行き過ぎたように見える */
+html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
 
 body {
   background: var(--black);

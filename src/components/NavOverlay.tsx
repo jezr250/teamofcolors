@@ -1,14 +1,16 @@
 "use client";
 import { useEffect } from "react";
-import { SITE_INSTAGRAM_URL } from "@/lib/siteConfig";
 
 // "/#xxx" 形式にしておくと /works などの下層ページからでもトップの各セクションに戻れる
+// TEL・COMPANY も同じ見た目で最後に並べる（COMPANYが一番下）
 const links = [
   { label: "ABOUT",    href: "/#about" },
   { label: "SERVICE",  href: "/#service" },
   { label: "WORKS",    href: "/#works" },
   { label: "ORDER",    href: "/#order" },
   { label: "CONTACT",  href: "/#contact" },
+  { label: "TEL",      href: "/#contact-tel" },
+  { label: "COMPANY",  href: "/company" },
 ];
 
 type Props = { open: boolean; onClose: () => void };
@@ -37,36 +39,6 @@ export default function NavOverlay({ open, onClose }: Props) {
             </a>
           ))}
         </nav>
-
-        <div className="mt-12 flex items-center gap-8">
-          <a href={SITE_INSTAGRAM_URL}
-            target="_blank" rel="noopener noreferrer"
-            className="flex items-center gap-2 text-xs tracking-[0.25em] text-white/60
-                       hover:text-[#C9A84C] active:text-[#C9A84C] transition-colors font-heading">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-              strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-              <rect x="2" y="2" width="20" height="20" rx="6" ry="6" />
-              <circle cx="12" cy="12" r="5" />
-              <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none" />
-            </svg>
-            Instagram
-          </a>
-          <a href="/#contact-tel"
-            onClick={onClose}
-            className="flex items-center gap-2 text-xs tracking-[0.25em] text-white/60
-                       hover:text-[#C9A84C] active:text-[#C9A84C] transition-colors font-heading">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-              strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07
-                       A19.5 19.5 0 0 1 5.45 13a19.79 19.79 0 0 1-3.07-8.67
-                       A2 2 0 0 1 4.36 2h3a2 2 0 0 1 2 1.72
-                       c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91
-                       a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45
-                       c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
-            </svg>
-            TEL
-          </a>
-        </div>
       </div>
 
       {/* ロゴマーク（背景） */}
