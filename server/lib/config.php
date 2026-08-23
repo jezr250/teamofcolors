@@ -24,7 +24,8 @@ define('MICROCMS_API_KEY', getenv('MICROCMS_API_KEY') ?: '');
 
 // お問い合わせ通知メール（lib/mail.php）
 // 通知の宛先。カンマ区切りで複数指定できる。空にすると通知を送らない（DB保存のみ）。
-define('CONTACT_NOTIFY_TO', getenv('CONTACT_NOTIFY_TO') ?: 'jezr250sl@gmail.com');
+// 開発中は制作者のアドレスに送っていたが、動作確認が済んだので会社のアドレスに切り替えた。
+define('CONTACT_NOTIFY_TO', getenv('CONTACT_NOTIFY_TO') ?: 'tomo.syr.108@gmail.com');
 // 差出人アドレス。★必ず teamofcolors.jp のアドレスにすること。
 // 他ドメイン（送信者本人のアドレス等）にすると SPF/DKIM の検証に失敗し、
 // Gmail 側で迷惑メール扱いになる。送信者への返信は Reply-To で行う。
