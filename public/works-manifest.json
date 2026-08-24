@@ -532,6 +532,120 @@
     "photoOnly": true
   },
   {
+    "id": "static-interior-17",
+    "title": "内装・インテリア",
+    "category": {
+      "id": "interior",
+      "name": "内装・インテリア"
+    },
+    "eyecatch": {
+      "url": "/works/interior-17.webp",
+      "width": 1108,
+      "height": 1477
+    },
+    "thumb": {
+      "url": "/works/interior-17-thumb.webp",
+      "width": 600,
+      "height": 800
+    },
+    "photoOnly": true
+  },
+  {
+    "id": "static-interior-19",
+    "title": "内装・インテリア",
+    "category": {
+      "id": "interior",
+      "name": "内装・インテリア"
+    },
+    "eyecatch": {
+      "url": "/works/interior-19.webp",
+      "width": 1108,
+      "height": 1477
+    },
+    "thumb": {
+      "url": "/works/interior-19-thumb.webp",
+      "width": 600,
+      "height": 800
+    },
+    "photoOnly": true
+  },
+  {
+    "id": "static-interior-20",
+    "title": "内装・インテリア",
+    "category": {
+      "id": "interior",
+      "name": "内装・インテリア"
+    },
+    "eyecatch": {
+      "url": "/works/interior-20.webp",
+      "width": 1090,
+      "height": 1020
+    },
+    "thumb": {
+      "url": "/works/interior-20-thumb.webp",
+      "width": 800,
+      "height": 749
+    },
+    "photoOnly": true
+  },
+  {
+    "id": "static-interior-21",
+    "title": "内装・インテリア",
+    "category": {
+      "id": "interior",
+      "name": "内装・インテリア"
+    },
+    "eyecatch": {
+      "url": "/works/interior-21.webp",
+      "width": 1108,
+      "height": 1477
+    },
+    "thumb": {
+      "url": "/works/interior-21-thumb.webp",
+      "width": 600,
+      "height": 800
+    },
+    "photoOnly": true
+  },
+  {
+    "id": "static-interior-25",
+    "title": "内装・インテリア",
+    "category": {
+      "id": "interior",
+      "name": "内装・インテリア"
+    },
+    "eyecatch": {
+      "url": "/works/interior-25-thumb.webp",
+      "width": 700,
+      "height": 425
+    },
+    "thumb": {
+      "url": "/works/interior-25-thumb.webp",
+      "width": 700,
+      "height": 425
+    },
+    "photoOnly": true
+  },
+  {
+    "id": "static-interior-26",
+    "title": "内装・インテリア",
+    "category": {
+      "id": "interior",
+      "name": "内装・インテリア"
+    },
+    "eyecatch": {
+      "url": "/works/interior-26-thumb.webp",
+      "width": 670,
+      "height": 495
+    },
+    "thumb": {
+      "url": "/works/interior-26-thumb.webp",
+      "width": 670,
+      "height": 495
+    },
+    "photoOnly": true
+  },
+  {
     "id": "static-aging-11",
     "title": "エイジング塗装",
     "category": {
