@@ -11,6 +11,10 @@
 公開するものを works-selection.json で明示的に選ぶ。番号は「カテゴリ内のファイル名順の通し番号」で、
 選別しても振り直さない。載せたい写真が増えたら selection に番号を足して再実行すればよい。
 
+床に資材が写り込んでいるだけの惜しい写真は、works-selection.json の "crop" に切り抜き範囲を
+書けば救える。一覧グリッドは 4:3 の中央切り抜き（object-cover）なので、極端な横長・縦長に
+切ると一覧で主役が画面外に出る。4:3 に近い比率で切ること。
+
 マニフェストは Next（src/lib/staticWorks.ts）と Xserver の PHP
 （server/lib/microcms.php）の両方が読む唯一の実績リスト。二重管理を避けるため
 JSON 1ファイルに集約している。
@@ -76,6 +80,28 @@ def load_selection() -> dict[str, set[str]] | None:
     return {cat: set(nums) for cat, nums in data.get("publish", {}).items()}
 
 
+def load_crops() -> dict[str, tuple[int, int, int, int]]:
+    """トリミング範囲を id ごとに返す。値は EXIF 補正後の (左, 上, 右, 下) ピクセル。"""
+    if not SELECTION.exists():
+        return {}
+    data = json.loads(SELECTION.read_text(encoding="utf-8"))
+    return {work_id: tuple(box) for work_id, box in data.get("crop", {}).items()}
+
+
+def crop(im: Image.Image, box: tuple[int, int, int, int], name: str) -> Image.Image:
+    """指定範囲で切り抜く。範囲が画像からはみ出していたら切らずに元のまま返す。"""
+    left, top, right, bottom = box
+    w, h = im.size
+    if not (0 <= left < right <= w and 0 <= top < bottom <= h):
+        print(
+            f"警告: トリミング範囲が画像の外です（{name} は {w}x{h}、指定は {box}）。"
+            "切り抜かずに使います",
+            file=sys.stderr,
+        )
+        return im
+    return im.crop(box)
+
+
 def load_retired() -> set[str]:
     """既存マニフェストから retired が立っている id を拾う。"""
     if not MANIFEST.exists():
@@ -95,6 +121,7 @@ def main() -> int:
 
     retired = load_retired()
     selection = load_selection()
+    crops = load_crops()
     OUT_DIR.mkdir(parents=True, exist_ok=True)
 
     entries = []
@@ -123,6 +150,8 @@ def main() -> int:
                 # iOS写真の向き情報を反映してから破棄（保存時にEXIFを持ち越さないので
                 # 位置情報などのメタデータもここで落ちる）
                 im = ImageOps.exif_transpose(im).convert("RGB")
+                if work_id in crops:
+                    im = crop(im, crops[work_id], src.name)
                 long_edge = max(im.size)
 
                 thumb = resize(im, THUMB_MAX)
@@ -176,6 +205,9 @@ def main() -> int:
             unknown = sorted(n for n in nums if f"{cat_id}-{n}" not in sources)
             if unknown:
                 print(f"警告: {cat_id} に存在しない番号があります: {', '.join(unknown)}", file=sys.stderr)
+    stray = sorted(work_id for work_id in crops if work_id not in sources)
+    if stray:
+        print(f"警告: crop に存在しない id があります: {', '.join(stray)}", file=sys.stderr)
 
     # 前回生成ぶんで今回使われなかったファイルを掃除（元写真を減らした場合に残骸を残さない）
     removed = 0
