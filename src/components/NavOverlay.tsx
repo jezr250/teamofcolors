@@ -41,18 +41,6 @@ export default function NavOverlay({ open, onClose }: Props) {
         </nav>
       </div>
 
-      {/* ロゴマーク（背景） */}
-      <div className="nav-overlay__mark pointer-events-none">
-        <svg width="200" height="200" viewBox="0 0 52 36" fill="white">
-          <rect x="1" y="1" width="50" height="34" rx="6"
-            stroke="white" strokeWidth="1" fill="none" />
-          <text x="26" y="22" textAnchor="middle" fill="white"
-            fontSize="14" fontFamily="var(--font-bebas),sans-serif" letterSpacing="3">
-            TOC
-          </text>
-        </svg>
-      </div>
-
       {/* 閉じるボタン */}
       <button
         onClick={onClose}
