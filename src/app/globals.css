@@ -73,13 +73,6 @@ body {
 }
 .nav-overlay__item:hover,
 .nav-overlay__item:active { color: var(--gold); }
-.nav-overlay__mark {
-  position: absolute;
-  bottom: 60px;
-  left: 60px;
-  opacity: 0.05;
-}
-
 /* ===== Service triptych ===== */
 .triptych-item {
   position: relative;
