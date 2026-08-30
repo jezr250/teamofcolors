@@ -30,6 +30,10 @@ services:
       - DB_USER=toc
       - DB_PASS=tocpass
       - ADMIN_PASSWORD=admin
+      # microCMS（本番は lib/config.php に直接書く）。ローカル検証用に
+      # このディレクトリの .env（gitignore済み）から渡す。未設定なら静的写真のみ。
+      - MICROCMS_SERVICE_DOMAIN=${MICROCMS_SERVICE_DOMAIN:-}
+      - MICROCMS_API_KEY=${MICROCMS_API_KEY:-}
     depends_on:
       - db
     restart: unless-stopped
