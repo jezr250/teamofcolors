@@ -45,14 +45,14 @@ export default function WorksSection() {
             {/* 金の小ラベル＝セクション名（ハンバーガーメニューの語と一致させる）。
               着地した位置がどこか分かるようにするための目印なので、
               気の利いた別の言葉に置き換えないこと。銀の大見出しがコピー担当 */}
-            <p className="font-label text-xs tracking-[0.5em] text-gold uppercase mb-3">Works</p>
-            <h2 className="font-heading italic text-5xl md:text-6xl tracking-[0.04em] silver-grad">
+            <p className="type-label text-gold mb-3">Works</p>
+            <h2 className="type-display silver-grad">
               WORKS
             </h2>
           </div>
           <a href="/works"
-            className="hidden md:block text-xs tracking-[0.3em] text-white/60
-                       hover:text-gold transition-colors font-label gold-hover">
+            className="hidden md:block type-meta tracking-[0.3em] text-white/60
+                       hover:text-gold transition-colors gold-hover">
             ALL PROJECTS →
           </a>
         </div>
@@ -80,10 +80,10 @@ export default function WorksSection() {
 
               {/* テキスト — サービス名のみ */}
               <div className="p-5 md:p-6">
-                <p className="font-label text-[11px] tracking-[0.25em] text-gold uppercase mb-2">
+                <p className="type-meta uppercase tracking-[0.25em] text-gold mb-2">
                   Category
                 </p>
-                <h3 className="text-base text-white/90 tracking-wide
+                <h3 className="type-card-title text-white/90
                                group-hover:text-gold group-active:text-gold transition-colors">
                   {project.category}
                 </h3>
@@ -95,8 +95,8 @@ export default function WorksSection() {
         {/* モバイル用 全件一覧リンク（ヘッダー右のリンクはmd以上のみ表示のため） */}
         <div className="mt-10 text-center md:hidden">
           <a href="/works"
-            className="inline-block border border-white/35 text-white/75 text-xs
-                       tracking-[0.3em] px-8 py-3 font-label
+            className="inline-block border border-white/35 text-white/75 type-meta
+                       tracking-[0.3em] px-8 py-3
                        hover:border-gold hover:text-gold active:border-gold active:text-gold
                        transition-all duration-300">
             ALL PROJECTS →

@@ -49,11 +49,11 @@ export default function NavOverlay({ open, onClose }: Props) {
         onClick={onClose}
         className="absolute top-6 right-8 md:right-12 text-white/70
                    hover:text-white active:text-white transition-colors
-                   text-sm tracking-[0.3em] font-heading
+                   type-meta tracking-[0.3em]
                    flex items-center gap-2 py-2 px-1"
       >
         <span className="text-base leading-none">✕</span>
-        <span className="text-xs">CLOSE</span>
+        <span>CLOSE</span>
       </button>
     </div>
   );

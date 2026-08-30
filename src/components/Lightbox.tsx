@@ -45,7 +45,7 @@ export default function Lightbox({ posts, index, onClose, onMove }: Props) {
     >
       {/* 上部バー — カテゴリ名と閉じるボタン */}
       <div className="flex items-center justify-between px-5 md:px-8 py-4 shrink-0">
-        <p className="font-label text-[11px] tracking-[0.25em] text-gold uppercase">
+        <p className="type-meta uppercase tracking-[0.25em] text-gold">
           {post.category?.name ?? post.title}
           <span className="ml-3 text-white/40 normal-case tracking-[0.15em]">
             {index + 1} / {posts.length}

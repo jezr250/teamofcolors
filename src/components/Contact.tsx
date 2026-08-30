@@ -53,13 +53,13 @@ export default function Contact() {
 
         {/* ヘッダー */}
         <div className="text-center mb-16">
-          <p className="font-label text-xs tracking-[0.5em] text-gold uppercase mb-4">
+          <p className="type-label text-gold mb-4">
             Contact
           </p>
-          <h2 className="font-heading text-6xl md:text-7xl tracking-[0.06em] mb-6 silver-grad">
+          <h2 className="type-display mb-6 silver-grad">
             CONTACT
           </h2>
-          <p className="text-white/60 text-[13px] tracking-[0.08em] leading-loose">
+          <p className="type-body text-white/60">
             お問い合わせ・ご相談はお気軽に。<br />
             2営業日以内にご連絡いたします。
           </p>
@@ -67,8 +67,8 @@ export default function Contact() {
 
         {sent ? (
           <div className="text-center py-20 border border-gold/30">
-            <p className="font-heading text-4xl text-gold mb-3">THANK YOU</p>
-            <p className="text-white/60 text-sm mt-3">近日中にご連絡いたします。</p>
+            <p className="type-display text-gold mb-3">THANK YOU</p>
+            <p className="type-body text-white/60 mt-3">近日中にご連絡いたします。</p>
           </div>
         ) : (
           <form onSubmit={handleSubmit}>
@@ -78,10 +78,10 @@ export default function Contact() {
                 <div key={f.id} className={f.id === "company" || f.id === "phone" ? "" : ""}>
                   <label
                     htmlFor={f.id}
-                    className="block font-label text-xs tracking-[0.4em] text-white/65 mb-2 uppercase"
+                    className="block type-label tracking-[0.2em] text-white/65 mb-2"
                   >
                     {f.label}
-                    <span className="text-white/50 ml-1 font-sans normal-case tracking-normal text-[11px]">
+                    <span className="type-body-sm text-white/50 ml-1 font-sans normal-case">
                       / {f.labelEn}
                     </span>
                     {f.required && <span className="text-gold ml-1">*</span>}
@@ -102,10 +102,10 @@ export default function Contact() {
             <div className="mb-6">
               <label
                 htmlFor="message"
-                className="block font-label text-xs tracking-[0.4em] text-white/65 mb-2 uppercase"
+                className="block type-label tracking-[0.2em] text-white/65 mb-2"
               >
                 お問い合わせ内容
-                <span className="text-white/50 ml-1 font-sans normal-case tracking-normal text-[11px]">
+                <span className="type-body-sm text-white/50 ml-1 font-sans normal-case">
                   / MESSAGE
                 </span>
                 <span className="text-gold ml-1">*</span>
@@ -121,7 +121,7 @@ export default function Contact() {
             </div>
 
             {error && (
-              <p className="text-red-400 text-xs tracking-wide mb-4">{error}</p>
+              <p className="type-body-sm text-red-400 mb-4">{error}</p>
             )}
 
             {/* 送信ボタン */}
@@ -137,14 +137,14 @@ export default function Contact() {
           {/* 金の小ラベル＝セクション名（ハンバーガーメニューの「TEL」と一致させる）。
               以前は「TEL（営業時間／定休日）」と1行に詰め込んでいたが、
               ラベル・条件・番号の3段に分けて役割をはっきりさせている */}
-          <p className="font-label text-xs tracking-[0.5em] text-gold uppercase mb-3">
+          <p className="type-label text-gold mb-3">
             TEL
           </p>
-          <p className="text-white/60 text-[13px] tracking-[0.08em] mb-4">
+          <p className="type-body text-white/60 mb-4">
             {SITE_BUSINESS_HOURS}／定休日 {SITE_CLOSED_DAYS}
           </p>
           <a href={SITE_TEL_HREF}
-            className="font-label text-2xl text-white/55 tracking-[0.2em]
+            className="font-label type-heading text-white/55 tracking-[0.2em]
                        hover:text-gold active:text-gold transition-colors">
             {SITE_TEL}
           </a>

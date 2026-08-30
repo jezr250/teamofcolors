@@ -27,8 +27,8 @@ export default function AboutSection() {
   const heading = (
     <div>
       {/* 金の小ラベル＝セクション名（ハンバーガーメニューの語と一致させる） */}
-      <p className="font-label text-xs tracking-[0.5em] text-gold uppercase mb-4">About</p>
-      <h2 className="font-heading italic text-5xl md:text-6xl tracking-[0.04em] leading-tight silver-grad">
+      <p className="type-label text-gold mb-4">About</p>
+      <h2 className="type-display silver-grad">
         WORK &<br />BELIEF
       </h2>
     </div>
@@ -66,10 +66,10 @@ export default function AboutSection() {
               <div className="absolute bottom-4 right-4 w-10 h-10 border-r border-b border-[#C9A84C]/40" />
               {/* キャプション */}
               <div className="absolute bottom-6 left-6">
-                <p className="font-label text-xs tracking-[0.3em] text-[#C9A84C] uppercase">
+                <p className="type-meta uppercase tracking-[0.3em] text-[#C9A84C]">
                   Mortar Sculpture
                 </p>
-                <p className="font-label text-xs tracking-[0.15em] text-white/60 mt-1">
+                <p className="type-meta tracking-[0.15em] text-white/60 mt-1">
                   モルタル造形制作の現場
                 </p>
               </div>
@@ -86,12 +86,12 @@ export default function AboutSection() {
             <div className="space-y-8">
               <div className="w-8 h-px bg-gold" />
 
-              <p className="text-white/75 text-sm leading-[2.2]">
+              <p className="type-body text-white/75">
                 Team of Colors は、モルタル造形制作を核とした空間創造集団です。
                 コンクリートや FRP を素材に、本物と見紛う岩・石・洞窟を手作りで制作し、
                 テーマパーク・飲食店・商業施設に唯一無二の空間を提供します。
               </p>
-              <p className="text-white/60 text-sm leading-[2.2]">
+              <p className="type-body text-white/60">
                 「既製品はない。すべてがフルスクラッチ。」
                 それが私たちの唯一のルールです。
               </p>
