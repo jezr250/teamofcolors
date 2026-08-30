@@ -15,9 +15,76 @@
   --input-placeholder: rgba(255,255,255,0.35);
 }
 
-/* scroll-padding-top はヘッダーの高さぶん。これが無いと #service などへ飛んだとき
-   セクションの先頭が固定ヘッダーの下に潜り込んで、行き過ぎたように見える */
+/* scroll-padding-top はヘッダーの高さぶん（実測78px = py-6*2 + ロゴ30px）。
+   これが無いと #service などへ飛んだときセクションの先頭が固定ヘッダーの下に潜り込む。
+   ここは「自前の余白を持たない要素」に対する既定値で、各セクションの事情は下で補正する */
 html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+
+/* ===== アンカーの着地位置の補正 =====
+   scroll-margin-top は上の scroll-padding-top に加算される（負値で打ち消せる）。
+   最終的なスクロール位置 = 要素の上端 - scroll-padding-top - scroll-margin-top */
+
+/* 全画面パララックスは画面いっぱいに収めたいので、ヘッダー分のオフセットを打ち消す。
+   80pxずらすとセクション下端が画面外にはみ出して1画面に収まらなくなる。
+   ヘッダーは半透明なので上端に重なっても絵として成立する */
+#order,
+#look {
+  scroll-margin-top: -5rem;
+}
+
+/* py-24（96px）を持つセクションは、ヘッダー分の80pxと自前の余白が二重になり
+   ヘッダー下端から見出しまで98px空いてしまう。スマホでは画面の1/4が空白になるため、
+   空のパディング部分に食い込ませて詰める（96px > 64px なので中身は隠れない） */
+#about,
+#works,
+#contact {
+  scroll-margin-top: -4rem; /* 余白 98px → 34px */
+}
+
+@media (min-width: 768px) {
+  /* 画面が広ければ余白は多めでも間延びしないので、詰めすぎない */
+  #about,
+  #works,
+  #contact {
+    scroll-margin-top: -2.5rem; /* 余白 98px → 58px */
+  }
+}
+
+/* About は 1024px 未満だと見出しを画像の中（上から32px）に重ねているため、
+   上の共通値のままだと見出しの位置が他セクションより32px下がる。
+   その32pxぶんを追加で食い込ませて、見出しの高さを #works・#contact と揃える。
+   1024px 以上は見出しが本文列に戻る（画像とは別カラム）ので共通値のままでよい */
+@media (max-width: 767px) {
+  #about {
+    scroll-margin-top: -6rem; /* 見出しまで 66px → 34px */
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  #about {
+    scroll-margin-top: -4.5rem; /* 見出しまで 90px → 58px */
+  }
+}
+
+/* Service は pt-16/md:pt-20 を自前で持つ（3枚タイルの上に金ラベルを置くため）。
+   既定のままだとヘッダー下端から66px/82px空いて #contact より下がるので、
+   #about・#works・#contact と同じ余白（スマホ34px / PC58px）に揃える。
+   食い込みは最大32pxでパディング(64px)より小さいのでラベルは隠れない */
+#service {
+  scroll-margin-top: -2rem;
+}
+
+@media (min-width: 768px) {
+  #service {
+    scroll-margin-top: -1.5rem;
+  }
+}
+
+/* TEL はセクションではなく Contact 内の区切り線つきブロック。
+   既定のままだと区切り線がヘッダー下端に接するので少しだけ下げる */
+#contact-tel {
+  scroll-margin-top: 1rem;
+}
 
 body {
   background: var(--black);
@@ -53,10 +120,19 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 0 60px;
+  /* justify-content: center は使わない。内容が画面より高いとき、はみ出した分が
+     上側にあふれて overflow でスクロールしても到達できなくなるため
+     （メニューを開くと body のスクロールも止めているので完全に詰む）。
+     中央寄せは下の nav の margin:auto で行い、あふれたらここがスクロールする */
+  overflow-y: auto;
+  /* 横の余白は狭い画面で効きすぎないよう可変に。縦は端に文字が付かないよう確保 */
+  padding: 2.5rem clamp(24px, 8vw, 60px);
   transform: translateX(60px);
   transition: transform 0.5s cubic-bezier(0.16,1,0.3,1);
+}
+.nav-overlay__panel > nav {
+  margin: auto 0;
+  width: 100%;
 }
 .nav-overlay.open .nav-overlay__panel { transform: translateX(0); }
 
@@ -73,6 +149,28 @@ body {
 }
 .nav-overlay__item:hover,
 .nav-overlay__item:active { color: var(--gold); }
+
+/* スマホを横向きにすると画面高が375〜430px程度になり、7項目（1項目67px＝計470px）が
+   収まらない。文字と行間を詰めて収める（それでも足りなければ上の overflow で逃がす） */
+@media (max-height: 600px) {
+  .nav-overlay__item {
+    font-size: clamp(1.75rem, 7vh, 2.5rem);
+    margin-bottom: 0.2em;
+  }
+}
+/* ヒーローは h-screen + overflow-hidden なので、画面が低いと中身（約600px）が
+   上下とも切り取られる。スマホ横向き(375px)では221pxが失われ、CTAボタンにも届かない。
+   iPhone SE の縦(667px)でも中央寄せの結果、上端が固定ヘッダーと重なる。
+   低い画面では高さを内容にあわせて伸ばし、ヘッダーとScrollラベルのぶんを余白で確保する */
+@media (max-height: 700px) {
+  .hero-section {
+    height: auto;
+    min-height: 100vh;
+    padding-top: 7rem;    /* 固定ヘッダー78px + 余裕 */
+    padding-bottom: 5rem; /* Scrollラベル(bottom-8)に重ならないように */
+  }
+}
+
 /* ===== Service triptych ===== */
 .triptych-item {
   position: relative;
@@ -98,6 +196,14 @@ body {
   transition: background 0.4s ease;
 }
 .triptych-item:hover .triptych-overlay { background: rgba(0,0,0,0.15); }
+
+/* 画面が低いとタイル1枚あたり100px程度になり、padding 32px + 文字45px + 32px = 109px で
+   はみ出してサービス名の上が切れる。余白を詰めて収める */
+@media (max-height: 600px) {
+  .triptych-overlay {
+    padding: 16px;
+  }
+}
 
 /* ===== Parallax ===== */
 .parallax-wrap { position: relative; overflow: hidden; }
@@ -249,6 +355,15 @@ body {
   transition: border-color 0.3s ease, filter 0.3s ease;
   font-family: var(--font-inter), var(--font-noto), sans-serif;
 }
+/* iOS Safari は font-size が16px未満の入力欄にフォーカスすると画面を勝手に拡大する
+   （拡大したままになり、ユーザーがピンチで戻す必要がある）。
+   スマホ幅でだけ16pxに上げて拡大を抑止する。PCは従来どおり14px */
+@media (max-width: 640px) {
+  .form-field {
+    font-size: 16px;
+  }
+}
+
 .form-field::placeholder { color: #555; }
 .form-field:focus {
   border-color: var(--gold);

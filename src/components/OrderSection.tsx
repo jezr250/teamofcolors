@@ -36,8 +36,11 @@ export default function OrderSection() {
         </p>
 
         <div className="-mt-8 md:-mt-16">
+          {/* 金の小ラベル＝セクション名（ハンバーガーメニューの語と一致させる）。
+              着地した位置がどこか分かるようにするための目印なので、
+              気の利いた別の言葉に置き換えないこと。銀の大見出しがコピー担当 */}
           <p className="font-label text-xs tracking-[0.5em] text-gold uppercase mb-6">
-            No Border
+            Order
           </p>
           <h2 className="font-heading italic tracking-[0.05em] leading-tight mb-10 silver-grad"
               style={{ fontSize: "clamp(1.6rem, 4vw, 3.2rem)" }}>

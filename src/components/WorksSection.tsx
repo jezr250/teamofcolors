@@ -42,7 +42,10 @@ export default function WorksSection() {
         {/* ヘッダー — Artizan風 */}
         <div className="reveal flex items-end justify-between mb-12 pb-6 border-b border-white/5">
           <div>
-            <p className="font-label text-xs tracking-[0.5em] text-gold uppercase mb-3">Selected Projects</p>
+            {/* 金の小ラベル＝セクション名（ハンバーガーメニューの語と一致させる）。
+              着地した位置がどこか分かるようにするための目印なので、
+              気の利いた別の言葉に置き換えないこと。銀の大見出しがコピー担当 */}
+            <p className="font-label text-xs tracking-[0.5em] text-gold uppercase mb-3">Works</p>
             <h2 className="font-heading italic text-5xl md:text-6xl tracking-[0.04em] silver-grad">
               WORKS
             </h2>

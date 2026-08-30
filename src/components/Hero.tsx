@@ -20,7 +20,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative w-full h-screen bg-black overflow-hidden flex items-center">
+    <section className="hero-section relative w-full h-screen bg-black overflow-hidden flex items-center">
 
       {/* ── 右パネル：馬画像（PC: 右60% / SP: フル画面背景） ── */}
       <div className="absolute right-0 top-0 bottom-0 w-full lg:w-[62%] select-none pointer-events-none">
@@ -169,12 +169,14 @@ export default function Hero() {
       <div className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none"
            style={{ background: "linear-gradient(to top, #0a0a0a, transparent)" }} />
 
-      {/* ── 下のセクションのラベル ──
-          リンクではなく見出し。表記は AboutSection の「About」と同じスタイルに揃えている */}
+      {/* ── スクロールライン ──
+          全画面のヒーローで「この下にまだ続きがある」ことを伝えるための合図。
+          下のセクション名（Service）はServiceTriptych側に置いてあるので、ここは
+          行き先の予告ではなく動作を促す役割に徹する（両方に同じ語を出さない） */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 lg:left-14 lg:translate-x-0 xl:left-20
                       flex items-center gap-3">
         <div className="w-px h-10 bg-gradient-to-b from-white/20 to-transparent" />
-        <p className="font-label text-xs tracking-[0.5em] text-gold uppercase">Service</p>
+        <span className="font-label text-[11px] tracking-[0.5em] text-white/50 uppercase">Scroll</span>
       </div>
     </section>
   );
