@@ -15,9 +15,76 @@
   --input-placeholder: rgba(255,255,255,0.35);
 }
 
-/* scroll-padding-top はヘッダーの高さぶん。これが無いと #service などへ飛んだとき
-   セクションの先頭が固定ヘッダーの下に潜り込んで、行き過ぎたように見える */
+/* scroll-padding-top はヘッダーの高さぶん（実測78px = py-6*2 + ロゴ30px）。
+   これが無いと #service などへ飛んだときセクションの先頭が固定ヘッダーの下に潜り込む。
+   ここは「自前の余白を持たない要素」に対する既定値で、各セクションの事情は下で補正する */
 html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+
+/* ===== アンカーの着地位置の補正 =====
+   scroll-margin-top は上の scroll-padding-top に加算される（負値で打ち消せる）。
+   最終的なスクロール位置 = 要素の上端 - scroll-padding-top - scroll-margin-top */
+
+/* 全画面パララックスは画面いっぱいに収めたいので、ヘッダー分のオフセットを打ち消す。
+   80pxずらすとセクション下端が画面外にはみ出して1画面に収まらなくなる。
+   ヘッダーは半透明なので上端に重なっても絵として成立する */
+#order,
+#look {
+  scroll-margin-top: -5rem;
+}
+
+/* py-24（96px）を持つセクションは、ヘッダー分の80pxと自前の余白が二重になり
+   ヘッダー下端から見出しまで98px空いてしまう。スマホでは画面の1/4が空白になるため、
+   空のパディング部分に食い込ませて詰める（96px > 64px なので中身は隠れない） */
+#about,
+#works,
+#contact {
+  scroll-margin-top: -4rem; /* 余白 98px → 34px */
+}
+
+@media (min-width: 768px) {
+  /* 画面が広ければ余白は多めでも間延びしないので、詰めすぎない */
+  #about,
+  #works,
+  #contact {
+    scroll-margin-top: -2.5rem; /* 余白 98px → 58px */
+  }
+}
+
+/* About は 1024px 未満だと見出しを画像の中（上から32px）に重ねているため、
+   上の共通値のままだと見出しの位置が他セクションより32px下がる。
+   その32pxぶんを追加で食い込ませて、見出しの高さを #works・#contact と揃える。
+   1024px 以上は見出しが本文列に戻る（画像とは別カラム）ので共通値のままでよい */
+@media (max-width: 767px) {
+  #about {
+    scroll-margin-top: -6rem; /* 見出しまで 66px → 34px */
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  #about {
+    scroll-margin-top: -4.5rem; /* 見出しまで 90px → 58px */
+  }
+}
+
+/* Service は pt-16/md:pt-20 を自前で持つ（3枚タイルの上に金ラベルを置くため）。
+   既定のままだとヘッダー下端から66px/82px空いて #contact より下がるので、
+   #about・#works・#contact と同じ余白（スマホ34px / PC58px）に揃える。
+   食い込みは最大32pxでパディング(64px)より小さいのでラベルは隠れない */
+#service {
+  scroll-margin-top: -2rem;
+}
+
+@media (min-width: 768px) {
+  #service {
+    scroll-margin-top: -1.5rem;
+  }
+}
+
+/* TEL はセクションではなく Contact 内の区切り線つきブロック。
+   既定のままだと区切り線がヘッダー下端に接するので少しだけ下げる */
+#contact-tel {
+  scroll-margin-top: 1rem;
+}
 
 body {
   background: var(--black);
