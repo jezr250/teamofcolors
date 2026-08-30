@@ -92,9 +92,117 @@ body {
   overflow-x: hidden;
 }
 
-/* ===== フォントショートカット ===== */
-.font-label {
-  font-family: var(--font-bebas), sans-serif;
+@layer components {
+  /* ===== タイポグラフィの規則 =====
+     見出しの意味づけは「金の小ラベル＝セクション名／銀の大見出し＝キャッチコピー」。
+     大きさもその2種＋本文で決めてここに集約する。各コンポーネントに text-5xl のような
+     個別指定を散らすと、ページごとに大きさがずれる（実際 About/Works の大見出しは48px、
+     Contact は60px、下層ページは48px→72px とバラバラだった）。
+     サイズを変えたいときは必ずこのブロックを直し、コンポーネント側に数値を書かない。
+
+     段階（スマホ → PC）:
+       .type-display     48 → 72px   銀の大見出し・欧文
+       .type-display-ja  28 → 44px   銀の大見出し・和文
+       .type-heading     20 → 28px   中見出し（理念の一文、サービス名）
+       .type-card-title  16px        カードの見出し
+       .type-label       14 → 15px   金の小ラベル＝セクション名
+       .type-body        15px        本文
+       .type-body-sm     13px        補足・注釈
+       .type-meta        12 → 13px   日付・タグ・欧文ボタンなどのメタ情報
+       .type-btn-ja      14px        和文ラベルのボタン */
+
+  /* 金の小ラベル＝セクション名。Bebas Neue は大文字だけで字面が小さく、
+     12px だと本文より目立たずセクションの入口として機能していなかったので、本文と同じ大きさまで上げる。
+     字間も 0.5em では散けて1語に見えないので少し詰める。
+     和文が入る箇所（フォームの項目名）は tracking-[0.2em] を足してさらに詰めている */
+  .type-label {
+    font-family: var(--font-bebas), sans-serif;
+    font-size: 0.875rem; /* 14px */
+    letter-spacing: 0.42em;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+
+  /* 銀の大見出し（欧文）。1行の単語（WORKS/CONTACT）でも2行の句（WORK & BELIEF）でも
+     同じ大きさで並ぶように、全ページ共通の clamp にする */
+  .type-display {
+    font-family: var(--font-cormorant), Georgia, serif;
+    font-style: italic;
+    font-size: clamp(3rem, 7vw, 4.5rem); /* 48 → 72px */
+    letter-spacing: 0.04em;
+    line-height: 1.05;
+  }
+
+  /* 銀の大見出し（和文）。和文は全角なので同じ px でも欧文の倍近い幅になる。
+     欧文と同じ48pxで「モルタル造形制作」を出すと400pxを超え、スマホ幅（本文領域327px）で
+     必ず2行に折り返していた。28pxなら8文字でも約240pxに収まり1行で入る。
+     また Cormorant に和文グリフは無く明朝にフォールバックするため、italic を当てると
+     擬似斜体になって汚い。ここでは italic にしない */
+  .type-display-ja {
+    font-family: var(--font-cormorant), Georgia, serif;
+    font-size: clamp(1.75rem, 6vw, 2.75rem); /* 28 → 44px */
+    letter-spacing: 0.06em;
+    line-height: 1.35;
+  }
+
+  /* 中見出し。折り返すときに1行目だけ長くならないよう text-wrap: balance を効かせる
+     （企業ページの理念の一文が中途半端に折れていたため） */
+  .type-heading {
+    font-family: var(--font-cormorant), Georgia, serif;
+    font-size: clamp(1.25rem, 3.2vw, 1.75rem); /* 20 → 28px */
+    letter-spacing: 0.06em;
+    line-height: 1.7;
+    text-wrap: balance;
+  }
+
+  /* カードの見出し。一覧の写真の下に出るサービス名・記事タイトル */
+  .type-card-title {
+    font-size: 1rem; /* 16px */
+    letter-spacing: 0.04em;
+    line-height: 1.7;
+  }
+
+  /* 本文。和文は同じ px でも欧文より小さく見えるので 14px ではなく 15px を基準にする */
+  .type-body {
+    font-size: 0.9375rem; /* 15px */
+    letter-spacing: 0.04em;
+    line-height: 2;
+  }
+
+  /* 補足・注釈。本文より一段下げたいときだけ使う */
+  .type-body-sm {
+    font-size: 0.8125rem; /* 13px */
+    letter-spacing: 0.04em;
+    line-height: 1.9;
+  }
+
+  /* 日付・タグ・欧文ボタンなどのメタ情報。Bebas は幅が狭いので本文より小さくてよい */
+  .type-meta {
+    font-family: var(--font-bebas), sans-serif;
+    font-size: 0.75rem; /* 12px */
+    letter-spacing: 0.2em;
+    line-height: 1.5;
+  }
+
+  /* 和文ラベルのボタン。Bebas に和文グリフは無くゴシックにフォールバックするため、
+     欧文ボタン（.type-meta）と同じ12pxだと小さすぎて押せる要素に見えない。
+     字間も 0.28em では和文がバラけるので詰める */
+  .type-btn-ja {
+    font-family: var(--font-bebas), sans-serif;
+    font-size: 0.875rem; /* 14px */
+    letter-spacing: 0.16em;
+    line-height: 1.5;
+  }
+
+  @media (min-width: 768px) {
+    .type-label { font-size: 0.9375rem; } /* 15px */
+    .type-meta  { font-size: 0.8125rem; } /* 13px */
+  }
+
+  /* 書体だけを差し替えるショートカット。スケールのあとに置いて後勝ちにする */
+  .font-label {
+    font-family: var(--font-bebas), sans-serif;
+  }
 }
 
 /* ===== Nav overlay ===== */
@@ -282,8 +390,9 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.45);
   color: #ffffff;
   font-family: var(--font-bebas), sans-serif;
-  letter-spacing: 0.28em;
-  font-size: 12px;
+  /* 和文ラベル（送信する / SEND MESSAGE）なので .type-btn-ja と同じ 14px・0.16em に揃える */
+  letter-spacing: 0.16em;
+  font-size: 14px;
   padding: 18px 32px;
   cursor: pointer;
   transition: background 0.3s ease, border-color 0.3s ease;

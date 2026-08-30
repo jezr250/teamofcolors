@@ -74,7 +74,7 @@ export default function Hero() {
         }}
       >
         {/* 小ラベル */}
-        <p className="font-label text-xs tracking-[0.6em] uppercase mb-6 silver-grad">
+        <p className="type-label tracking-[0.6em] mb-6 silver-grad">
           is genuine works
         </p>
 
@@ -88,13 +88,13 @@ export default function Hero() {
 
         {/* サブタイトル */}
         <div className="mb-2">
-          <p className="font-label text-xs tracking-[0.4em] text-white/70 uppercase">
+          <p className="type-meta uppercase tracking-[0.4em] text-white/70">
             Mortar Sculpture
           </p>
-          <p className="font-label text-xs tracking-[0.4em] text-white/70 uppercase">
+          <p className="type-meta uppercase tracking-[0.4em] text-white/70">
             Interior Design
           </p>
-          <p className="font-label text-xs tracking-[0.4em] text-white/70 uppercase">
+          <p className="type-meta uppercase tracking-[0.4em] text-white/70">
             Aging Paint
           </p>
         </div>
@@ -108,7 +108,7 @@ export default function Hero() {
           <a
             href="#works"
             className="inline-flex items-center justify-center gap-5
-                       font-label text-xs tracking-[0.28em] text-white
+                       type-btn-ja text-white
                        px-9 py-4 transition-all duration-300"
             style={{
               background: "rgba(8,8,8,0.6)",
@@ -130,7 +130,7 @@ export default function Hero() {
           <a
             href="#contact"
             className="inline-flex items-center justify-center gap-5
-                       font-label text-xs tracking-[0.28em] text-white/75
+                       type-btn-ja text-white/75
                        px-9 py-4 transition-all duration-300"
             style={{
               background: "transparent",
@@ -156,7 +156,7 @@ export default function Hero() {
             ([num, label]) => (
               <div key={label}>
                 <p className="font-heading text-2xl text-gold leading-none">{num}</p>
-                <p className="font-label text-[11px] tracking-[0.2em] text-white/60 mt-1 uppercase">
+                <p className="type-meta uppercase text-white/60 mt-1">
                   {label}
                 </p>
               </div>
@@ -176,7 +176,7 @@ export default function Hero() {
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 lg:left-14 lg:translate-x-0 xl:left-20
                       flex items-center gap-3">
         <div className="w-px h-10 bg-gradient-to-b from-white/20 to-transparent" />
-        <span className="font-label text-[11px] tracking-[0.5em] text-white/50 uppercase">Scroll</span>
+        <span className="type-meta uppercase tracking-[0.5em] text-white/50">Scroll</span>
       </div>
     </section>
   );

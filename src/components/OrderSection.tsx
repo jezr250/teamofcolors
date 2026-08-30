@@ -39,21 +39,21 @@ export default function OrderSection() {
           {/* 金の小ラベル＝セクション名（ハンバーガーメニューの語と一致させる）。
               着地した位置がどこか分かるようにするための目印なので、
               気の利いた別の言葉に置き換えないこと。銀の大見出しがコピー担当 */}
-          <p className="font-label text-xs tracking-[0.5em] text-gold uppercase mb-6">
+          <p className="type-label text-gold mb-6">
             Order
           </p>
           <h2 className="font-heading italic tracking-[0.05em] leading-tight mb-10 silver-grad"
-              style={{ fontSize: "clamp(1.6rem, 4vw, 3.2rem)" }}>
+              style={{ fontSize: "clamp(1.75rem, 5vw, 3.2rem)" }}>
             THERE IS NO USE KNOCKOFF.<br />
             FULL SCRATCH ONLY.
           </h2>
-          <p className="text-white/65 text-sm tracking-[0.06em] max-w-md mx-auto mb-12 leading-loose">
+          <p className="type-body text-white/65 max-w-md mx-auto mb-12">
             既製品は使いません。すべてを手作りで、<br className="hidden md:block" />
             ゼロから創り上げることが私たちの仕事です。
           </p>
           <a href="#contact"
-            className="inline-block bg-gold text-black text-xs tracking-[0.3em]
-                       font-label px-12 py-4 hover:bg-gold-light transition-colors duration-300">
+            className="inline-block bg-gold text-black type-meta tracking-[0.3em]
+                       px-12 py-4 hover:bg-gold-light transition-colors duration-300">
             ORDER →
           </a>
         </div>

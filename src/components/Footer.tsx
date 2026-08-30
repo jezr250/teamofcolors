@@ -33,7 +33,7 @@ export default function Footer() {
         </div>
 
         {/* ブランド名 */}
-        <p className="font-heading tracking-[0.3em] text-sm silver-grad">
+        <p className="font-heading tracking-[0.3em] type-card-title silver-grad">
           TEAM OF COLORS
         </p>
 
@@ -42,15 +42,15 @@ export default function Footer() {
 
         {/* 会社情報 — 検索サイトが会社を認識する手がかりになるので全ページに置く */}
         <address className="not-italic text-center space-y-1.5">
-          <p className="text-xs text-white/70 tracking-[0.1em]">{COMPANY_NAME}</p>
-          <p className="text-xs text-white/50 tracking-[0.05em]">{SITE_ADDRESS_FULL}</p>
-          <p className="text-xs text-white/50 tracking-[0.05em]">
+          <p className="type-body-sm text-white/70">{COMPANY_NAME}</p>
+          <p className="type-body-sm text-white/50">{SITE_ADDRESS_FULL}</p>
+          <p className="type-body-sm text-white/50">
             TEL{" "}
             <a href={SITE_TEL_HREF} className="hover:text-gold transition-colors">
               {SITE_TEL}
             </a>
           </p>
-          <p className="text-xs text-white/40 tracking-[0.05em]">
+          <p className="type-body-sm text-white/40">
             営業時間 {SITE_BUSINESS_HOURS}／定休日 {SITE_CLOSED_DAYS}
           </p>
         </address>
@@ -58,7 +58,7 @@ export default function Footer() {
         {/* 上の要約を読んだ流れで詳細ページへ行けるようにする */}
         <a
           href="/company"
-          className="inline-block border border-white/25 text-white/70 font-label text-xs
+          className="inline-block border border-white/25 text-white/70 type-meta
                      tracking-[0.3em] px-8 py-3
                      hover:border-gold hover:text-gold active:border-gold active:text-gold
                      transition-all duration-300"
@@ -67,7 +67,7 @@ export default function Footer() {
         </a>
 
         {/* コピーライト */}
-        <p className="font-label text-xs tracking-[0.2em] text-white/55">
+        <p className="type-meta text-white/55">
           © 2026 TEAM OF COLORS. ALL RIGHTS RESERVED.
         </p>
       </div>

@@ -59,7 +59,7 @@ export default function PostArchive({ apiPath, detailPath, category }: Props) {
 
   if (failed) {
     return (
-      <p className="py-20 text-center text-sm text-white/55">
+      <p className="py-20 text-center type-body text-white/55">
         実績の取得に失敗しました。しばらくしてから再度お試しください。
       </p>
     );
@@ -83,7 +83,7 @@ export default function PostArchive({ apiPath, detailPath, category }: Props) {
   }
 
   if (posts.length === 0) {
-    return <p className="py-20 text-center text-sm text-white/55">実績はまだありません。</p>;
+    return <p className="py-20 text-center type-body text-white/55">実績はまだありません。</p>;
   }
 
   // カード中身は記事／写真で共通の見た目にせず、写真のほうは情報を持たせない
@@ -106,10 +106,10 @@ export default function PostArchive({ apiPath, detailPath, category }: Props) {
         {post.photoOnly ? (
           // 写真のみ — 架空の物件名は付けず、サービス名だけを出す
           <>
-            <p className="font-label text-[11px] tracking-[0.25em] text-gold uppercase mb-2">
+            <p className="type-meta uppercase tracking-[0.25em] text-gold mb-2">
               Category
             </p>
-            <h3 className="text-base text-white/90 tracking-wide
+            <h3 className="type-card-title text-white/90
                            group-hover:text-gold group-active:text-gold transition-colors">
               {post.category?.name ?? post.title}
             </h3>
@@ -117,23 +117,23 @@ export default function PostArchive({ apiPath, detailPath, category }: Props) {
         ) : (
           <>
             <div className="flex items-center gap-3 mb-3">
-              <time className="font-label text-[11px] tracking-[0.2em] text-white/55">
+              <time className="type-meta text-white/55">
                 {formatDate(post.publishedAt)}
               </time>
               {post.category && (
-                <span className="font-label text-[11px] tracking-[0.1em] text-white/60 border border-white/15 px-2 py-0.5">
+                <span className="type-meta tracking-[0.1em] text-white/60 border border-white/15 px-2 py-0.5">
                   {post.category.name}
                 </span>
               )}
             </div>
-            <h3 className="text-sm text-white/90 leading-relaxed tracking-wide mb-3
+            <h3 className="type-card-title text-white/90 mb-3
                            group-hover:text-gold group-active:text-gold transition-colors">
               {post.title}
             </h3>
             {post.tags && post.tags.length > 0 && (
               <div className="flex flex-wrap gap-2">
                 {post.tags.map((tag) => (
-                  <span key={tag} className="font-label text-[11px] tracking-[0.1em] text-white/55 uppercase">
+                  <span key={tag} className="type-meta uppercase tracking-[0.1em] text-white/55">
                     #{tag}
                   </span>
                 ))}
@@ -180,8 +180,8 @@ export default function PostArchive({ apiPath, detailPath, category }: Props) {
           <button
             onClick={() => load(posts.length)}
             disabled={loading}
-            className="inline-block border border-white/35 text-white/75 text-xs
-                       tracking-[0.3em] px-10 py-3 font-label
+            className="inline-block border border-white/35 text-white/75 type-meta
+                       tracking-[0.3em] px-10 py-3
                        hover:border-gold hover:text-gold active:border-gold active:text-gold
                        disabled:opacity-40 transition-all duration-300"
           >

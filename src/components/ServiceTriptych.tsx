@@ -54,7 +54,7 @@ export default function ServiceTriptych() {
           気の利いた別の言葉に置き換えないこと。
           このセクションだけは銀の大見出しを置かない（主役は3枚のタイルなので、
           見出しを足すとタイルが画面外に押し出される） */}
-      <p className="font-label text-xs tracking-[0.5em] text-gold uppercase text-center mb-8">
+      <p className="type-label text-gold text-center mb-8">
         Service
       </p>
 
@@ -82,10 +82,10 @@ export default function ServiceTriptych() {
             />
             <div className="triptych-overlay">
               <div className="text-center">
-                <p className="font-label text-[11px] tracking-[0.4em] text-gold mb-2 uppercase">
+                <p className="type-meta uppercase tracking-[0.4em] text-gold mb-2">
                   {tile.labelEn}
                 </p>
-                <p className="font-heading italic text-2xl tracking-[0.08em] silver-grad">
+                <p className="type-heading italic silver-grad">
                   {tile.label}
                 </p>
               </div>

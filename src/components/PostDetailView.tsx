@@ -58,13 +58,13 @@ export default function PostDetailView({ apiPath, backHref, backLabel }: Props) 
   if (status === "notfound" || status === "error") {
     return (
       <div className="py-20 text-center">
-        <p className="text-sm text-white/55 mb-8">
+        <p className="type-body text-white/55 mb-8">
           {status === "notfound"
             ? "記事が見つかりませんでした。"
             : "記事の取得に失敗しました。しばらくしてから再度お試しください。"}
         </p>
         <a href={backHref}
-          className="inline-block border border-white/35 text-white/75 text-xs
+          className="inline-block border border-white/35 text-white/75 type-meta
                      tracking-[0.3em] px-8 py-3 font-label
                      hover:border-gold hover:text-gold transition-all duration-300">
           ← {backLabel}
@@ -77,11 +77,11 @@ export default function PostDetailView({ apiPath, backHref, backLabel }: Props) 
     <article>
       {/* メタ情報 */}
       <div className="flex items-center gap-4 mb-6">
-        <time className="font-label text-xs tracking-[0.2em] text-white/55">
+        <time className="type-meta text-white/55">
           {formatDate(post!.publishedAt)}
         </time>
         {post!.category && (
-          <span className="font-label text-[11px] tracking-[0.1em] text-white/60
+          <span className="type-meta tracking-[0.1em] text-white/60
                            border border-white/15 px-2 py-0.5">
             {post!.category.name}
           </span>
@@ -89,7 +89,7 @@ export default function PostDetailView({ apiPath, backHref, backLabel }: Props) 
       </div>
 
       {/* タイトル */}
-      <h1 className="text-xl md:text-2xl text-white/90 leading-relaxed tracking-wide mb-10">
+      <h1 className="type-heading text-white/90 mb-10">
         {post!.title}
       </h1>
 
@@ -119,7 +119,7 @@ export default function PostDetailView({ apiPath, backHref, backLabel }: Props) 
       {post!.tags && post!.tags.length > 0 && (
         <div className="flex flex-wrap gap-3 mt-12 pt-8 border-t border-white/8">
           {post!.tags.map((tag) => (
-            <span key={tag} className="font-label text-[11px] tracking-[0.1em] text-white/55 uppercase">
+            <span key={tag} className="type-meta uppercase tracking-[0.1em] text-white/55">
               #{tag}
             </span>
           ))}
@@ -129,7 +129,7 @@ export default function PostDetailView({ apiPath, backHref, backLabel }: Props) 
       {/* 戻る */}
       <div className="mt-16 pt-10 border-t border-white/8 text-center">
         <a href={backHref}
-          className="inline-block border border-white/35 text-white/75 text-xs
+          className="inline-block border border-white/35 text-white/75 type-meta
                      tracking-[0.3em] px-8 py-3 font-label
                      hover:border-gold hover:text-gold active:border-gold active:text-gold
                      transition-all duration-300">

@@ -42,7 +42,7 @@ export default function WorksArchive() {
               key={tab.href}
               href={tab.href}
               aria-current={active ? "page" : undefined}
-              className={`font-label text-xs tracking-[0.2em] transition-colors gold-hover
+              className={`type-meta transition-colors gold-hover
                           ${active ? "text-gold" : "text-white/50 hover:text-white/80"}`}
             >
               {tab.label}

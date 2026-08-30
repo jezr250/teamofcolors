@@ -88,14 +88,14 @@ export default function CompanyPage() {
 
           {/* 企業理念 */}
           <section className="mb-20">
-            <h2 className="font-label text-xs tracking-[0.4em] text-gold uppercase mb-8">
+            <h2 className="type-label text-gold mb-8">
               Philosophy
             </h2>
             <div className="space-y-4">
               {COMPANY_PHILOSOPHY.map((line) => (
                 <p
                   key={line}
-                  className="font-heading text-2xl md:text-3xl tracking-[0.06em] text-white/85 leading-relaxed"
+                  className="type-heading text-white/85"
                 >
                   {line}
                 </p>
@@ -105,7 +105,7 @@ export default function CompanyPage() {
               {COMPANY_KEYWORDS.map((word) => (
                 <span
                   key={word}
-                  className="font-label text-[11px] tracking-[0.2em] text-white/55 border border-white/15 px-3 py-1"
+                  className="type-meta text-white/55 border border-white/15 px-3 py-1"
                 >
                   {word}
                 </span>
@@ -115,7 +115,7 @@ export default function CompanyPage() {
 
           {/* 会社概要 — 定義リストの表 */}
           <section className="mb-20">
-            <h2 className="font-label text-xs tracking-[0.4em] text-gold uppercase mb-8">
+            <h2 className="type-label text-gold mb-8">
               Profile
             </h2>
             <dl className="border-t border-white/10">
@@ -124,10 +124,10 @@ export default function CompanyPage() {
                   key={row.label}
                   className="flex flex-col md:flex-row gap-1 md:gap-8 py-5 border-b border-white/10"
                 >
-                  <dt className="md:w-40 shrink-0 text-sm text-white/50 tracking-wide">
+                  <dt className="md:w-40 shrink-0 type-body text-white/50">
                     {row.label}
                   </dt>
-                  <dd className="text-sm text-white/85 leading-relaxed tracking-wide">
+                  <dd className="type-body text-white/85">
                     {row.value}
                   </dd>
                 </div>
@@ -137,15 +137,15 @@ export default function CompanyPage() {
 
           {/* アクセス */}
           <section>
-            <h2 className="font-label text-xs tracking-[0.4em] text-gold uppercase mb-8">
+            <h2 className="type-label text-gold mb-8">
               Access
             </h2>
-            <p className="text-sm text-white/85 tracking-wide mb-2">{SITE_ADDRESS_FULL}</p>
+            <p className="type-body text-white/85 mb-2">{SITE_ADDRESS_FULL}</p>
             <a
               href={SITE_MAP_LINK_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block font-label text-xs tracking-[0.25em] text-white/55
+              className="inline-block type-meta tracking-[0.25em] text-white/55
                          hover:text-gold transition-colors gold-hover mb-6"
             >
               GOOGLE マップで開く →
