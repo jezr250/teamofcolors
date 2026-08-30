@@ -9,17 +9,18 @@
 // 設定した瞬間から自動的に2層のマージ表示になり、コード変更は要らない。
 
 import { staticWorksByCategory, isStaticWorkId } from "./staticWorks";
+import { SERVICE_CATEGORIES } from "./serviceCategories";
 
 export type Post = {
   id: string;
   title: string;
   content?: string; // richEditorのHTML（一覧では省略）
   eyecatch?: { url: string; width?: number; height?: number };
-  thumb?: { url: string; width: number; height: number }; // 静的写真のみ（一覧グリッド用の軽い画像）
+  thumb?: { url: string; width: number; height: number }; // 一覧グリッド用の軽い画像
   category?: { id: string; name: string };
   tags?: string[]; // worksのみ使用（microCMS側は複数選択フィールド想定）
   publishedAt?: string;
-  photoOnly?: boolean; // 静的写真＝詳細ページを持たず、ライトボックスで拡大する
+  photoOnly?: boolean; // 写真のみ＝詳細ページを持たず、ライトボックスで拡大する
 };
 
 export type PostListResponse = {
@@ -49,6 +50,72 @@ async function fetchMicroCMS(path: string, params: Record<string, string>) {
   return res.json();
 }
 
+// ── microCMS レスポンスの正規化 ────────────────────────────────────────────
+// 実際のworks APIは「カテゴリ（セレクト）＋画像」だけの構成で、Post型とは形が違う:
+//   実際 : { id, category: ["interior"], image: {url,width,height}, publishedAt }
+//   Post : { id, title, category: {id,name}, eyecatch, thumb, photoOnly, ... }
+// 記事側にタイトル・本文を足さなくても運用できるよう、ここで吸収する。
+// 将来 microCMS に title / content / eyecatch / tags を足しても壊れないように
+// 「あれば使う」形にしてある。
+
+type RawWork = {
+  id: string;
+  title?: string;
+  content?: string;
+  // 画像フィールドは image（現行）と eyecatch（将来）の両方を受ける
+  image?: { url: string; width?: number; height?: number };
+  eyecatch?: { url: string; width?: number; height?: number };
+  // セレクト＝["interior"] / テキスト＝"interior" / コンテンツ参照＝{id,name} を許容
+  category?: string[] | string | { id: string; name?: string };
+  tags?: string[];
+  publishedAt?: string;
+};
+
+// microCMS の画像API。幅を指定してWebPに変換させる（静的exportでは
+// next/image の最適化が効かないため、縮小はこのクエリが担う）
+function cmsImage(
+  img: { url: string; width?: number; height?: number },
+  maxWidth: number
+) {
+  const w = img.width ?? maxWidth;
+  const h = img.height ?? maxWidth;
+  const scale = w > maxWidth ? maxWidth / w : 1;
+  return {
+    url: `${img.url}?fm=webp&w=${Math.round(w * scale)}&q=82`,
+    width: Math.round(w * scale),
+    height: Math.round(h * scale),
+  };
+}
+
+function normalizeCategory(raw: RawWork["category"]): { id: string; name: string } | undefined {
+  const id = Array.isArray(raw) ? raw[0] : typeof raw === "string" ? raw : raw?.id;
+  if (!id) return undefined;
+  // 表示名は serviceCategories.ts を正とする（microCMS側はIDしか持たないため）
+  const known = SERVICE_CATEGORIES[id];
+  const fallback = typeof raw === "object" && !Array.isArray(raw) ? raw?.name : undefined;
+  return { id, name: known?.name ?? fallback ?? id };
+}
+
+export function normalizeCmsWork(raw: RawWork): Post {
+  const category = normalizeCategory(raw.category);
+  const img = raw.eyecatch ?? raw.image;
+  // タイトルが無い記事＝写真のみ。静的写真と同じくライトボックスで拡大し、
+  // 詳細ページへは飛ばさない（本文が無いので開いても白紙になる）
+  const photoOnly = !raw.title;
+
+  return {
+    id: raw.id,
+    title: raw.title || category?.name || "施工実績",
+    content: raw.content,
+    eyecatch: img ? cmsImage(img, 1600) : undefined,
+    thumb: img ? cmsImage(img, 800) : undefined,
+    category,
+    tags: raw.tags,
+    publishedAt: raw.publishedAt,
+    photoOnly,
+  };
+}
+
 export async function getPostList(
   endpoint: Endpoint,
   {
@@ -71,21 +138,29 @@ export async function getPostList(
   const params: Record<string, string> = {
     limit: String(limit),
     offset: String(offset),
-    fields: "id,title,eyecatch,category,tags,publishedAt",
+    // 存在しないフィールド名を混ぜてもmicroCMSは無視するだけなので、
+    // 現行スキーマ(image)と将来の拡張(title/eyecatch/tags)をまとめて要求している
+    fields: "id,title,image,eyecatch,category,tags,publishedAt",
     orders: "-publishedAt",
   };
-  if (category) params.filters = `category[equals]${category}`;
-  const cms: PostListResponse = await fetchMicroCMS(endpoint, params);
+  // categoryは「セレクト」フィールド＝配列で保存されるため equals では一致しない。
+  // 配列・文字列のどちらにも効く contains を使う。
+  if (category) params.filters = `category[contains]${category}`;
+  const cms: { contents: RawWork[]; totalCount: number } = await fetchMicroCMS(
+    endpoint,
+    params
+  );
+  const cmsContents = cms.contents.map(normalizeCmsWork);
 
   // microCMS記事を先に並べ、要求件数に足りない分を静的写真で埋める。
   // offset が microCMS の総件数を超えていれば、その超過分が静的写真側の開始位置になる。
-  const shortfall = limit - cms.contents.length;
+  const shortfall = limit - cmsContents.length;
   const staticStart = Math.max(0, offset - cms.totalCount);
   const filler =
     shortfall > 0 ? statics.slice(staticStart, staticStart + shortfall) : [];
 
   return {
-    contents: [...cms.contents, ...filler],
+    contents: [...cmsContents, ...filler],
     totalCount: cms.totalCount + statics.length,
     offset,
     limit,
@@ -97,7 +172,12 @@ export async function getPostDetail(endpoint: Endpoint, id: string): Promise<Pos
   if (isStaticWorkId(id)) return null;
   if (!isMicroCMSConfigured) return null;
   try {
-    return await fetchMicroCMS(`${endpoint}/${encodeURIComponent(id)}`, {});
+    const raw: RawWork = await fetchMicroCMS(`${endpoint}/${encodeURIComponent(id)}`, {});
+    const post = normalizeCmsWork(raw);
+    // タイトルも本文も無い＝写真のみの記事。一覧のライトボックスで見せるので
+    // 詳細ページは持たせない（静的写真と同じ扱い）
+    if (post.photoOnly) return null;
+    return post;
   } catch {
     return null;
   }
