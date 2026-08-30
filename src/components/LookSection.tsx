@@ -30,8 +30,11 @@ export default function LookSection() {
 
       {/* テキスト — Artizanの look-txt.svg 相当 */}
       <div className="relative z-10 text-center px-6">
+        {/* 金の小ラベル＝セクション名（ハンバーガーメニューの語と一致させる）。
+              着地した位置がどこか分かるようにするための目印なので、
+              気の利いた別の言葉に置き換えないこと。銀の大見出しがコピー担当 */}
         <p className="font-label text-xs tracking-[0.5em] text-gold uppercase mb-6">
-          Portfolio
+          Look
         </p>
         <h2 className="font-heading italic leading-none tracking-[0.06em] mb-8 silver-grad"
             style={{ fontSize: "clamp(4.5rem, 13vw, 10rem)" }}>

@@ -134,8 +134,14 @@ export default function Contact() {
 
         {/* TEL */}
         <div id="contact-tel" className="mt-12 pt-10 border-t border-white/8 text-center">
-          <p className="font-label text-xs tracking-[0.4em] text-white/55 mb-3">
-            TEL（{SITE_BUSINESS_HOURS}／定休日 {SITE_CLOSED_DAYS}）
+          {/* 金の小ラベル＝セクション名（ハンバーガーメニューの「TEL」と一致させる）。
+              以前は「TEL（営業時間／定休日）」と1行に詰め込んでいたが、
+              ラベル・条件・番号の3段に分けて役割をはっきりさせている */}
+          <p className="font-label text-xs tracking-[0.5em] text-gold uppercase mb-3">
+            TEL
+          </p>
+          <p className="text-white/60 text-[13px] tracking-[0.08em] mb-4">
+            {SITE_BUSINESS_HOURS}／定休日 {SITE_CLOSED_DAYS}
           </p>
           <a href={SITE_TEL_HREF}
             className="font-label text-2xl text-white/55 tracking-[0.2em]
