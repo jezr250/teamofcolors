@@ -20,7 +20,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative w-full h-screen bg-black overflow-hidden flex items-center">
+    <section className="hero-section relative w-full h-screen bg-black overflow-hidden flex items-center">
 
       {/* ── 右パネル：馬画像（PC: 右60% / SP: フル画面背景） ── */}
       <div className="absolute right-0 top-0 bottom-0 w-full lg:w-[62%] select-none pointer-events-none">

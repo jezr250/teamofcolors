@@ -120,10 +120,19 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 0 60px;
+  /* justify-content: center は使わない。内容が画面より高いとき、はみ出した分が
+     上側にあふれて overflow でスクロールしても到達できなくなるため
+     （メニューを開くと body のスクロールも止めているので完全に詰む）。
+     中央寄せは下の nav の margin:auto で行い、あふれたらここがスクロールする */
+  overflow-y: auto;
+  /* 横の余白は狭い画面で効きすぎないよう可変に。縦は端に文字が付かないよう確保 */
+  padding: 2.5rem clamp(24px, 8vw, 60px);
   transform: translateX(60px);
   transition: transform 0.5s cubic-bezier(0.16,1,0.3,1);
+}
+.nav-overlay__panel > nav {
+  margin: auto 0;
+  width: 100%;
 }
 .nav-overlay.open .nav-overlay__panel { transform: translateX(0); }
 
@@ -140,6 +149,28 @@ body {
 }
 .nav-overlay__item:hover,
 .nav-overlay__item:active { color: var(--gold); }
+
+/* スマホを横向きにすると画面高が375〜430px程度になり、7項目（1項目67px＝計470px）が
+   収まらない。文字と行間を詰めて収める（それでも足りなければ上の overflow で逃がす） */
+@media (max-height: 600px) {
+  .nav-overlay__item {
+    font-size: clamp(1.75rem, 7vh, 2.5rem);
+    margin-bottom: 0.2em;
+  }
+}
+/* ヒーローは h-screen + overflow-hidden なので、画面が低いと中身（約600px）が
+   上下とも切り取られる。スマホ横向き(375px)では221pxが失われ、CTAボタンにも届かない。
+   iPhone SE の縦(667px)でも中央寄せの結果、上端が固定ヘッダーと重なる。
+   低い画面では高さを内容にあわせて伸ばし、ヘッダーとScrollラベルのぶんを余白で確保する */
+@media (max-height: 700px) {
+  .hero-section {
+    height: auto;
+    min-height: 100vh;
+    padding-top: 7rem;    /* 固定ヘッダー78px + 余裕 */
+    padding-bottom: 5rem; /* Scrollラベル(bottom-8)に重ならないように */
+  }
+}
+
 /* ===== Service triptych ===== */
 .triptych-item {
   position: relative;
@@ -165,6 +196,14 @@ body {
   transition: background 0.4s ease;
 }
 .triptych-item:hover .triptych-overlay { background: rgba(0,0,0,0.15); }
+
+/* 画面が低いとタイル1枚あたり100px程度になり、padding 32px + 文字45px + 32px = 109px で
+   はみ出してサービス名の上が切れる。余白を詰めて収める */
+@media (max-height: 600px) {
+  .triptych-overlay {
+    padding: 16px;
+  }
+}
 
 /* ===== Parallax ===== */
 .parallax-wrap { position: relative; overflow: hidden; }
@@ -316,6 +355,15 @@ body {
   transition: border-color 0.3s ease, filter 0.3s ease;
   font-family: var(--font-inter), var(--font-noto), sans-serif;
 }
+/* iOS Safari は font-size が16px未満の入力欄にフォーカスすると画面を勝手に拡大する
+   （拡大したままになり、ユーザーがピンチで戻す必要がある）。
+   スマホ幅でだけ16pxに上げて拡大を抑止する。PCは従来どおり14px */
+@media (max-width: 640px) {
+  .form-field {
+    font-size: 16px;
+  }
+}
+
 .form-field::placeholder { color: #555; }
 .form-field:focus {
   border-color: var(--gold);
