@@ -2,17 +2,18 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 
-// トップの代表実績6件（ハードコード・実施工写真 public/works-*.jpg）。
-// ラベルは写真フォルダの3サービス名のみ（架空の物件名は付けず、実画像との齟齬をなくす）。
-// モバイル1列でも モルタル→内装→エイジング の順に見えるよう M/I/A/M/I/A で配置。
+// トップの代表実績6件（ハードコード・実施工写真 public/works-*.webp）。
+// ラベルはサービス名のみ（架空の物件名は付けず、実画像との齟齬をなくす）。
+// 5カテゴリすべてを出しつつ3列グリッドを2行で埋めるため、主力のモルタル造形だけ2枚にしている。
+// モバイル1列でも先頭から順にカテゴリが変わって見えるよう、同じカテゴリは離して配置する。
+// 写真は Service タイルと重複しないものを選び、同じ画が上下で二度出ないようにしている。
 // microCMS連携後もこのショーケースは残し、各カード → /works（全実績一覧）への導線とする。
 const projects = [
-  { id: 1, category: "モルタル造形制作", img: "/works-1.jpg", alt: "岩壁のカウンター厨房" },
-  { id: 2, category: "内装・インテリア塗装", img: "/works-2.jpg", alt: "曲面を用いた店舗内装" },
-  { id: 3, category: "エイジング塗装", img: "/works-3.jpg", alt: "大理石調のエイジング仕上げ" },
-  { id: 4, category: "モルタル造形制作", img: "/works-4.jpg", alt: "立体的な岩壁造形" },
-  { id: 5, category: "内装・インテリア塗装", img: "/works-5.jpg", alt: "曲面壁の店舗空間" },
-  { id: 6, category: "エイジング塗装", img: "/works-6.jpg", alt: "石肌を再現したエイジング壁面" },
+  { id: 1, category: "モルタル造形制作", img: "/works-1.webp", alt: "岩壁を背にした厨房" },
+  { id: 2, category: "内装・インテリア塗装", img: "/works-2.webp", alt: "アーチ窓と造作棚のある店舗内装" },
+  { id: 3, category: "エイジング塗装", img: "/works-3.webp", alt: "石肌を再現したエイジング壁面" },
+  { id: 4, category: "特殊塗装", img: "/works-4.webp", alt: "凹凸のある特殊塗装の壁面" },
+  { id: 5, category: "氷壁", img: "/works-5.webp", alt: "氷壁で仕上げた通路" },
 ];
 
 export default function WorksSection() {
@@ -57,8 +58,14 @@ export default function WorksSection() {
           </a>
         </div>
 
-        {/* プロジェクトグリッド — staggerアニメーション */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-px bg-white/5">
+      </div>
+
+      {/* プロジェクトグリッド。
+          lg以上だけ画面幅いっぱいにする（Serviceタイルと同じ扱い）。5列をコンテナ幅
+          （最大1280px）に収めると1枚236pxまで痩せるので、端まで使って幅を稼ぐため。
+          lg未満は従来どおりコンテナ内の1列のまま（モバイルの見え方は変えない）。 */}
+      <div className="max-w-7xl lg:max-w-none mx-auto px-6 md:px-12 lg:px-0">
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-px bg-white/5">
           {projects.map((project, i) => (
             <a
               key={project.id}
@@ -73,7 +80,7 @@ export default function WorksSection() {
                   alt={project.alt}
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-106"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 20vw"
                 />
                 <div className="absolute inset-0 bg-black/15 group-hover:bg-black/5 transition-colors duration-300" />
               </div>
@@ -90,8 +97,10 @@ export default function WorksSection() {
               </div>
             </a>
           ))}
-        </div>
+      </div>
+      </div>
 
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
         {/* モバイル用 全件一覧リンク（ヘッダー右のリンクはmd以上のみ表示のため） */}
         <div className="mt-10 text-center md:hidden">
           <a href="/works"
