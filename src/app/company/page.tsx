@@ -7,20 +7,18 @@ import {
   COMPANY_CEO,
   COMPANY_SERVICES,
   COMPANY_PHILOSOPHY,
-  COMPANY_KEYWORDS,
+  COMPANY_MAJOR_CLIENTS,
   SITE_ADDRESS_FULL,
   SITE_TEL,
   SITE_TEL_HREF,
   SITE_BUSINESS_HOURS,
   SITE_CLOSED_DAYS,
-  SITE_MAP_EMBED_URL,
-  SITE_MAP_LINK_URL,
 } from "@/lib/siteConfig";
 
 export const metadata: Metadata = {
   title: "会社概要 | TEAM OF COLORS",
   description:
-    "TEAM OF COLORS株式会社の会社概要・事業内容・アクセス。神奈川県横浜市港南区を拠点に、モルタル造形・特殊左官・エイジング塗装・一般建築塗装を手がけています。",
+    "TEAM OF COLORS株式会社の会社概要・企業理念・事業内容・主要取引先。神奈川県横浜市港南区を拠点に、モルタル造形・特殊左官・エイジング塗装・一般建築塗装を手がけています。",
 };
 
 // 会社概要の表。値が確定していない項目（設立年月日・資本金・許可番号など）は
@@ -86,29 +84,20 @@ export default function CompanyPage() {
             description="神奈川県横浜市を拠点に、モルタル造形・特殊左官・エイジング塗装を手がけています。"
           />
 
-          {/* 企業理念 */}
+          {/* 企業理念 — 先方支給の全文。段落が長いので type-heading ではなく本文サイズで組む。
+              最初の一文だけは理念の核なので大きく見せて、残りを本文として続ける */}
           <section className="mb-20">
             <h2 className="type-label text-gold mb-8">
               Philosophy
             </h2>
-            <div className="space-y-4">
-              {COMPANY_PHILOSOPHY.map((line) => (
-                <p
-                  key={line}
-                  className="type-heading text-white/85"
-                >
+            <p className="type-heading text-white/85 mb-8">
+              {COMPANY_PHILOSOPHY[0]}
+            </p>
+            <div className="space-y-5 max-w-3xl">
+              {COMPANY_PHILOSOPHY.slice(1).map((line) => (
+                <p key={line} className="type-body text-white/70 leading-loose">
                   {line}
                 </p>
-              ))}
-            </div>
-            <div className="mt-8 flex flex-wrap gap-3">
-              {COMPANY_KEYWORDS.map((word) => (
-                <span
-                  key={word}
-                  className="type-meta text-white/55 border border-white/15 px-3 py-1"
-                >
-                  {word}
-                </span>
               ))}
             </div>
           </section>
@@ -135,32 +124,21 @@ export default function CompanyPage() {
             </dl>
           </section>
 
-          {/* アクセス */}
+          {/* 主要取引先 — 先方指定で Profile の後ろ。並び順（五十音順）は動かさない */}
           <section>
             <h2 className="type-label text-gold mb-8">
-              Access
+              Major Clients
             </h2>
-            <p className="type-body text-white/85 mb-2">{SITE_ADDRESS_FULL}</p>
-            <a
-              href={SITE_MAP_LINK_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block type-meta tracking-[0.25em] text-white/55
-                         hover:text-gold transition-colors gold-hover mb-6"
-            >
-              GOOGLE マップで開く →
-            </a>
-            {/* 地図は表示に時間がかかるので遅延読み込み。読めない環境では上のリンクが受け皿になる */}
-            <div className="aspect-[16/9] w-full border border-white/10">
-              <iframe
-                src={SITE_MAP_EMBED_URL}
-                title={`${COMPANY_NAME}の所在地`}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                className="w-full h-full"
-              />
-            </div>
+            <ul className="space-y-3">
+              {COMPANY_MAJOR_CLIENTS.map((name) => (
+                <li key={name} className="type-body text-white/85">
+                  {name}
+                </li>
+              ))}
+            </ul>
+            <p className="type-meta text-white/45 mt-6">（五十音順）</p>
           </section>
+
         </div>
       </main>
       <Footer />
