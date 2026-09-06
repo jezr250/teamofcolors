@@ -8,10 +8,10 @@ import Image from "next/image";
 // microCMS連携後もこのショーケースは残し、各カード → /works（全実績一覧）への導線とする。
 const projects = [
   { id: 1, category: "モルタル造形制作", img: "/works-1.jpg", alt: "岩壁のカウンター厨房" },
-  { id: 2, category: "内装・インテリア", img: "/works-2.jpg", alt: "曲面を用いた店舗内装" },
+  { id: 2, category: "内装・インテリア塗装", img: "/works-2.jpg", alt: "曲面を用いた店舗内装" },
   { id: 3, category: "エイジング塗装", img: "/works-3.jpg", alt: "大理石調のエイジング仕上げ" },
   { id: 4, category: "モルタル造形制作", img: "/works-4.jpg", alt: "立体的な岩壁造形" },
-  { id: 5, category: "内装・インテリア", img: "/works-5.jpg", alt: "曲面壁の店舗空間" },
+  { id: 5, category: "内装・インテリア塗装", img: "/works-5.jpg", alt: "曲面壁の店舗空間" },
   { id: 6, category: "エイジング塗装", img: "/works-6.jpg", alt: "石肌を再現したエイジング壁面" },
 ];
 

@@ -7,7 +7,7 @@ import WorksArchive from "./WorksArchive";
 
 export const metadata: Metadata = {
   title: "WORKS | TEAM OF COLORS",
-  description: "Team of Colors の施工実績一覧。モルタル造形制作・内装・インテリア・エイジング塗装の事例をご紹介します。",
+  description: "Team of Colors の施工実績一覧。モルタル造形制作・内装・インテリア塗装・エイジング塗装の事例をご紹介します。",
 };
 
 export default function WorksPage() {
@@ -21,7 +21,7 @@ export default function WorksPage() {
               <SubpageHero
                 label="All Projects"
                 title="WORKS"
-                description="モルタル造形制作・内装・インテリア・エイジング塗装の施工実績をご紹介します。"
+                description="モルタル造形制作・内装・インテリア塗装・エイジング塗装の施工実績をご紹介します。"
               />
             }
           >

@@ -16,7 +16,7 @@ const tiles = [
     category: "interior",
     img: "https://images.unsplash.com/photo-1531973968078-9bb02785f13d?w=900&auto=format&fit=crop&q=85",
     alt: "店舗内装",
-    label: "内装・インテリア",
+    label: "内装・インテリア塗装",
     labelEn: "INTERIOR DESIGN",
   },
   {

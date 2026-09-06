@@ -22,7 +22,7 @@ export const SERVICE_CATEGORY_LIST: ServiceCategory[] = [
   },
   {
     id: "interior",
-    name: "内装・インテリア",
+    name: "内装・インテリア塗装",
     en: "INTERIOR DESIGN",
     description:
       "店舗・商業空間の内装をトータルでデザイン・施工した実績をご紹介します。",
