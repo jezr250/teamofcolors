@@ -9,7 +9,7 @@ import { SERVICE_CATEGORIES, SERVICE_CATEGORY_LIST } from "@/lib/serviceCategori
 // 該当カテゴリーのみ絞り込み表示する（未指定=全件）。
 // useSearchParams を使うため、呼び出し側で <Suspense> に包む必要がある。
 const DEFAULT_DESCRIPTION =
-  "モルタル造形制作・内装・インテリア塗装・エイジング塗装の施工実績をご紹介します。";
+  "モルタル造形制作・内装・インテリア塗装・エイジング塗装・特殊塗装・氷壁の施工実績をご紹介します。";
 
 export default function WorksArchive() {
   const searchParams = useSearchParams();
