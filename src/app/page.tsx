@@ -22,7 +22,7 @@ export default function Home() {
         <WorksSection />      {/* WORKS — 施工実績ギャラリー（代表6件ハードコード） */}
         <Contact />           {/* CONTACT */}
       </main>
-      <Footer />
+      <Footer showCompany />
     </>
   );
 }

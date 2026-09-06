@@ -2,18 +2,18 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 
-// トップの代表実績6件（ハードコード・実施工写真 public/works-*.webp）。
+// トップの代表実績5件（ハードコード・実施工写真 public/works-*.webp）。
+// 5サービスを1枚ずつ、serviceCategories.ts と同じ並び順で出している。
 // ラベルはサービス名のみ（架空の物件名は付けず、実画像との齟齬をなくす）。
-// 5カテゴリすべてを出しつつ3列グリッドを2行で埋めるため、主力のモルタル造形だけ2枚にしている。
-// モバイル1列でも先頭から順にカテゴリが変わって見えるよう、同じカテゴリは離して配置する。
 // 写真は Service タイルと重複しないものを選び、同じ画が上下で二度出ないようにしている。
-// microCMS連携後もこのショーケースは残し、各カード → /works（全実績一覧）への導線とする。
+// カードの遷移先はそのカテゴリで絞り込んだ実績一覧（/works?category=xxx）。
+// id は serviceCategories.ts のカテゴリIDと一致させること。
 const projects = [
-  { id: 1, category: "モルタル造形制作", img: "/works-1.webp", alt: "岩壁を背にした厨房" },
-  { id: 2, category: "内装・インテリア塗装", img: "/works-2.webp", alt: "アーチ窓と造作棚のある店舗内装" },
-  { id: 3, category: "エイジング塗装", img: "/works-3.webp", alt: "石肌を再現したエイジング壁面" },
-  { id: 4, category: "特殊塗装", img: "/works-4.webp", alt: "凹凸のある特殊塗装の壁面" },
-  { id: 5, category: "氷壁", img: "/works-5.webp", alt: "氷壁で仕上げた通路" },
+  { id: "mortar",   category: "モルタル造形制作",       img: "/works-1.webp", alt: "岩壁を背にした厨房" },
+  { id: "interior", category: "内装・インテリア塗装",   img: "/works-2.webp", alt: "アーチ窓と造作棚のある店舗内装" },
+  { id: "aging",    category: "エイジング塗装",         img: "/works-3.webp", alt: "石肌を再現したエイジング壁面" },
+  { id: "special",  category: "特殊塗装",               img: "/works-4.webp", alt: "凹凸のある特殊塗装の壁面" },
+  { id: "hyoheki",  category: "氷壁",                   img: "/works-5.webp", alt: "氷壁で仕上げた通路" },
 ];
 
 export default function WorksSection() {
@@ -69,7 +69,7 @@ export default function WorksSection() {
           {projects.map((project, i) => (
             <a
               key={project.id}
-              href="/works"
+              href={`/works?category=${project.id}`}
               className="stagger-item group relative block bg-[#0a0a0a] overflow-hidden cursor-pointer"
               style={{ "--stagger-delay": `${i * 0.1}s` } as React.CSSProperties}
             >

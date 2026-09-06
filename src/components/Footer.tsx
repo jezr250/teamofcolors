@@ -7,28 +7,77 @@ import {
   SITE_CLOSED_DAYS,
 } from "@/lib/siteConfig";
 
-export default function Footer() {
-  return (
-    <footer className="bg-[#050505] py-16 border-t border-white/10">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col items-center gap-8">
+// 会社情報のブロックはトップページのフッターだけに置く（showCompany）。
+// 会社概要ページや実績ページでは、同じ内容がページ本体にあるか文脈が違うので出さない。
+// ここに id は振らない。お問い合わせフォームの「会社名」欄が id="company" を持っており、
+// 文書内で先に現れるそちらにアンカーが吸われるため。
+type Props = { showCompany?: boolean };
 
-        {/* ロゴマーク */}
-        <div className="opacity-70">
-          <svg width="80" height="56" viewBox="0 0 52 36" fill="white">
-            <rect x="1" y="1" width="50" height="34" rx="6"
-              stroke="white" strokeWidth="1" fill="none" />
-            <path
-              d="M7 30 C6.5 27 6.5 24 7.5 22 L6.5 21 C6 20 6.5 19 7.5 19 L8.5 21
-                 C10 20 11.5 19.5 13 20 L13.5 18.5 C14 17.5 15 18 15 19 L14.5 20.5
-                 C15.5 21.5 16 23 16 25.5 L16.5 26 C17 27 16.5 28.5 15.5 28.5 L15 28
-                 C15 29.5 14.5 31 14 32 L14 34 L12.5 34 L12.5 32 L11.5 32 L11.5 34
-                 L10 34 L10 32 C9.5 31 9 29.5 9 28 Z"
-              fill="white"
+export default function Footer({ showCompany = false }: Props) {
+  // 上余白と各ブロックの間隔を詰めてある。ハンバーガーの TEL から飛んだときに、
+  // フッターのコピーライトまで1画面に収まるようにするため（画面が低い端末ほど効く）。
+  return (
+    <footer className="bg-[#050505] pt-10 pb-12 border-t border-white/10">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col items-center gap-6">
+
+        {showCompany && (
+          <div className="flex flex-col items-center gap-8">
+            {/* 金の小ラベル＝セクション名（ハンバーガーメニューの語と一致させる） */}
+            <p className="type-label text-gold">Company</p>
+
+            <address className="not-italic text-center space-y-1.5">
+              <p className="type-body-sm text-white/70">{COMPANY_NAME}</p>
+              <p className="type-body-sm text-white/50">{SITE_ADDRESS_FULL}</p>
+              <p className="type-body-sm text-white/50">
+                TEL{" "}
+                <a href={SITE_TEL_HREF} className="hover:text-gold transition-colors">
+                  {SITE_TEL}
+                </a>
+              </p>
+              <p className="type-body-sm text-white/40">
+                営業時間 {SITE_BUSINESS_HOURS}／定休日 {SITE_CLOSED_DAYS}
+              </p>
+            </address>
+
+            {/* 上の要約を読んだ流れで会社概要ページへ行けるようにする。
+                目立たせたいという指示があったので、枠と文字を金にしている */}
+            <a
+              href="/company"
+              className="inline-block border border-gold text-gold type-meta
+                         tracking-[0.3em] px-8 py-3
+                         hover:bg-gold hover:text-[#050505]
+                         active:bg-gold active:text-[#050505]
+                         transition-all duration-300"
+            >
+              COMPANY →
+            </a>
+          </div>
+        )}
+
+        {/* 区切り。COMPANYブロックとロゴの間を分けるためのものなので、
+            ブロックが無い下層ページでは出さない（線だけが浮いて見えるため）。
+            各ページへのリンクはハンバーガーメニューに集約しているのでここには置かない */}
+        {showCompany && <div className="w-16 h-px bg-white/20" />}
+
+        {/* ロゴマーク。ファビコン・ヘッダーと同じ氷壁の写真をそのまま見せる。
+            文字・キャラクターは載せない（写真の力で見せる方針）。
+            以前は opacity-70 で沈めていたが、写真が主役なので等倍で出す */}
+        <div>
+          <svg width="80" height="56" viewBox="0 0 52 36" fill="none" aria-hidden="true">
+            <defs>
+              <clipPath id="toc-mark-footer">
+                <rect x="1" y="1" width="50" height="34" rx="6" />
+              </clipPath>
+            </defs>
+            <image
+              href="/logo-mark.webp"
+              x="1" y="1" width="50" height="34"
+              preserveAspectRatio="xMidYMid slice"
+              clipPath="url(#toc-mark-footer)"
             />
-            <text x="35" y="23" textAnchor="middle" fill="white"
-              fontSize="12" fontFamily="var(--font-bebas),sans-serif" letterSpacing="2">
-              TOC
-            </text>
+            {/* 暗い地の上で輪郭を締めるための細枠 */}
+            <rect x="1" y="1" width="50" height="34" rx="6"
+              stroke="rgba(255,255,255,0.45)" strokeWidth="1" fill="none" />
           </svg>
         </div>
 
@@ -36,35 +85,6 @@ export default function Footer() {
         <p className="font-heading tracking-[0.3em] type-card-title silver-grad">
           TEAM OF COLORS
         </p>
-
-        {/* 区切り — 各ページへのリンクはハンバーガーメニューに集約しているのでここには置かない */}
-        <div className="w-16 h-px bg-white/20" />
-
-        {/* 会社情報 — 検索サイトが会社を認識する手がかりになるので全ページに置く */}
-        <address className="not-italic text-center space-y-1.5">
-          <p className="type-body-sm text-white/70">{COMPANY_NAME}</p>
-          <p className="type-body-sm text-white/50">{SITE_ADDRESS_FULL}</p>
-          <p className="type-body-sm text-white/50">
-            TEL{" "}
-            <a href={SITE_TEL_HREF} className="hover:text-gold transition-colors">
-              {SITE_TEL}
-            </a>
-          </p>
-          <p className="type-body-sm text-white/40">
-            営業時間 {SITE_BUSINESS_HOURS}／定休日 {SITE_CLOSED_DAYS}
-          </p>
-        </address>
-
-        {/* 上の要約を読んだ流れで詳細ページへ行けるようにする */}
-        <a
-          href="/company"
-          className="inline-block border border-white/25 text-white/70 type-meta
-                     tracking-[0.3em] px-8 py-3
-                     hover:border-gold hover:text-gold active:border-gold active:text-gold
-                     transition-all duration-300"
-        >
-          COMPANY →
-        </a>
 
         {/* コピーライト */}
         <p className="type-meta text-white/55">

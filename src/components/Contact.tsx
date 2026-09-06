@@ -47,8 +47,11 @@ export default function Contact() {
     }
   };
 
+  // 下余白だけ py-24（96px）から 48px に詰めている。TEL はこのセクションの末尾にあり、
+  // ハンバーガーの TEL から飛んだときにフッターのコピーライトまで1画面に収めたいため。
+  // 上余白は他セクションと揃えたいので 96px のまま。
   return (
-    <section id="contact" className="py-24 bg-[#0c0c0c] border-t border-white/8">
+    <section id="contact" className="pt-24 pb-12 bg-[#0c0c0c] border-t border-white/8">
       <div className="max-w-2xl mx-auto px-6 md:px-12">
 
         {/* ヘッダー */}

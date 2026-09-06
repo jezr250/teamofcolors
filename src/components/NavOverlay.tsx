@@ -6,6 +6,7 @@ import { useEffect } from "react";
 //   Hero → service → about → look → order → works → contact
 // LOOK はパララックスの視覚演出セクションなのでメニューには載せない
 // TEL・COMPANY も同じ見た目で最後に並べる（COMPANYが一番下）
+// COMPANY だけはページ内アンカーではなく会社概要ページ（/company）への入り口。
 const links = [
   { label: "SERVICE",  href: "/#service" },
   { label: "ABOUT",    href: "/#about" },
