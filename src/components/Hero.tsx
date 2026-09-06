@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef } from "react";
+import { SERVICE_CATEGORY_LIST } from "@/lib/serviceCategories";
 
 /**
  * PDF参考: PATTERN ONEスタイル
@@ -86,17 +87,15 @@ export default function Hero() {
           TEAM<br />OF<br />COLORS
         </h1>
 
-        {/* サブタイトル */}
+        {/* サブタイトル — 取り扱うサービスの一覧。
+            serviceCategories.ts から引いているので、サービスが増減しても
+            ここを直す必要はない（Serviceタイル・WORKSの絞り込みと同じ並び順になる） */}
         <div className="mb-2">
-          <p className="type-meta uppercase tracking-[0.4em] text-white/70">
-            Mortar Sculpture
-          </p>
-          <p className="type-meta uppercase tracking-[0.4em] text-white/70">
-            Interior Design
-          </p>
-          <p className="type-meta uppercase tracking-[0.4em] text-white/70">
-            Aging Paint
-          </p>
+          {SERVICE_CATEGORY_LIST.map((c) => (
+            <p key={c.id} className="type-meta uppercase tracking-[0.4em] text-white/70">
+              {c.en}
+            </p>
+          ))}
         </div>
 
         {/* ゴールドライン */}

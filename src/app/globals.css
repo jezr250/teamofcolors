@@ -295,7 +295,12 @@ body {
 .triptych-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.38);   /* ← 38%（以前は45%） */
+  /* 一様な暗幕38%に加えて、文字が乗る下半分だけ濃くする。
+     特殊塗装・内装のように白っぽい写真だと、38%だけでは銀のサービス名が背景に沈むため。
+     暗い写真では下の帯がほとんど見えないので、既存タイルの見え方は変わらない */
+  background:
+    linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.15) 45%, rgba(0,0,0,0) 70%),
+    rgba(0,0,0,0.38);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -303,7 +308,32 @@ body {
   padding: 32px;
   transition: background 0.4s ease;
 }
-.triptych-item:hover .triptych-overlay { background: rgba(0,0,0,0.15); }
+.triptych-item:hover .triptych-overlay {
+  background:
+    linear-gradient(to top, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.10) 45%, rgba(0,0,0,0) 70%),
+    rgba(0,0,0,0.15);
+}
+
+/* 商標登録出願中バッジ（氷壁のタイルのみ）。オーバーレイより手前に置いて、
+   暗幕が薄くなるホバー時も読めるようにしている */
+.trademark-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 2;
+  padding: 5px 12px;
+  border: 1px solid var(--gold, #c8a96a);
+  background: rgba(0, 0, 0, 0.55);
+  color: var(--gold, #c8a96a);
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  line-height: 1;
+  white-space: nowrap;
+  backdrop-filter: blur(2px);
+}
+@media (max-height: 600px) {
+  .trademark-badge { top: 10px; left: 10px; padding: 4px 9px; }
+}
 
 /* 画面が低いとタイル1枚あたり100px程度になり、padding 32px + 文字45px + 32px = 109px で
    はみ出してサービス名の上が切れる。余白を詰めて収める */

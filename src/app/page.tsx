@@ -15,14 +15,14 @@ export default function Home() {
       <main>
         {/* Artizan 忠実再現構成 */}
         <Hero />              {/* フル画面 — is genuine works */}
-        <ServiceTriptych />   {/* 3分割サービスタイル */}
+        <ServiceTriptych />   {/* サービスタイル（上段3枚＋下段2枚） */}
         <AboutSection />      {/* WORK & BELIEF */}
         <LookSection />       {/* LOOK — パラックスポートフォリオ */}
         <OrderSection />      {/* ORDER — フルスクラッチCTA */}
         <WorksSection />      {/* WORKS — 施工実績ギャラリー（代表6件ハードコード） */}
         <Contact />           {/* CONTACT */}
       </main>
-      <Footer />
+      <Footer showCompany />
     </>
   );
 }
