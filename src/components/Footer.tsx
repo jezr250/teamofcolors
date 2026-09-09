@@ -6,6 +6,7 @@ import {
   SITE_BUSINESS_HOURS,
   SITE_CLOSED_DAYS,
 } from "@/lib/siteConfig";
+import LogoMark from "./LogoMark";
 
 // 会社情報のブロックはトップページのフッターだけに置く（showCompany）。
 // 会社概要ページや実績ページでは、同じ内容がページ本体にあるか文脈が違うので出さない。
@@ -59,26 +60,9 @@ export default function Footer({ showCompany = false }: Props) {
             各ページへのリンクはハンバーガーメニューに集約しているのでここには置かない */}
         {showCompany && <div className="w-16 h-px bg-white/20" />}
 
-        {/* ロゴマーク。ファビコン・ヘッダーと同じ氷壁の写真をそのまま見せる。
-            文字・キャラクターは載せない（写真の力で見せる方針）。
-            以前は opacity-70 で沈めていたが、写真が主役なので等倍で出す */}
+        {/* ロゴマーク（ヘッダーと共用のバッジ） */}
         <div>
-          <svg width="80" height="56" viewBox="0 0 52 36" fill="none" aria-hidden="true">
-            <defs>
-              <clipPath id="toc-mark-footer">
-                <rect x="1" y="1" width="50" height="34" rx="6" />
-              </clipPath>
-            </defs>
-            <image
-              href="/logo-mark.webp"
-              x="1" y="1" width="50" height="34"
-              preserveAspectRatio="xMidYMid slice"
-              clipPath="url(#toc-mark-footer)"
-            />
-            {/* 暗い地の上で輪郭を締めるための細枠 */}
-            <rect x="1" y="1" width="50" height="34" rx="6"
-              stroke="rgba(255,255,255,0.45)" strokeWidth="1" fill="none" />
-          </svg>
+          <LogoMark id="toc-mark-footer" width={80} height={55} />
         </div>
 
         {/* ブランド名 */}

@@ -3,14 +3,13 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import type { Post, PostListResponse } from "@/lib/microcms";
 import { formatDate } from "@/lib/formatDate";
-import Lightbox from "./Lightbox";
 
 // 施工実績の一覧グリッド（/works で使用）
 // 中継API（/api/works）からCSRで取得し、「MORE」で12件ずつ追加読み込み。
 //
 // 一覧には2種類の項目が混ざる（詳しくは lib/microcms.ts）:
 //   - microCMS記事 … タイトル・日付つき。クリックで詳細ページへ
-//   - 静的写真(photoOnly) … 写真とサービス名のみ。クリックでライトボックス拡大
+//   - 静的写真(photoOnly) … 写真とサービス名のみ。遷移先を持たないため非リンク
 
 const PAGE_SIZE = 12;
 
@@ -25,10 +24,6 @@ export default function PostArchive({ apiPath, detailPath, category }: Props) {
   const [totalCount, setTotalCount] = useState<number | null>(null); // null = 初回読み込み中
   const [loading, setLoading] = useState(false);
   const [failed, setFailed] = useState(false);
-  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
-
-  // ライトボックスは写真のみの項目だけを行き来する（記事は詳細ページを持つため対象外）
-  const photos = posts.filter((p) => p.photoOnly);
 
   const load = (offset: number) => {
     setLoading(true);
@@ -52,7 +47,6 @@ export default function PostArchive({ apiPath, detailPath, category }: Props) {
     setPosts([]);
     setTotalCount(null);
     setFailed(false);
-    setLightboxIndex(null);
     load(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [apiPath, category]);
@@ -109,8 +103,7 @@ export default function PostArchive({ apiPath, detailPath, category }: Props) {
             <p className="type-meta uppercase tracking-[0.25em] text-gold mb-2">
               Category
             </p>
-            <h3 className="type-card-title text-white/90
-                           group-hover:text-gold group-active:text-gold transition-colors">
+            <h3 className="type-card-title text-white/90">
               {post.category?.name ?? post.title}
             </h3>
           </>
@@ -145,28 +138,23 @@ export default function PostArchive({ apiPath, detailPath, category }: Props) {
     </>
   );
 
-  const cardClass =
-    "group relative block w-full text-left bg-[#0a0a0a] overflow-hidden";
+  // hover 演出は遷移先を持つ記事カードだけに付ける（group は <a> 側で足す）
+  const cardClass = "relative block w-full text-left bg-[#0a0a0a] overflow-hidden";
 
   return (
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/5">
         {posts.map((post) =>
           post.photoOnly ? (
-            <button
-              key={post.id}
-              type="button"
-              onClick={() => setLightboxIndex(photos.findIndex((p) => p.id === post.id))}
-              aria-label={`${post.category?.name ?? post.title} の写真を拡大`}
-              className={`${cardClass} cursor-zoom-in`}
-            >
+            // 遷移先も拡大表示も持たないので、ただの表示要素として置く
+            <div key={post.id} className={cardClass}>
               {cardInner(post)}
-            </button>
+            </div>
           ) : (
             <a
               key={post.id}
               href={`${detailPath}?id=${encodeURIComponent(post.id)}`}
-              className={cardClass}
+              className={`group ${cardClass}`}
             >
               {cardInner(post)}
             </a>
@@ -188,15 +176,6 @@ export default function PostArchive({ apiPath, detailPath, category }: Props) {
             {loading ? "LOADING…" : "MORE →"}
           </button>
         </div>
-      )}
-
-      {lightboxIndex !== null && photos[lightboxIndex] && (
-        <Lightbox
-          posts={photos}
-          index={lightboxIndex}
-          onClose={() => setLightboxIndex(null)}
-          onMove={setLightboxIndex}
-        />
       )}
     </>
   );
