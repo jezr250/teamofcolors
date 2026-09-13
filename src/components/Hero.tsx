@@ -74,10 +74,8 @@ export default function Hero() {
           transition: "opacity 1s ease, transform 1s ease",
         }}
       >
-        {/* 小ラベル */}
-        <p className="type-label tracking-[0.6em] mb-6 silver-grad">
-          is genuine works
-        </p>
+        {/* 以前ここにあった小ラベル「is genuine works」は、ウィンドウの高さが低いと
+            ヘッダーに隠れて読めなくなるため削除した（2026-09-13 レビュー指摘） */}
 
         {/* メイン見出し — Cormorant Garamond Italic */}
         <h1
@@ -171,9 +169,10 @@ export default function Hero() {
       {/* ── スクロールライン ──
           全画面のヒーローで「この下にまだ続きがある」ことを伝えるための合図。
           下のセクション名（Service）はServiceTriptych側に置いてあるので、ここは
-          行き先の予告ではなく動作を促す役割に徹する（両方に同じ語を出さない） */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 lg:left-14 lg:translate-x-0 xl:left-20
-                      flex items-center gap-3">
+          行き先の予告ではなく動作を促す役割に徹する（両方に同じ語を出さない）。
+          PCでも画面下中央に置く。以前は左寄せだったが、実績数値（15+ Years…）の真下に
+          来るため、ウィンドウの高さが低いと重なって読めなかった（2026-09-13 レビュー指摘） */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-3">
         <div className="w-px h-10 bg-gradient-to-b from-white/20 to-transparent" />
         <span className="type-meta uppercase tracking-[0.5em] text-white/50">Scroll</span>
       </div>
