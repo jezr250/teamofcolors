@@ -60,9 +60,9 @@ export default function Footer({ showCompany = false }: Props) {
             各ページへのリンクはハンバーガーメニューに集約しているのでここには置かない */}
         {showCompany && <div className="w-16 h-px bg-white/20" />}
 
-        {/* ロゴマーク（ヘッダーと共用のバッジ） */}
+        {/* ロゴマーク（ヘッダーと共用） */}
         <div>
-          <LogoMark id="toc-mark-footer" width={80} height={55} />
+          <LogoMark size={88} />
         </div>
 
         {/* ブランド名 */}
