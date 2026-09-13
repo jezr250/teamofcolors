@@ -7,6 +7,8 @@ import {
   COMPANY_CEO,
   COMPANY_SERVICES,
   COMPANY_PHILOSOPHY,
+  COMPANY_LICENSES,
+  COMPANY_TAGLINE,
   COMPANY_MAJOR_CLIENTS,
   SITE_ADDRESS_FULL,
   SITE_TEL,
@@ -18,7 +20,7 @@ import {
 export const metadata: Metadata = {
   title: "会社概要 | TEAM OF COLORS",
   description:
-    "TEAM OF COLORS株式会社の会社概要・企業理念・事業内容・主要取引先。神奈川県横浜市港南区を拠点に、モルタル造形・特殊左官・エイジング塗装・一般建築塗装を手がけています。",
+    `TEAM OF COLORS株式会社の会社概要・企業理念・事業内容・主要取引先。神奈川県横浜市港南区を拠点に、${COMPANY_TAGLINE}。`,
 };
 
 // 会社概要の表。値が確定していない項目（設立年月日・資本金・許可番号など）は
@@ -51,6 +53,20 @@ const PROFILE_ROWS: { label: string; value: React.ReactNode }[] = [
       </ul>
     ),
   },
+  {
+    // 許認可等 — 先方指定で事業内容の直後。種別と番号を1行に並べる
+    label: "許認可等",
+    value: (
+      <ul className="space-y-1.5">
+        {COMPANY_LICENSES.map((l) => (
+          <li key={l.number}>
+            {l.name}
+            <span className="inline-block ml-3">{l.number}</span>
+          </li>
+        ))}
+      </ul>
+    ),
+  },
 ];
 
 export default function CompanyPage() {
@@ -59,8 +75,7 @@ export default function CompanyPage() {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     name: COMPANY_NAME,
-    description:
-      "モルタル造形・特殊左官・エイジング塗装・一般建築塗装を手がける施工会社",
+    description: `${COMPANY_TAGLINE}。`,
     address: {
       "@type": "PostalAddress",
       postalCode: "233-0006",
@@ -81,15 +96,15 @@ export default function CompanyPage() {
           <SubpageHero
             label="Company"
             title="会社概要"
-            description="神奈川県横浜市を拠点に、モルタル造形・特殊左官・エイジング塗装を手がけています。"
+            description={`${COMPANY_TAGLINE}。`}
           />
 
-          {/* 企業理念 — 先方支給の全文。段落が長いので type-heading ではなく本文サイズで組む。
-              最初の一文だけは理念の核なので大きく見せて、残りを本文として続ける */}
+          {/* 企業理念 — 先方支給の全文。見出しはページ先頭の「Company / 会社概要」と同じ組み方
+              （金の小ラベル＋銀の和文大見出し）。段落が長いので本文サイズで組み、
+              最初の一文だけは理念の核なので type-heading で大きく見せる */}
           <section className="mb-20">
-            <h2 className="type-label text-gold mb-8">
-              Philosophy
-            </h2>
+            <p className="type-label text-gold mb-4">Philosophy</p>
+            <h2 className="silver-grad type-display-ja mb-10">企業理念</h2>
             <p className="type-heading text-white/85 mb-8">
               {COMPANY_PHILOSOPHY[0]}
             </p>

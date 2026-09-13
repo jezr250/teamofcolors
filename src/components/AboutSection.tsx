@@ -86,14 +86,15 @@ export default function AboutSection() {
             <div className="space-y-8">
               <div className="w-8 h-px bg-gold" />
 
+              {/* 文言は 2026-09-13「HP追加依頼まとめ」⑥で先方から支給された全文 */}
               <p className="type-body text-white/75">
-                Team of Colors は、モルタル造形制作を核とした空間創造集団です。
-                コンクリートや FRP を素材に、本物と見紛う岩・石・洞窟を手作りで制作し、
-                テーマパーク・飲食店・商業施設に唯一無二の空間を提供します。
+                Team of Colors は、特殊左官・特殊塗装を主とした空間創造チームです。
+                特殊なセメントやFRP等を素材に、リアルな岩・石・洞窟・滝などを手作りで制作し、
+                テーマパーク・飲食店・商業施設・住宅に唯一無二の空間を提供します。
               </p>
               <p className="type-body text-white/60">
                 「既製品はない。すべてがフルスクラッチ。」
-                それが私たちの唯一のルールです。
+                それが私たちの仕事における想いです。
               </p>
             </div>
 
