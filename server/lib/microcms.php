@@ -57,8 +57,10 @@ function fetchMicroCMS(string $path, array $params): array
  */
 const SERVICE_CATEGORY_NAMES = [
     'mortar'   => 'モルタル造形制作',
-    'interior' => '内装・インテリア',
+    'interior' => '内装・インテリア塗装',
     'aging'    => 'エイジング塗装',
+    'special'  => '特殊塗装',
+    'hyoheki'  => '氷壁',
 ];
 
 /**
