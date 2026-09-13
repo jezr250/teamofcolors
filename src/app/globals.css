@@ -236,11 +236,15 @@ body {
 }
 .nav-overlay.open .nav-overlay__panel { transform: translateX(0); }
 
-/* ナビ項目：Bebas Neue を維持 */
+/* ナビ項目：Bebas Neue を維持。
+   文字サイズは横幅だけでなく高さ（8vh）でも上限を掛ける。横幅だけだとPCで72pxになり、
+   7項目（1項目＝文字1.2行＋余白0.3行≒1.5倍）で約760px＋上下余白80pxとなって、
+   ノートPCの画面高（768〜900px）では1画面に収まらなかった（2026-09-13 指摘）。
+   8vh なら 7×1.5×8vh＝84vh＋80px で、高さ600px以上なら必ず収まる */
 .nav-overlay__item {
   display: block;
   font-family: var(--font-bebas), sans-serif;
-  font-size: clamp(2.8rem, 6vw, 4.5rem);
+  font-size: min(clamp(2.8rem, 6vw, 4.5rem), 8vh);
   letter-spacing: 0.18em;
   color: rgba(255,255,255,0.75);
   line-height: 1.2;
