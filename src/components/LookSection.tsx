@@ -17,7 +17,8 @@ export default function LookSection() {
   }, []);
 
   return (
-    <section id="look" className="parallax-wrap h-[85vh] flex items-center justify-center">
+    // メニューから外した装飾セクションなので id（アンカー）は持たない
+    <section className="parallax-wrap h-[85vh] flex items-center justify-center">
       {/* パラックス画像 */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
@@ -30,12 +31,8 @@ export default function LookSection() {
 
       {/* テキスト — Artizanの look-txt.svg 相当 */}
       <div className="relative z-10 text-center px-6">
-        {/* 金の小ラベル＝セクション名（ハンバーガーメニューの語と一致させる）。
-              着地した位置がどこか分かるようにするための目印なので、
-              気の利いた別の言葉に置き換えないこと。銀の大見出しがコピー担当 */}
-        <p className="type-label text-gold mb-6">
-          Look
-        </p>
+        {/* 金の小ラベル（セクション名）は置かない。このセクションはメニューに無い装飾で、
+            銀の大見出し LOOK と重なって見えるだけだった（2026-09-13 レビュー指摘） */}
         <h2 className="font-heading italic leading-none tracking-[0.06em] mb-8 silver-grad"
             style={{ fontSize: "clamp(4.5rem, 13vw, 10rem)" }}>
           LOOK

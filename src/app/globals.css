@@ -24,14 +24,6 @@ html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
    scroll-margin-top は上の scroll-padding-top に加算される（負値で打ち消せる）。
    最終的なスクロール位置 = 要素の上端 - scroll-padding-top - scroll-margin-top */
 
-/* 全画面パララックスは画面いっぱいに収めたいので、ヘッダー分のオフセットを打ち消す。
-   80pxずらすとセクション下端が画面外にはみ出して1画面に収まらなくなる。
-   ヘッダーは半透明なので上端に重なっても絵として成立する */
-#order,
-#look {
-  scroll-margin-top: -5rem;
-}
-
 /* py-24（96px）を持つセクションは、ヘッダー分の80pxと自前の余白が二重になり
    ヘッダー下端から見出しまで98px空いてしまう。スマホでは画面の1/4が空白になるため、
    空のパディング部分に食い込ませて詰める（96px > 64px なので中身は隠れない） */
