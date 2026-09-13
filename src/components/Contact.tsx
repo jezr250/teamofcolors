@@ -144,8 +144,11 @@ export default function Contact() {
           <p className="type-body text-white/60 mb-4">
             {SITE_BUSINESS_HOURS}／定休日 {SITE_CLOSED_DAYS}
           </p>
+          {/* スマホでは1行に収まらないので、文の切れ目で折り返す（途中で切れないように） */}
           <p className="type-body-sm text-white/40">
-            お電話でのお問い合わせは準備中です。上のフォームをご利用ください。
+            お電話でのお問い合わせは準備中です。
+            <br className="md:hidden" />
+            上のフォームをご利用ください。
           </p>
         </div>
       </div>

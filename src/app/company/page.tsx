@@ -10,7 +10,8 @@ import {
   COMPANY_LICENSES,
   COMPANY_TAGLINE,
   COMPANY_MAJOR_CLIENTS,
-  SITE_ADDRESS_FULL,
+  SITE_POSTAL_CODE,
+  SITE_ADDRESS,
   SITE_BUSINESS_HOURS,
   SITE_CLOSED_DAYS,
 } from "@/lib/siteConfig";
@@ -26,18 +27,32 @@ export const metadata: Metadata = {
 const PROFILE_ROWS: { label: string; value: React.ReactNode }[] = [
   { label: "会社名", value: COMPANY_NAME },
   { label: "代表取締役", value: COMPANY_CEO },
-  { label: "所在地", value: SITE_ADDRESS_FULL },
+  {
+    // スマホでは1行に収まらないので、郵便番号と住所の間で折り返す
+    label: "所在地",
+    value: (
+      <>
+        〒{SITE_POSTAL_CODE}
+        <br className="md:hidden" />
+        <span className="md:ml-2">{SITE_ADDRESS}</span>
+      </>
+    ),
+  },
   { label: "営業時間", value: SITE_BUSINESS_HOURS },
   { label: "定休日", value: SITE_CLOSED_DAYS },
   {
-    // 11項目あるので1行に詰めず縦に並べる。補足のある項目はその場に添える。
+    // 11項目あるので1行に詰めず縦に並べる。補足は項目名の下の行に小さく添える。
+    // 同じ行に続けると、スマホで途中折り返しになるうえ、左の項目名（薄い文字）と
+    // 見分けが付きにくかった（2026-09-13 指摘）
     label: "事業内容",
     value: (
       <ul className="space-y-1.5">
         {COMPANY_SERVICES.map((s) => (
           <li key={s.name}>
             {s.name}
-            {s.note && <span className="text-white/45">（{s.note}）</span>}
+            {s.note && (
+              <span className="block type-body-sm text-white/45">（{s.note}）</span>
+            )}
           </li>
         ))}
       </ul>
@@ -128,19 +143,25 @@ export default function CompanyPage() {
             </dl>
           </section>
 
-          {/* 主要取引先 — 先方指定で Profile の後ろ。並び順（五十音順）は動かさない */}
+          {/* 主要取引先 — 先方指定で Profile の後ろ。見た目は Profile の表と同じ
+              1行の定義リストにして統一感を出す（2026-09-13 指摘）。並び順（五十音順）は動かさない */}
           <section>
             <h2 className="type-label text-gold mb-8">
               Major Clients
             </h2>
-            <ul className="space-y-3">
-              {COMPANY_MAJOR_CLIENTS.map((name) => (
-                <li key={name} className="type-body text-white/85">
-                  {name}
-                </li>
-              ))}
-            </ul>
-            <p className="type-meta text-white/45 mt-6">（五十音順）</p>
+            <dl className="border-t border-white/10">
+              <div className="flex flex-col md:flex-row gap-1 md:gap-8 py-5 border-b border-white/10">
+                <dt className="md:w-40 shrink-0 type-body text-white/50">主要取引先</dt>
+                <dd className="type-body text-white/85">
+                  <ul className="space-y-1.5">
+                    {COMPANY_MAJOR_CLIENTS.map((name) => (
+                      <li key={name}>{name}</li>
+                    ))}
+                    <li className="type-body-sm text-white/45 pt-1">（五十音順）</li>
+                  </ul>
+                </dd>
+              </div>
+            </dl>
           </section>
 
         </div>
