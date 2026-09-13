@@ -11,8 +11,6 @@ import {
   COMPANY_TAGLINE,
   COMPANY_MAJOR_CLIENTS,
   SITE_ADDRESS_FULL,
-  SITE_TEL,
-  SITE_TEL_HREF,
   SITE_BUSINESS_HOURS,
   SITE_CLOSED_DAYS,
 } from "@/lib/siteConfig";
@@ -23,20 +21,12 @@ export const metadata: Metadata = {
     `TEAM OF COLORS株式会社の会社概要・企業理念・事業内容・主要取引先。神奈川県横浜市港南区を拠点に、${COMPANY_TAGLINE}。`,
 };
 
-// 会社概要の表。値が確定していない項目（設立年月日・資本金・許可番号など）は
-// 憶測で埋めず、判明した時点で行を足す。
+// 会社概要の表。値が確定していない項目（設立年月日・資本金など）は
+// 憶測で埋めず、判明した時点で行を足す。電話番号は非公開中（siteConfig.ts のコメント参照）。
 const PROFILE_ROWS: { label: string; value: React.ReactNode }[] = [
   { label: "会社名", value: COMPANY_NAME },
   { label: "代表取締役", value: COMPANY_CEO },
   { label: "所在地", value: SITE_ADDRESS_FULL },
-  {
-    label: "電話番号",
-    value: (
-      <a href={SITE_TEL_HREF} className="hover:text-gold transition-colors">
-        {SITE_TEL}
-      </a>
-    ),
-  },
   { label: "営業時間", value: SITE_BUSINESS_HOURS },
   { label: "定休日", value: SITE_CLOSED_DAYS },
   {
@@ -84,7 +74,6 @@ export default function CompanyPage() {
       streetAddress: "芹が谷3-6-3",
       addressCountry: "JP",
     },
-    telephone: SITE_TEL,
     openingHours: "Mo-Sa 09:00-17:00",
   };
 

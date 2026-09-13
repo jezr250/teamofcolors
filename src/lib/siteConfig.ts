@@ -11,8 +11,11 @@ export const SITE_POSTAL_CODE = "233-0006";
 export const SITE_ADDRESS = "神奈川県横浜市港南区芹が谷3-6-3";
 export const SITE_ADDRESS_FULL = `〒${SITE_POSTAL_CODE} ${SITE_ADDRESS}`;
 
-export const SITE_TEL = "090-2234-1432";
-export const SITE_TEL_HREF = `tel:${SITE_TEL.replace(/-/g, "")}`;
+// 電話番号は 2026-09-13 のレビューで「公開時はいったん非表示（HTMLソースにも出さない）」
+// となったため定数ごと撤去した。定数を残すとクライアント側の JS に番号が残る恐れがあるため。
+// 復活させるときは git 履歴（commit 6bdcd2b の SITE_TEL / SITE_TEL_HREF）を参照し、
+// お問い合わせ（Contact.tsx の TEL ブロックの番号）・フッターの TEL 行・
+// 会社概要の電話番号行・JSON-LD の telephone を戻す。
 
 export const SITE_BUSINESS_HOURS = "9:00〜17:00";
 export const SITE_CLOSED_DAYS = "日曜・祝日";

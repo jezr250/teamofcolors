@@ -1,8 +1,6 @@
 import {
   COMPANY_NAME,
   SITE_ADDRESS_FULL,
-  SITE_TEL,
-  SITE_TEL_HREF,
   SITE_BUSINESS_HOURS,
   SITE_CLOSED_DAYS,
 } from "@/lib/siteConfig";
@@ -29,12 +27,6 @@ export default function Footer({ showCompany = false }: Props) {
             <address className="not-italic text-center space-y-1.5">
               <p className="type-body-sm text-white/70">{COMPANY_NAME}</p>
               <p className="type-body-sm text-white/50">{SITE_ADDRESS_FULL}</p>
-              <p className="type-body-sm text-white/50">
-                TEL{" "}
-                <a href={SITE_TEL_HREF} className="hover:text-gold transition-colors">
-                  {SITE_TEL}
-                </a>
-              </p>
               <p className="type-body-sm text-white/40">
                 営業時間 {SITE_BUSINESS_HOURS}／定休日 {SITE_CLOSED_DAYS}
               </p>
