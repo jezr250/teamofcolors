@@ -1,8 +1,6 @@
 import {
   COMPANY_NAME,
   SITE_ADDRESS_FULL,
-  SITE_TEL,
-  SITE_TEL_HREF,
   SITE_BUSINESS_HOURS,
   SITE_CLOSED_DAYS,
 } from "@/lib/siteConfig";
@@ -29,26 +27,17 @@ export default function Footer({ showCompany = false }: Props) {
             <address className="not-italic text-center space-y-1.5">
               <p className="type-body-sm text-white/70">{COMPANY_NAME}</p>
               <p className="type-body-sm text-white/50">{SITE_ADDRESS_FULL}</p>
-              <p className="type-body-sm text-white/50">
-                TEL{" "}
-                <a href={SITE_TEL_HREF} className="hover:text-gold transition-colors">
-                  {SITE_TEL}
-                </a>
-              </p>
               <p className="type-body-sm text-white/40">
                 営業時間 {SITE_BUSINESS_HOURS}／定休日 {SITE_CLOSED_DAYS}
               </p>
             </address>
 
             {/* 上の要約を読んだ流れで会社概要ページへ行けるようにする。
-                目立たせたいという指示があったので、枠と文字を金にしている */}
+                ORDER の CONTACT ボタンと同じ金ベタにして目立たせる（2026-09-13 レビュー指摘） */}
             <a
               href="/company"
-              className="inline-block border border-gold text-gold type-meta
-                         tracking-[0.3em] px-8 py-3
-                         hover:bg-gold hover:text-[#050505]
-                         active:bg-gold active:text-[#050505]
-                         transition-all duration-300"
+              className="inline-block bg-gold text-black type-meta tracking-[0.3em]
+                         px-8 py-3 hover:bg-gold-light transition-colors duration-300"
             >
               COMPANY →
             </a>
@@ -60,9 +49,9 @@ export default function Footer({ showCompany = false }: Props) {
             各ページへのリンクはハンバーガーメニューに集約しているのでここには置かない */}
         {showCompany && <div className="w-16 h-px bg-white/20" />}
 
-        {/* ロゴマーク（ヘッダーと共用のバッジ） */}
+        {/* ロゴマーク（ヘッダーと共用） */}
         <div>
-          <LogoMark id="toc-mark-footer" width={80} height={55} />
+          <LogoMark size={88} />
         </div>
 
         {/* ブランド名 */}

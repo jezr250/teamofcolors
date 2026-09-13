@@ -16,7 +16,8 @@ export default function OrderSection() {
   }, []);
 
   return (
-    <section id="order" className="parallax-wrap h-screen flex items-center justify-center">
+    // メニューから外した装飾セクションなので id（アンカー）は持たない
+    <section className="parallax-wrap h-screen flex items-center justify-center">
       {/* パラックス背景 */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
@@ -36,12 +37,8 @@ export default function OrderSection() {
         </p>
 
         <div className="-mt-8 md:-mt-16">
-          {/* 金の小ラベル＝セクション名（ハンバーガーメニューの語と一致させる）。
-              着地した位置がどこか分かるようにするための目印なので、
-              気の利いた別の言葉に置き換えないこと。銀の大見出しがコピー担当 */}
-          <p className="type-label text-gold mb-6">
-            Order
-          </p>
+          {/* 金の小ラベル（セクション名）は置かない。このセクションはメニューに無い装飾で、
+              背後の白い ORDER の大文字と重なって見えるだけだった（2026-09-13 レビュー指摘） */}
           <h2 className="font-heading italic tracking-[0.05em] leading-tight mb-10 silver-grad"
               style={{ fontSize: "clamp(1.75rem, 5vw, 3.2rem)" }}>
             THERE IS NO USE KNOCKOFF.<br />
@@ -54,7 +51,7 @@ export default function OrderSection() {
           <a href="#contact"
             className="inline-block bg-gold text-black type-meta tracking-[0.3em]
                        px-12 py-4 hover:bg-gold-light transition-colors duration-300">
-            ORDER →
+            CONTACT →
           </a>
         </div>
       </div>

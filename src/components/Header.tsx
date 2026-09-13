@@ -22,7 +22,7 @@ export default function Header() {
         <div className="flex items-center justify-between px-8 md:px-12 py-6">
           {/* ロゴ */}
           <a href="/" className="z-10 flex items-center gap-3">
-            <LogoMark id="toc-mark-header" width={44} height={30} />
+            <LogoMark size={40} />
             <span
               className={`font-heading tracking-[0.18em] text-sm transition-colors duration-300
                           ${open ? "text-white/30" : "text-white"}`}

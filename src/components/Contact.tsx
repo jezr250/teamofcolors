@@ -1,8 +1,6 @@
 "use client";
 import { useState } from "react";
 import {
-  SITE_TEL,
-  SITE_TEL_HREF,
   SITE_BUSINESS_HOURS,
   SITE_CLOSED_DAYS,
 } from "@/lib/siteConfig";
@@ -64,7 +62,7 @@ export default function Contact() {
           </h2>
           <p className="type-body text-white/60">
             お問い合わせ・ご相談はお気軽に。<br />
-            2営業日以内にご連絡いたします。
+            担当者より折り返しご連絡いたします。
           </p>
         </div>
 
@@ -138,19 +136,17 @@ export default function Contact() {
         {/* TEL */}
         <div id="contact-tel" className="mt-12 pt-10 border-t border-white/8 text-center">
           {/* 金の小ラベル＝セクション名（ハンバーガーメニューの「TEL」と一致させる）。
-              以前は「TEL（営業時間／定休日）」と1行に詰め込んでいたが、
-              ラベル・条件・番号の3段に分けて役割をはっきりさせている */}
+              ラベル・受付条件・番号の3段構成だが、番号は非公開中なので
+              代わりに一言だけ添えている（siteConfig.ts のコメント参照） */}
           <p className="type-label text-gold mb-3">
             TEL
           </p>
           <p className="type-body text-white/60 mb-4">
             {SITE_BUSINESS_HOURS}／定休日 {SITE_CLOSED_DAYS}
           </p>
-          <a href={SITE_TEL_HREF}
-            className="font-label type-heading text-white/55 tracking-[0.2em]
-                       hover:text-gold active:text-gold transition-colors">
-            {SITE_TEL}
-          </a>
+          <p className="type-body-sm text-white/40">
+            お電話でのお問い合わせは準備中です。上のフォームをご利用ください。
+          </p>
         </div>
       </div>
     </section>

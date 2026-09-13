@@ -19,44 +19,6 @@
     "photoOnly": true
   },
   {
-    "id": "static-mortar-05",
-    "title": "モルタル造形制作",
-    "category": {
-      "id": "mortar",
-      "name": "モルタル造形制作"
-    },
-    "eyecatch": {
-      "url": "/works/mortar-05.webp",
-      "width": 1108,
-      "height": 1477
-    },
-    "thumb": {
-      "url": "/works/mortar-05-thumb.webp",
-      "width": 600,
-      "height": 800
-    },
-    "photoOnly": true
-  },
-  {
-    "id": "static-mortar-06",
-    "title": "モルタル造形制作",
-    "category": {
-      "id": "mortar",
-      "name": "モルタル造形制作"
-    },
-    "eyecatch": {
-      "url": "/works/mortar-06.webp",
-      "width": 1108,
-      "height": 1477
-    },
-    "thumb": {
-      "url": "/works/mortar-06-thumb.webp",
-      "width": 600,
-      "height": 800
-    },
-    "photoOnly": true
-  },
-  {
     "id": "static-mortar-07",
     "title": "モルタル造形制作",
     "category": {
@@ -494,6 +456,25 @@
     "photoOnly": true
   },
   {
+    "id": "static-interior-15",
+    "title": "内装・インテリア塗装",
+    "category": {
+      "id": "interior",
+      "name": "内装・インテリア塗装"
+    },
+    "eyecatch": {
+      "url": "/works/interior-15.webp",
+      "width": 1477,
+      "height": 1108
+    },
+    "thumb": {
+      "url": "/works/interior-15-thumb.webp",
+      "width": 800,
+      "height": 600
+    },
+    "photoOnly": true
+  },
+  {
     "id": "static-aging-02",
     "title": "エイジング塗装",
     "category": {
@@ -570,57 +551,76 @@
     "photoOnly": true
   },
   {
-    "id": "static-aging-18",
+    "id": "static-aging-16",
     "title": "エイジング塗装",
     "category": {
       "id": "aging",
       "name": "エイジング塗装"
     },
     "eyecatch": {
-      "url": "/works/aging-18.webp",
+      "url": "/works/aging-16-thumb.webp",
+      "width": 732,
+      "height": 800
+    },
+    "thumb": {
+      "url": "/works/aging-16-thumb.webp",
+      "width": 732,
+      "height": 800
+    },
+    "photoOnly": true
+  },
+  {
+    "id": "static-aging-19",
+    "title": "エイジング塗装",
+    "category": {
+      "id": "aging",
+      "name": "エイジング塗装"
+    },
+    "eyecatch": {
+      "url": "/works/aging-19.webp",
       "width": 1108,
       "height": 1477
     },
     "thumb": {
-      "url": "/works/aging-18-thumb.webp",
+      "url": "/works/aging-19-thumb.webp",
       "width": 600,
       "height": 800
     },
     "photoOnly": true
   },
   {
-    "id": "static-aging-20",
+    "id": "static-aging-21",
     "title": "エイジング塗装",
     "category": {
       "id": "aging",
       "name": "エイジング塗装"
     },
     "eyecatch": {
-      "url": "/works/aging-20.webp",
+      "url": "/works/aging-21.webp",
       "width": 1108,
       "height": 1477
     },
     "thumb": {
-      "url": "/works/aging-20-thumb.webp",
+      "url": "/works/aging-21-thumb.webp",
       "width": 600,
       "height": 800
     },
     "photoOnly": true
   },
   {
-    "id": "static-aging-25",
+    "id": "static-aging-26",
     "title": "エイジング塗装",
     "category": {
       "id": "aging",
       "name": "エイジング塗装"
     },
     "eyecatch": {
-      "url": "/works/aging-25.webp",
+      "url": "/works/aging-26.webp",
       "width": 1004,
       "height": 1600
     },
     "thumb": {
-      "url": "/works/aging-25-thumb.webp",
+      "url": "/works/aging-26-thumb.webp",
       "width": 502,
       "height": 800
     },
@@ -760,6 +760,25 @@
     "photoOnly": true
   },
   {
+    "id": "static-special-15",
+    "title": "特殊塗装",
+    "category": {
+      "id": "special",
+      "name": "特殊塗装"
+    },
+    "eyecatch": {
+      "url": "/works/special-15.webp",
+      "width": 1108,
+      "height": 1477
+    },
+    "thumb": {
+      "url": "/works/special-15-thumb.webp",
+      "width": 600,
+      "height": 800
+    },
+    "photoOnly": true
+  },
+  {
     "id": "static-special-17",
     "title": "特殊塗装",
     "category": {
@@ -775,6 +794,63 @@
       "url": "/works/special-17-thumb.webp",
       "width": 600,
       "height": 800
+    },
+    "photoOnly": true
+  },
+  {
+    "id": "static-special-19",
+    "title": "特殊塗装",
+    "category": {
+      "id": "special",
+      "name": "特殊塗装"
+    },
+    "eyecatch": {
+      "url": "/works/special-19.webp",
+      "width": 1477,
+      "height": 1108
+    },
+    "thumb": {
+      "url": "/works/special-19-thumb.webp",
+      "width": 800,
+      "height": 600
+    },
+    "photoOnly": true
+  },
+  {
+    "id": "static-special-22",
+    "title": "特殊塗装",
+    "category": {
+      "id": "special",
+      "name": "特殊塗装"
+    },
+    "eyecatch": {
+      "url": "/works/special-22.webp",
+      "width": 1477,
+      "height": 1108
+    },
+    "thumb": {
+      "url": "/works/special-22-thumb.webp",
+      "width": 800,
+      "height": 600
+    },
+    "photoOnly": true
+  },
+  {
+    "id": "static-special-23",
+    "title": "特殊塗装",
+    "category": {
+      "id": "special",
+      "name": "特殊塗装"
+    },
+    "eyecatch": {
+      "url": "/works/special-23.webp",
+      "width": 1477,
+      "height": 1108
+    },
+    "thumb": {
+      "url": "/works/special-23-thumb.webp",
+      "width": 800,
+      "height": 600
     },
     "photoOnly": true
   },
