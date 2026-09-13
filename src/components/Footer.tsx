@@ -41,14 +41,11 @@ export default function Footer({ showCompany = false }: Props) {
             </address>
 
             {/* 上の要約を読んだ流れで会社概要ページへ行けるようにする。
-                目立たせたいという指示があったので、枠と文字を金にしている */}
+                ORDER の CONTACT ボタンと同じ金ベタにして目立たせる（2026-09-13 レビュー指摘） */}
             <a
               href="/company"
-              className="inline-block border border-gold text-gold type-meta
-                         tracking-[0.3em] px-8 py-3
-                         hover:bg-gold hover:text-[#050505]
-                         active:bg-gold active:text-[#050505]
-                         transition-all duration-300"
+              className="inline-block bg-gold text-black type-meta tracking-[0.3em]
+                         px-8 py-3 hover:bg-gold-light transition-colors duration-300"
             >
               COMPANY →
             </a>

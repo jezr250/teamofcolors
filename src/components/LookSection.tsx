@@ -40,10 +40,10 @@ export default function LookSection() {
         <p className="type-body text-white/70 mb-10">
           施工実績の一部をご紹介します
         </p>
+        {/* ORDER の CONTACT ボタンと同じ金ベタ（2026-09-13 レビュー指摘で目立たせる） */}
         <a href="#works"
-          className="inline-block border border-white/35 text-white/75 type-meta
-                     tracking-[0.3em] px-8 py-3
-                     hover:border-gold hover:text-gold transition-all duration-300">
+          className="inline-block bg-gold text-black type-meta tracking-[0.3em]
+                     px-8 py-3 hover:bg-gold-light transition-colors duration-300">
           VIEW WORKS →
         </a>
       </div>
