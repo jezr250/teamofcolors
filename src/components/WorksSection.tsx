@@ -110,7 +110,7 @@ export default function WorksSection() {
                 </div>
 
                 {/* md 以上は .works-card-title（globals.css）で列幅に応じて縮め、常に1行 */}
-                <h3 className="works-card-title text-[15px] font-bold text-white/90 mb-3 leading-relaxed">
+                <h3 className="works-card-title font-bold text-white/90 mb-3 leading-relaxed">
                   {project.title}
                 </h3>
                 <p className="text-[12px] lg:text-[13px] text-white/60 leading-[1.9] flex-1">

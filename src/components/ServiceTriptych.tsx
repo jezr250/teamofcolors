@@ -22,9 +22,11 @@ const TILE_IMAGES: Record<string, { img: string; alt: string; position?: string 
 
 // HYOHEKI 説明パネルの文言。先方が構成例（64967.jpg）の文言を微修正したもの
 // （「特殊意匠仕上げ（商標登録出願中・特許申請中）」→「特殊仕上げ（商標登録出願中）」）。
-// 1文目は「（商標登録出願中）。」の前でだけ改行を固定し、前半は幅なりに折り返す。
-// 「特殊仕上げ」が「特殊仕上／げ」と途中で切れないよう、「唯一無二の特殊仕上げ」を
-// ひとかたまり（nowrap）にしている。幅が足りなければこの塊ごと次の行に落ちる
+// 1文目は「TEAM OF COLORSが独自開発した唯一無二の特殊仕上げ」を1行、
+// 「（商標登録出願中）。」を2行目に固定する（2026-09-20 ユーザー指示）。
+// 1行目は25文字あるので、1024px 以上は文字サイズをパネル幅に連動させて（globals.css の
+// .hyoheki-text）必ず1行に収める。768〜1023px は幅が足りないため幅なりに折り返すが、
+// 「唯一無二の特殊仕上げ」はひとかたまりにして語の途中では切れないようにしている
 const HYOHEKI_LEAD_MAIN = "TEAM OF COLORSが独自開発した";
 const HYOHEKI_LEAD_WORD = "唯一無二の特殊仕上げ";
 const HYOHEKI_LEAD_NOTE = "（商標登録出願中）。";
@@ -149,7 +151,8 @@ export default function ServiceTriptych() {
               {/* 右: 写真を透かして文言。左端をわずかに明るく残して1枚の写真が続いて見えるようにする */}
               <div className="relative bg-gradient-to-r from-black/70 via-black/80 to-black/85">
                 {/* 文字の大きさは先方の構成例に合わせて控えめ（見出し 28〜36px、本文 12〜13px） */}
-                <div className="h-full flex flex-col justify-center p-6 md:p-6 lg:p-8">
+                {/* 余白は md 以上 24px で固定（.hyoheki-text の文字サイズ計算がこの余白を前提にしている） */}
+                <div className="h-full flex flex-col justify-center p-6">
                   <p className="text-[10px] uppercase tracking-[0.35em] text-gold mb-3">
                     Signature Finish
                   </p>
@@ -159,13 +162,14 @@ export default function ServiceTriptych() {
                   </p>
                   <p className="type-body-sm text-white/70 tracking-[0.3em] mt-2">- 氷壁 -</p>
                   <div className="w-8 h-px bg-gold my-4" />
-                  {/* 文字は 768〜1279px では 11px（パネル幅が狭く1行目が折れるため）、1280px 以上で 13px */}
-                  <p className="text-[12px] md:text-[11px] xl:text-[13px] text-white/85 leading-[1.8] mb-3">
-                    {HYOHEKI_LEAD_MAIN}
-                    <span className="whitespace-nowrap">{HYOHEKI_LEAD_WORD}</span>
+                  <p className="hyoheki-text text-white/85 leading-[1.8] mb-3">
+                    <span className="lg:whitespace-nowrap">
+                      {HYOHEKI_LEAD_MAIN}
+                      <span className="whitespace-nowrap">{HYOHEKI_LEAD_WORD}</span>
+                    </span>
                     <span className="block">{HYOHEKI_LEAD_NOTE}</span>
                   </p>
-                  <p className="text-[12px] md:text-[11px] xl:text-[13px] text-white/60 leading-[1.8]">{HYOHEKI_BODY}</p>
+                  <p className="hyoheki-text text-white/60 leading-[1.8]">{HYOHEKI_BODY}</p>
                 </div>
               </div>
             </div>
