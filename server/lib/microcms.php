@@ -59,7 +59,7 @@ const SERVICE_CATEGORY_NAMES = [
     'mortar'   => 'モルタル造形制作',
     'interior' => '内装・インテリア塗装',
     'aging'    => 'エイジング塗装',
-    'special'  => '特殊塗装',
+    'special'  => '特殊塗装・特殊左官',
     'hyoheki'  => '氷壁',
 ];
 
