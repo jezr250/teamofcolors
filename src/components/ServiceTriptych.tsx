@@ -7,8 +7,10 @@ import { SERVICE_CATEGORY_LIST } from "@/lib/serviceCategories";
 // 表示名・英語ラベル・商標フラグは src/lib/serviceCategories.ts で一元管理しているので、
 // ここが持つのは「どの写真を使うか」だけにしている。
 //
-// 並びは先方指定（2026-09-03 の追加依頼）で、上段3枚＋下段2枚。
-// 下段は幅が広くなるぶん高さを抑えて、上下の面積が釣り合うようにしてある。
+// 構成は 2026-09-17 の修正依頼 13・14 で先方が示した構成例どおり 3列×2段の6マス。
+// 上段: モルタル／内装／エイジング、下段: 特殊塗装／氷壁／HYOHEKI の説明パネル。
+// 氷壁だけ「写真タイル＋説明パネル」で2マス使い、看板商品として他より目立たせている。
+// （それ以前は上段3枚＋下段2枚の幅いっぱいのタイルだった）
 const TILE_IMAGES: Record<string, { img: string; alt: string }> = {
   mortar: { img: "/service-mortar.jpg", alt: "モルタル造形で仕上げた岩肌の壁" },
   interior: { img: "/service-interior.webp", alt: "曲面の什器で構成した店舗内装" },
@@ -17,8 +19,17 @@ const TILE_IMAGES: Record<string, { img: string; alt: string }> = {
   hyoheki: { img: "/service-hyoheki.webp", alt: "氷壁で仕上げた通路" },
 };
 
-const TOP_ROW = SERVICE_CATEGORY_LIST.slice(0, 3);
-const BOTTOM_ROW = SERVICE_CATEGORY_LIST.slice(3);
+// HYOHEKI 説明パネルの文言。先方が構成例（64967.jpg）の文言を微修正したもの
+// （「特殊意匠仕上げ（商標登録出願中・特許申請中）」→「特殊仕上げ（商標登録出願中）」）。
+const HYOHEKI_LEAD =
+  "TEAM OF COLORSが独自開発した唯一無二の特殊仕上げ（商標登録出願中）。";
+const HYOHEKI_BODY =
+  "本物の氷塊を思わせる透明感、ひんやりとした質感表現、そして透過光によるライティング効果。空間に他にはない圧倒的なインパクトを発揮します。";
+
+// タイルの高さ。スマホ（1列）は 16:9 で6マス積んでも間延びしないように固定比率。
+// タブレット以上は grid の auto-rows-fr で全マスを同じ高さにし、その高さは文章量で決まる
+// HYOHEKI パネル（6マス目）に従う。写真タイルは中身が無いので min-h で下限だけ持たせる
+const TILE_ASPECT = "aspect-[16/9] md:aspect-auto md:min-h-[280px]";
 
 export default function ServiceTriptych() {
   const ref = useRef<HTMLElement>(null);
@@ -39,30 +50,27 @@ export default function ServiceTriptych() {
     return () => observer.disconnect();
   }, []);
 
-  // 上下段で遅延を通し番号にしたいので、行をまたいで連番を振る
-  let order = 0;
-  const renderTile = (
-    cat: (typeof SERVICE_CATEGORY_LIST)[number],
-    sizes: string
-  ) => {
+  // 6マス目（説明パネル）まで通しでフェードインさせるため、順番を i で持つ
+  const tileStyle = (i: number) => ({
+    transition: `opacity 0.7s ease ${i * 0.12}s, transform 0.7s ease ${i * 0.12}s`,
+    transform: "translateY(20px)",
+  });
+
+  const renderTile = (cat: (typeof SERVICE_CATEGORY_LIST)[number], i: number) => {
     const image = TILE_IMAGES[cat.id];
-    const i = order++;
     return (
       <a
         key={cat.id}
         href={`/works?category=${cat.id}`}
-        className="triptych-item tile-item opacity-0"
-        style={{
-          transition: `opacity 0.7s ease ${i * 0.12}s, transform 0.7s ease ${i * 0.12}s`,
-          transform: "translateY(20px)",
-        }}
+        className={`triptych-item tile-item opacity-0 ${TILE_ASPECT}`}
+        style={tileStyle(i)}
       >
         <Image
           src={image.img}
           alt={image.alt}
           fill
-          className="object-cover transition-transform duration-900 group-hover:scale-105"
-          sizes={sizes}
+          className="object-cover"
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
         />
         {/* 商標登録出願中のバッジ。氷壁だけを他より目立たせる狙いなので、
             オーバーレイの外（画像の左上）に金枠で常時出している */}
@@ -83,25 +91,52 @@ export default function ServiceTriptych() {
 
   return (
     <section id="service" ref={ref} className="pt-16 md:pt-20">
-      {/* 金の小ラベル＝セクション名（ハンバーガーメニューの語と一致させる）。
-          着地した位置がどこか分かるようにするための目印なので、
-          気の利いた別の言葉に置き換えないこと。
-          このセクションだけは銀の大見出しを置かない（主役はタイルなので、
-          見出しを足すとタイルが画面外に押し出される） */}
-      <p className="type-label text-gold text-center mb-8">Service</p>
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
+        {/* 金の小ラベル＝セクション名（ハンバーガーメニューの語と一致させる）。
+            着地した位置がどこか分かるようにするための目印なので、
+            気の利いた別の言葉に置き換えないこと。
+            見出し「事業内容・仕上げ技法」は 2026-09-17 の構成例に合わせて追加した */}
+        <div className="text-center mb-10 md:mb-14">
+          <p className="type-label text-gold mb-4">Service</p>
+          <h2 className="type-display-ja silver-grad">事業内容・仕上げ技法</h2>
+        </div>
 
-      <div
-        className="flex flex-col md:flex-row"
-        style={{ height: "clamp(300px, 70vh, 700px)" }}
-      >
-        {TOP_ROW.map((cat) => renderTile(cat, "(max-width: 768px) 100vw, 33vw"))}
-      </div>
+        {/* 列数: スマホ1列 → タブレット2列 → PC3列。2列でも「氷壁」と説明パネルは
+            3段目で隣り合う（5番目と6番目）ので、どの幅でも氷壁は2マス続きで見える */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:auto-rows-fr gap-px bg-white/5">
+          {SERVICE_CATEGORY_LIST.map((cat, i) => renderTile(cat, i))}
 
-      <div
-        className="flex flex-col md:flex-row"
-        style={{ height: "clamp(240px, 50vh, 500px)" }}
-      >
-        {BOTTOM_ROW.map((cat) => renderTile(cat, "(max-width: 768px) 100vw, 50vw"))}
+          {/* 6マス目: HYOHEKI の説明パネル。氷壁の写真を薄く敷き、その上に文字を載せる
+              （先方指示「文字は透過させる」）。写真タイルと違いリンクは持たない */}
+          <div
+            // 高さは PC ではグリッドの行（隣の 4:3 タイル）に揃い、スマホでは文章量で決まる
+            className="tile-item opacity-0 relative overflow-hidden bg-[#0a0a0a]"
+            style={tileStyle(SERVICE_CATEGORY_LIST.length)}
+          >
+            <Image
+              src={TILE_IMAGES.hyoheki.img}
+              alt=""
+              aria-hidden="true"
+              fill
+              className="object-cover opacity-25"
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/55 to-black/75" />
+            <div className="relative h-full flex flex-col justify-center p-7 md:p-8 lg:p-10">
+              <p className="type-meta uppercase tracking-[0.4em] text-gold mb-3">
+                Signature Finish
+              </p>
+              <p className="font-heading text-white leading-none tracking-[0.04em]"
+                 style={{ fontSize: "clamp(2rem, 3.4vw, 2.75rem)" }}>
+                HYOHEKI
+              </p>
+              <p className="type-body text-white/70 tracking-[0.3em] mt-2">- 氷壁 -</p>
+              <div className="w-8 h-px bg-gold my-5" />
+              <p className="type-body-sm text-white/85 leading-[1.9] mb-3">{HYOHEKI_LEAD}</p>
+              <p className="type-body-sm text-white/60 leading-[1.9]">{HYOHEKI_BODY}</p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
