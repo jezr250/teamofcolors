@@ -95,7 +95,6 @@ body {
      段階（スマホ → PC）:
        .type-display     48 → 72px   銀の大見出し・欧文
        .type-display-ja  28 → 44px   銀の大見出し・和文
-       .type-section-ja  24 → 32px   和文のセクション見出し（Service/Works/発注フロー。先方の構成例に合わせ小さめ）
        .type-heading     20 → 28px   中見出し（理念の一文、サービス名）
        .type-card-title  16px        カードの見出し
        .type-label       14 → 15px   金の小ラベル＝セクション名
@@ -136,16 +135,6 @@ body {
     font-size: clamp(1.75rem, 6vw, 2.75rem); /* 28 → 44px */
     letter-spacing: 0.06em;
     line-height: 1.35;
-  }
-
-  /* 和文のセクション見出し（小）。2026-09-17 の先方構成例では「事業内容・仕上げ技法」
-     「施工実績」「発注フロー」が 28px 程度の控えめな見出しだったので、それに合わせた段階。
-     書体は他の銀の見出しと同じ Cormorant（和文は明朝にフォールバック） */
-  .type-section-ja {
-    font-family: var(--font-cormorant), Georgia, serif;
-    font-size: clamp(1.5rem, 3vw, 2rem); /* 24 → 32px */
-    letter-spacing: 0.08em;
-    line-height: 1.4;
   }
 
   /* 中見出し。折り返すときに1行目だけ長くならないよう text-wrap: balance を効かせる
@@ -404,7 +393,10 @@ body {
 .parallax-img {
   position: absolute;
   inset: -15%;
-  width: 100%;
+  /* inset で左右 15% ずつはみ出させているので幅も 130%。100% だと右端 15% が
+     埋まらず黒い帯になっていた（本番でも出ていた。2026-09-20 修正） */
+  width: 130%;
+  max-width: none; /* Tailwind の preflight（img { max-width: 100% }）で 130% が潰されるのを防ぐ */
   height: 130%;
   object-fit: cover;
   will-change: transform;

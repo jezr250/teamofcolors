@@ -88,7 +88,7 @@ export default function ServiceTriptych() {
         )}
         <div className="triptych-overlay">
           <div>
-            <p className="text-[10px] uppercase tracking-[0.35em] text-gold mb-2">
+            <p className="type-meta uppercase tracking-[0.35em] text-gold mb-2">
               {cat.en}
             </p>
             <p className="type-heading triptych-name italic silver-grad">{cat.name}</p>
@@ -107,7 +107,7 @@ export default function ServiceTriptych() {
             見出し「事業内容・仕上げ技法」は 2026-09-17 の構成例に合わせて追加した */}
         <div className="text-center mb-10 md:mb-14">
           <p className="type-label text-gold mb-4">Service</p>
-          <h2 className="type-section-ja silver-grad">事業内容・仕上げ技法</h2>
+          <h2 className="type-display-ja silver-grad">事業内容・仕上げ技法</h2>
         </div>
 
         {/* 列数: スマホ1列 → md 以上は先方の構成例どおり3列×2段 */}
@@ -139,7 +139,7 @@ export default function ServiceTriptych() {
                 )}
                 <div className="triptych-overlay">
                   <div>
-                    <p className="text-[10px] uppercase tracking-[0.35em] text-gold mb-2">
+                    <p className="type-meta uppercase tracking-[0.35em] text-gold mb-2">
                       {HYOHEKI.en}
                     </p>
                     {/* タイルだけ読みを添える（先方の構成例どおり）。一覧のタブや見出しは「氷壁」のまま */}
@@ -153,10 +153,11 @@ export default function ServiceTriptych() {
                 {/* 文字の大きさは先方の構成例に合わせて控えめ（見出し 28〜36px、本文 12〜13px） */}
                 {/* 余白は md 以上 24px で固定（.hyoheki-text の文字サイズ計算がこの余白を前提にしている） */}
                 <div className="h-full flex flex-col justify-center p-6">
-                  <p className="text-[10px] uppercase tracking-[0.35em] text-gold mb-3">
+                  <p className="type-meta uppercase tracking-[0.35em] text-gold mb-3">
                     Signature Finish
                   </p>
-                  <p className="font-heading text-white leading-none tracking-[0.04em]"
+                  {/* 他の欧文大見出し（WORK & BELIEF など）と同じイタリックの銀。大きさだけパネルに合わせて控えめ */}
+                  <p className="font-heading italic silver-grad leading-none tracking-[0.04em]"
                      style={{ fontSize: "clamp(1.75rem, 2.6vw, 2.25rem)" }}>
                     HYOHEKI
                   </p>

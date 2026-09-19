@@ -75,7 +75,7 @@ export default function WorksSection() {
             気の利いた別の言葉に置き換えないこと */}
         <div className="reveal text-center mb-14">
           <p className="type-label text-gold mb-4">Works</p>
-          <h2 className="type-section-ja silver-grad">施工実績</h2>
+          <h2 className="type-display-ja silver-grad">施工実績</h2>
         </div>
 
         {/* 3枚のカード。md 以上は先方の構成例どおり3列、それ未満は1列 */}
@@ -103,7 +103,7 @@ export default function WorksSection() {
               <div className="p-6 md:p-5 lg:p-8 flex flex-col flex-1">
                 {/* 分類タグ（金の細枠）と場所 */}
                 <div className="flex flex-wrap items-center justify-between gap-2 mb-6">
-                  <span className="text-[10px] lg:text-[12px] uppercase tracking-[0.12em] lg:tracking-[0.2em] text-gold whitespace-nowrap
+                  <span className="type-meta uppercase text-gold whitespace-nowrap
                                    border border-gold/50 px-2 lg:px-3 py-1">
                     {project.tag}
                   </span>
