@@ -34,7 +34,7 @@ export default function OrderFlow() {
       <div className="text-center mb-12">
         {/* 金の小ラベル＝セクション名（ハンバーガーメニューの FLOW と一致させる） */}
         <p className="type-label text-gold mb-4">Order Process</p>
-        <h2 className="type-display-ja silver-grad">発注フロー</h2>
+        <h2 className="type-section-ja silver-grad">発注フロー</h2>
       </div>
 
       <ol>

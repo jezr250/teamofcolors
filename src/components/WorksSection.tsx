@@ -74,11 +74,11 @@ export default function WorksSection() {
             気の利いた別の言葉に置き換えないこと */}
         <div className="reveal text-center mb-14">
           <p className="type-label text-gold mb-4">Works</p>
-          <h2 className="type-display-ja silver-grad">施工実績</h2>
+          <h2 className="type-section-ja silver-grad">施工実績</h2>
         </div>
 
-        {/* 3枚のカード。lg 以上で3列、md で2列（3枚目は左寄せ）、それ未満は1列 */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/5">
+        {/* 3枚のカード。md 以上は先方の構成例どおり3列、それ未満は1列 */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/5">
           {projects.map((project, i) => (
             <article
               key={project.title}
@@ -92,15 +92,15 @@ export default function WorksSection() {
                   alt={project.alt}
                   fill
                   className="object-cover"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  sizes="(max-width: 768px) 100vw, 33vw"
                 />
                 <div className="absolute inset-0 bg-black/15" />
               </div>
 
-              <div className="p-6 md:p-8">
+              <div className="p-6 md:p-5 lg:p-8">
                 {/* 分類タグ（金の細枠）と場所 */}
-                <div className="flex items-center justify-between mb-6">
-                  <span className="type-meta uppercase tracking-[0.25em] text-gold
+                <div className="flex flex-wrap items-center justify-between gap-2 mb-6">
+                  <span className="type-meta uppercase tracking-[0.25em] text-gold whitespace-nowrap
                                    border border-gold/50 px-3 py-1">
                     {project.tag}
                   </span>
@@ -116,9 +116,10 @@ export default function WorksSection() {
 
                 {/* 工期と技法。値だけ白にして読み取りやすくする */}
                 <div className="mt-6 pt-4 border-t border-white/10
-                                flex items-center justify-between type-meta uppercase tracking-[0.15em] text-white/45">
-                  <span>Duration: <span className="text-white/75">{project.duration}</span></span>
-                  <span>Tech: <span className="text-white/75">{project.tech}</span></span>
+                                flex flex-wrap items-center justify-between gap-x-4 gap-y-1
+                                type-meta uppercase tracking-[0.15em] text-white/45">
+                  <span className="whitespace-nowrap">Duration: <span className="text-white/75">{project.duration}</span></span>
+                  <span className="whitespace-nowrap">Tech: <span className="text-white/75">{project.tech}</span></span>
                 </div>
               </div>
             </article>

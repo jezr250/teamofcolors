@@ -11,10 +11,11 @@ import { SERVICE_CATEGORY_LIST } from "@/lib/serviceCategories";
 // 上段: モルタル／内装／エイジング、下段: 特殊塗装／氷壁（2マス分）。
 // 氷壁だけ写真を2マス分に敷き、右半分を透かして説明文を載せ、看板商品として目立たせている。
 // （それ以前は上段3枚＋下段2枚の幅いっぱいのタイルだった）
-const TILE_IMAGES: Record<string, { img: string; alt: string }> = {
+const TILE_IMAGES: Record<string, { img: string; alt: string; position?: string }> = {
   mortar: { img: "/service-mortar.jpg", alt: "モルタル造形で仕上げた岩肌の壁" },
   interior: { img: "/service-interior.webp", alt: "曲面の什器で構成した店舗内装" },
-  aging: { img: "/service-aging.webp", alt: "木目を再現したエイジング塗装の壁" },
+  // 左端に壁の角を残した切り抜きなので、縦長に切られる PC でも角が消えないよう左寄せ
+  aging: { img: "/service-aging.webp", alt: "木目を再現したエイジング塗装の壁", position: "object-left" },
   special: { img: "/service-special.webp", alt: "特殊塗装による凹凸のある壁面" },
   hyoheki: { img: "/service-hyoheki.webp", alt: "氷壁で仕上げた通路" },
 };
@@ -71,8 +72,8 @@ export default function ServiceTriptych() {
           src={image.img}
           alt={image.alt}
           fill
-          className="object-cover"
-          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          className={`object-cover ${image.position ?? ""}`}
+          sizes="(max-width: 768px) 100vw, 33vw"
         />
         {/* 商標登録出願中のバッジ。氷壁だけを他より目立たせる狙いなので、
             オーバーレイの外（画像の左上）に金枠で常時出している */}
@@ -80,11 +81,11 @@ export default function ServiceTriptych() {
           <span className="trademark-badge">商標登録出願中</span>
         )}
         <div className="triptych-overlay">
-          <div className="text-center">
-            <p className="type-meta uppercase tracking-[0.4em] text-gold mb-2">
+          <div>
+            <p className="text-[10px] uppercase tracking-[0.35em] text-gold mb-2">
               {cat.en}
             </p>
-            <p className="type-heading italic silver-grad">{cat.name}</p>
+            <p className="type-card-title font-bold text-white">{cat.name}</p>
           </div>
         </div>
       </a>
@@ -100,17 +101,16 @@ export default function ServiceTriptych() {
             見出し「事業内容・仕上げ技法」は 2026-09-17 の構成例に合わせて追加した */}
         <div className="text-center mb-10 md:mb-14">
           <p className="type-label text-gold mb-4">Service</p>
-          <h2 className="type-display-ja silver-grad">事業内容・仕上げ技法</h2>
+          <h2 className="type-section-ja silver-grad">事業内容・仕上げ技法</h2>
         </div>
 
-        {/* 列数: スマホ1列 → タブレット2列 → PC3列。2列でも「氷壁」と説明パネルは
-            3段目で隣り合う（5番目と6番目）ので、どの幅でも氷壁は2マス続きで見える */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:auto-rows-fr gap-px bg-white/5">
+        {/* 列数: スマホ1列 → md 以上は先方の構成例どおり3列×2段 */}
+        <div className="grid grid-cols-1 md:grid-cols-3 md:auto-rows-fr gap-px bg-white/5">
           {SERVICE_CATEGORY_LIST.filter((c) => c.id !== "hyoheki").map((cat, i) => renderTile(cat, i))}
 
           {/* 氷壁: 2マス分に写真を1枚敷き、左半分は他と同じタイル（一覧へのリンク）、
               右半分は写真を暗く透かした上に説明文（先方指示「文字は透過させる」）。
-              タブレット（2列）では3段目の全幅、スマホ（1列）では写真の下に説明文が続く */}
+              スマホ（1列）では写真の下に説明文が続く */}
           <div
             className="tile-item opacity-0 relative overflow-hidden bg-[#0a0a0a] md:col-span-2"
             style={tileStyle(SERVICE_CATEGORY_LIST.length - 1)}
@@ -132,29 +132,30 @@ export default function ServiceTriptych() {
                   <span className="trademark-badge">商標登録出願中</span>
                 )}
                 <div className="triptych-overlay">
-                  <div className="text-center">
-                    <p className="type-meta uppercase tracking-[0.4em] text-gold mb-2">
+                  <div>
+                    <p className="text-[10px] uppercase tracking-[0.35em] text-gold mb-2">
                       {HYOHEKI.en}
                     </p>
-                    <p className="type-heading italic silver-grad">{HYOHEKI.name}</p>
+                    <p className="type-card-title font-bold text-white">{HYOHEKI.name}</p>
                   </div>
                 </div>
               </a>
 
               {/* 右: 写真を透かして文言。左端をわずかに明るく残して1枚の写真が続いて見えるようにする */}
               <div className="relative bg-gradient-to-r from-black/70 via-black/80 to-black/85">
-                <div className="h-full flex flex-col justify-center p-7 md:p-8 lg:p-10">
-                  <p className="type-meta uppercase tracking-[0.4em] text-gold mb-3">
+                {/* 文字の大きさは先方の構成例に合わせて控えめ（見出し 28〜36px、本文 12〜13px） */}
+                <div className="h-full flex flex-col justify-center p-6 md:p-6 lg:p-8">
+                  <p className="text-[10px] uppercase tracking-[0.35em] text-gold mb-3">
                     Signature Finish
                   </p>
                   <p className="font-heading text-white leading-none tracking-[0.04em]"
-                     style={{ fontSize: "clamp(2rem, 3.4vw, 2.75rem)" }}>
+                     style={{ fontSize: "clamp(1.75rem, 2.6vw, 2.25rem)" }}>
                     HYOHEKI
                   </p>
-                  <p className="type-body text-white/70 tracking-[0.3em] mt-2">- 氷壁 -</p>
-                  <div className="w-8 h-px bg-gold my-5" />
-                  <p className="type-body-sm text-white/85 leading-[1.9] mb-3">{HYOHEKI_LEAD}</p>
-                  <p className="type-body-sm text-white/60 leading-[1.9]">{HYOHEKI_BODY}</p>
+                  <p className="type-body-sm text-white/70 tracking-[0.3em] mt-2">- 氷壁 -</p>
+                  <div className="w-8 h-px bg-gold my-4" />
+                  <p className="text-[12px] lg:text-[13px] text-white/85 leading-[1.8] mb-3">{HYOHEKI_LEAD}</p>
+                  <p className="text-[12px] lg:text-[13px] text-white/60 leading-[1.8]">{HYOHEKI_BODY}</p>
                 </div>
               </div>
             </div>
