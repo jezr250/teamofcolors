@@ -19,12 +19,14 @@ export default function LookSection() {
   return (
     // メニューから外した装飾セクションなので id（アンカー）は持たない
     <section className="parallax-wrap h-[85vh] flex items-center justify-center">
-      {/* パラックス画像 */}
+      {/* パラックス画像。2026-09-17 の修正依頼 10 で先方支給の焚き火の写真（64440.jpg）に
+          差し替えた（それまでは Unsplash の岩肌）。元が 1108px 幅の縦位置なので
+          PC では拡大されて柔らかく見えるが、暗幕を重ねる演出用の背景なので許容している */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         ref={imgRef}
-        src="https://images.unsplash.com/photo-1760119547261-2acb17d8ae71?w=1920&auto=format&fit=crop&q=85"
-        alt="施工実績"
+        src="/look-bg.jpg"
+        alt="囲炉裏の焚き火"
         className="parallax-img"
       />
       <div className="absolute inset-0 bg-black/40" />

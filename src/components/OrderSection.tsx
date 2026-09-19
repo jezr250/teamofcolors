@@ -18,12 +18,14 @@ export default function OrderSection() {
   return (
     // メニューから外した装飾セクションなので id（アンカー）は持たない
     <section className="parallax-wrap h-screen flex items-center justify-center">
-      {/* パラックス背景 */}
+      {/* パラックス背景。2026-09-17 の修正依頼 10 で先方支給のモルタル塗り作業の写真
+          （64438.jpg・養生テープ付き）に差し替えた（それまでは Unsplash の職人写真）。
+          テープが気になる場合はテープ部分を切った 64438_2.png が同じ素材フォルダにある */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         ref={imgRef}
-        src="https://images.unsplash.com/photo-1547609434-b732edfee020?w=1920&auto=format&fit=crop&q=85"
-        alt="職人作業"
+        src="/order-bg.jpg"
+        alt="モルタルを塗る職人の手"
         className="parallax-img"
       />
       <div className="absolute inset-0 bg-black/55" />
