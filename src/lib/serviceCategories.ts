@@ -19,14 +19,14 @@ export const SERVICE_CATEGORY_LIST: ServiceCategory[] = [
     name: "モルタル造形制作",
     en: "MORTAR SCULPTURE",
     description:
-      "コンクリートや FRP を素材に、本物と見紛う岩・石・洞窟をフルスクラッチで制作した実績をご紹介します。",
+      "コンクリートや FRP を素材に、本物と見紛う岩・石をフルスクラッチで制作した実績をご紹介します。",
   },
   {
     id: "interior",
     name: "内装・インテリア塗装",
     en: "INTERIOR DESIGN",
     description:
-      "店舗・商業空間の内装をトータルでデザイン・施工した実績をご紹介します。",
+      "店舗・商業空間の塗装をトータルでデザイン・施工した実績をご紹介します。",
   },
   {
     id: "aging",
@@ -37,7 +37,7 @@ export const SERVICE_CATEGORY_LIST: ServiceCategory[] = [
   },
   {
     id: "special",
-    name: "特殊塗装",
+    name: "特殊塗装・特殊左官",
     en: "SPECIAL COATING",
     description:
       "左官材・骨材・意匠塗料を組み合わせ、既製品には無い表情を壁面に与えた実績をご紹介します。",

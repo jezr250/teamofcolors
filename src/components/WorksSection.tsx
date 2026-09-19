@@ -12,7 +12,7 @@ const projects = [
   { id: "mortar",   category: "モルタル造形制作",       img: "/works-1.webp", alt: "岩壁を背にした厨房" },
   { id: "interior", category: "内装・インテリア塗装",   img: "/works-2.webp", alt: "アーチ窓と造作棚のある店舗内装" },
   { id: "aging",    category: "エイジング塗装",         img: "/works-3.webp", alt: "石肌を再現したエイジング壁面" },
-  { id: "special",  category: "特殊塗装",               img: "/works-4.webp", alt: "凹凸のある特殊塗装の壁面" },
+  { id: "special",  category: "特殊塗装・特殊左官",              img: "/works-4.webp", alt: "凹凸のある特殊塗装の壁面" },
   { id: "hyoheki",  category: "氷壁",                   img: "/works-5.webp", alt: "氷壁で仕上げた通路" },
 ];
 
