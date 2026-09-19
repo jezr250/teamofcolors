@@ -22,8 +22,12 @@ const TILE_IMAGES: Record<string, { img: string; alt: string; position?: string 
 
 // HYOHEKI 説明パネルの文言。先方が構成例（64967.jpg）の文言を微修正したもの
 // （「特殊意匠仕上げ（商標登録出願中・特許申請中）」→「特殊仕上げ（商標登録出願中）」）。
-const HYOHEKI_LEAD =
-  "TEAM OF COLORSが独自開発した唯一無二の特殊仕上げ（商標登録出願中）。";
+// 1文目は「（商標登録出願中）。」の前でだけ改行を固定し、前半は幅なりに折り返す。
+// 「特殊仕上げ」が「特殊仕上／げ」と途中で切れないよう、「唯一無二の特殊仕上げ」を
+// ひとかたまり（nowrap）にしている。幅が足りなければこの塊ごと次の行に落ちる
+const HYOHEKI_LEAD_MAIN = "TEAM OF COLORSが独自開発した";
+const HYOHEKI_LEAD_WORD = "唯一無二の特殊仕上げ";
+const HYOHEKI_LEAD_NOTE = "（商標登録出願中）。";
 const HYOHEKI_BODY =
   "本物の氷塊を思わせる透明感、ひんやりとした質感表現、そして透過光によるライティング効果。空間に他にはない圧倒的なインパクトを発揮します。";
 
@@ -85,7 +89,7 @@ export default function ServiceTriptych() {
             <p className="text-[10px] uppercase tracking-[0.35em] text-gold mb-2">
               {cat.en}
             </p>
-            <p className="type-heading italic silver-grad">{cat.name}</p>
+            <p className="type-heading triptych-name italic silver-grad">{cat.name}</p>
           </div>
         </div>
       </a>
@@ -137,7 +141,7 @@ export default function ServiceTriptych() {
                       {HYOHEKI.en}
                     </p>
                     {/* タイルだけ読みを添える（先方の構成例どおり）。一覧のタブや見出しは「氷壁」のまま */}
-                    <p className="type-heading italic silver-grad">{HYOHEKI.name}（ひょうへき）</p>
+                    <p className="type-heading triptych-name italic silver-grad">{HYOHEKI.name}（ひょうへき）</p>
                   </div>
                 </div>
               </a>
@@ -155,8 +159,13 @@ export default function ServiceTriptych() {
                   </p>
                   <p className="type-body-sm text-white/70 tracking-[0.3em] mt-2">- 氷壁 -</p>
                   <div className="w-8 h-px bg-gold my-4" />
-                  <p className="text-[12px] lg:text-[13px] text-white/85 leading-[1.8] mb-3">{HYOHEKI_LEAD}</p>
-                  <p className="text-[12px] lg:text-[13px] text-white/60 leading-[1.8]">{HYOHEKI_BODY}</p>
+                  {/* 文字は 768〜1279px では 11px（パネル幅が狭く1行目が折れるため）、1280px 以上で 13px */}
+                  <p className="text-[12px] md:text-[11px] xl:text-[13px] text-white/85 leading-[1.8] mb-3">
+                    {HYOHEKI_LEAD_MAIN}
+                    <span className="whitespace-nowrap">{HYOHEKI_LEAD_WORD}</span>
+                    <span className="block">{HYOHEKI_LEAD_NOTE}</span>
+                  </p>
+                  <p className="text-[12px] md:text-[11px] xl:text-[13px] text-white/60 leading-[1.8]">{HYOHEKI_BODY}</p>
                 </div>
               </div>
             </div>

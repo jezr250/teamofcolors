@@ -102,17 +102,18 @@ export default function WorksSection() {
               <div className="p-6 md:p-5 lg:p-8 flex flex-col flex-1">
                 {/* 分類タグ（金の細枠）と場所 */}
                 <div className="flex flex-wrap items-center justify-between gap-2 mb-6">
-                  <span className="text-[11px] lg:text-[12px] uppercase tracking-[0.2em] text-gold whitespace-nowrap
+                  <span className="text-[10px] lg:text-[12px] uppercase tracking-[0.12em] lg:tracking-[0.2em] text-gold whitespace-nowrap
                                    border border-gold/50 px-2 lg:px-3 py-1">
                     {project.tag}
                   </span>
-                  <span className="text-[12px] text-white/60">{project.place}</span>
+                  <span className="text-[11px] lg:text-[12px] text-white/60">{project.place}</span>
                 </div>
 
-                <h3 className="text-[15px] lg:text-base font-bold text-white/90 mb-3 leading-relaxed">
+                {/* md 以上は .works-card-title（globals.css）で列幅に応じて縮め、常に1行 */}
+                <h3 className="works-card-title text-[15px] font-bold text-white/90 mb-3 leading-relaxed">
                   {project.title}
                 </h3>
-                <p className="type-body-sm text-white/60 leading-[1.9] flex-1">
+                <p className="text-[12px] lg:text-[13px] text-white/60 leading-[1.9] flex-1">
                   {project.desc}
                 </p>
 
