@@ -105,11 +105,12 @@ export default function CompanyPage() {
 
           {/* 企業理念 — 先方支給の全文。見出しはページ先頭の「Company / 会社概要」と同じ組み方
               （金の小ラベル＋銀の和文大見出し）。段落が長いので本文サイズで組み、
-              最初の一文だけは理念の核なので type-heading で大きく見せる */}
+              最初の一文だけは理念の核なので type-heading-sm で本文より大きく見せる
+              （見出し 32px より一段小さい 22px。2026-09-20） */}
           <section className="mb-20">
             <p className="type-label text-gold mb-4">Philosophy</p>
             <h2 className="silver-grad type-display-ja mb-10">企業理念</h2>
-            <p className="type-heading text-white/85 mb-8">
+            <p className="type-heading-sm text-white/85 mb-8">
               {COMPANY_PHILOSOPHY[0]}
             </p>
             <div className="space-y-5 max-w-3xl">
