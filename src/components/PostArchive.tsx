@@ -105,12 +105,13 @@ export default function PostArchive({ apiPath, detailPath, category }: Props) {
     <>
       {post.pair ? (
         // 2枚1組（施工前後など）。カード自体を2列ぶんの幅にして、中で2枚を横に並べる。
-        // スマホ（1列）でも横並びのまま＝1枚が半分の幅になるが、前後の対比が伝わることを優先
-        <div className="grid grid-cols-2 gap-px bg-white/5">
+        // スマホ（1列）では上下に積む。組は一覧の先頭に固めて出すので、縦に積んでも
+        // Before → After の順は崩れない（2026-09-19 ユーザー判断）
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-white/5">
           {post.pair.map((p, i) =>
             <div key={i}>
               {photo(p.thumb, p.label ? `${post.title}（${p.label}）` : post.title,
-                     "(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 33vw", p.label)}
+                     "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw", p.label)}
             </div>
           )}
         </div>
@@ -167,7 +168,9 @@ export default function PostArchive({ apiPath, detailPath, category }: Props) {
 
   return (
     <>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/5">
+      {/* grid-flow-dense: 2列ぶんの組カードが先頭に並ぶと、3列のときに右端が空くので、
+          後続の1列カードをその空きに詰める（左→右・上→下の読み順は保たれる） */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 grid-flow-dense gap-px bg-white/5">
         {posts.map((post) =>
           post.photoOnly ? (
             // 遷移先も拡大表示も持たないので、ただの表示要素として置く。

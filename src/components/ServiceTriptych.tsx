@@ -8,8 +8,8 @@ import { SERVICE_CATEGORY_LIST } from "@/lib/serviceCategories";
 // ここが持つのは「どの写真を使うか」だけにしている。
 //
 // 構成は 2026-09-17 の修正依頼 13・14 で先方が示した構成例どおり 3列×2段の6マス。
-// 上段: モルタル／内装／エイジング、下段: 特殊塗装／氷壁／HYOHEKI の説明パネル。
-// 氷壁だけ「写真タイル＋説明パネル」で2マス使い、看板商品として他より目立たせている。
+// 上段: モルタル／内装／エイジング、下段: 特殊塗装／氷壁（2マス分）。
+// 氷壁だけ写真を2マス分に敷き、右半分を透かして説明文を載せ、看板商品として目立たせている。
 // （それ以前は上段3枚＋下段2枚の幅いっぱいのタイルだった）
 const TILE_IMAGES: Record<string, { img: string; alt: string }> = {
   mortar: { img: "/service-mortar.jpg", alt: "モルタル造形で仕上げた岩肌の壁" },
@@ -31,6 +31,8 @@ const HYOHEKI_BODY =
 // HYOHEKI パネル（6マス目）に従う。写真タイルは中身が無いので min-h で下限だけ持たせる
 const TILE_ASPECT = "aspect-[16/9] md:aspect-auto md:min-h-[280px]";
 
+const HYOHEKI = SERVICE_CATEGORY_LIST.find((c) => c.id === "hyoheki")!;
+
 export default function ServiceTriptych() {
   const ref = useRef<HTMLElement>(null);
 
@@ -50,7 +52,7 @@ export default function ServiceTriptych() {
     return () => observer.disconnect();
   }, []);
 
-  // 6マス目（説明パネル）まで通しでフェードインさせるため、順番を i で持つ
+  // 氷壁（最後のタイル）まで通しでフェードインさせるため、順番を i で持つ
   const tileStyle = (i: number) => ({
     transition: `opacity 0.7s ease ${i * 0.12}s, transform 0.7s ease ${i * 0.12}s`,
     transform: "translateY(20px)",
@@ -104,36 +106,57 @@ export default function ServiceTriptych() {
         {/* 列数: スマホ1列 → タブレット2列 → PC3列。2列でも「氷壁」と説明パネルは
             3段目で隣り合う（5番目と6番目）ので、どの幅でも氷壁は2マス続きで見える */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:auto-rows-fr gap-px bg-white/5">
-          {SERVICE_CATEGORY_LIST.map((cat, i) => renderTile(cat, i))}
+          {SERVICE_CATEGORY_LIST.filter((c) => c.id !== "hyoheki").map((cat, i) => renderTile(cat, i))}
 
-          {/* 6マス目: HYOHEKI の説明パネル。氷壁の写真を薄く敷き、その上に文字を載せる
-              （先方指示「文字は透過させる」）。写真タイルと違いリンクは持たない */}
+          {/* 氷壁: 2マス分に写真を1枚敷き、左半分は他と同じタイル（一覧へのリンク）、
+              右半分は写真を暗く透かした上に説明文（先方指示「文字は透過させる」）。
+              タブレット（2列）では3段目の全幅、スマホ（1列）では写真の下に説明文が続く */}
           <div
-            // 高さは PC ではグリッドの行（隣の 4:3 タイル）に揃い、スマホでは文章量で決まる
-            className="tile-item opacity-0 relative overflow-hidden bg-[#0a0a0a]"
-            style={tileStyle(SERVICE_CATEGORY_LIST.length)}
+            className="tile-item opacity-0 relative overflow-hidden bg-[#0a0a0a] md:col-span-2"
+            style={tileStyle(SERVICE_CATEGORY_LIST.length - 1)}
           >
             <Image
               src={TILE_IMAGES.hyoheki.img}
-              alt=""
-              aria-hidden="true"
+              alt={TILE_IMAGES.hyoheki.alt}
               fill
-              className="object-cover opacity-25"
-              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 66vw"
             />
-            <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/55 to-black/75" />
-            <div className="relative h-full flex flex-col justify-center p-7 md:p-8 lg:p-10">
-              <p className="type-meta uppercase tracking-[0.4em] text-gold mb-3">
-                Signature Finish
-              </p>
-              <p className="font-heading text-white leading-none tracking-[0.04em]"
-                 style={{ fontSize: "clamp(2rem, 3.4vw, 2.75rem)" }}>
-                HYOHEKI
-              </p>
-              <p className="type-body text-white/70 tracking-[0.3em] mt-2">- 氷壁 -</p>
-              <div className="w-8 h-px bg-gold my-5" />
-              <p className="type-body-sm text-white/85 leading-[1.9] mb-3">{HYOHEKI_LEAD}</p>
-              <p className="type-body-sm text-white/60 leading-[1.9]">{HYOHEKI_BODY}</p>
+            <div className="relative h-full grid grid-cols-1 md:grid-cols-2">
+              {/* 左: 他のタイルと同じ見せ方 */}
+              <a
+                href={`/works?category=${HYOHEKI.id}`}
+                className="triptych-item aspect-[16/9] md:aspect-auto"
+              >
+                {HYOHEKI.trademarkPending && (
+                  <span className="trademark-badge">商標登録出願中</span>
+                )}
+                <div className="triptych-overlay">
+                  <div className="text-center">
+                    <p className="type-meta uppercase tracking-[0.4em] text-gold mb-2">
+                      {HYOHEKI.en}
+                    </p>
+                    <p className="type-heading italic silver-grad">{HYOHEKI.name}</p>
+                  </div>
+                </div>
+              </a>
+
+              {/* 右: 写真を透かして文言。左端をわずかに明るく残して1枚の写真が続いて見えるようにする */}
+              <div className="relative bg-gradient-to-r from-black/70 via-black/80 to-black/85">
+                <div className="h-full flex flex-col justify-center p-7 md:p-8 lg:p-10">
+                  <p className="type-meta uppercase tracking-[0.4em] text-gold mb-3">
+                    Signature Finish
+                  </p>
+                  <p className="font-heading text-white leading-none tracking-[0.04em]"
+                     style={{ fontSize: "clamp(2rem, 3.4vw, 2.75rem)" }}>
+                    HYOHEKI
+                  </p>
+                  <p className="type-body text-white/70 tracking-[0.3em] mt-2">- 氷壁 -</p>
+                  <div className="w-8 h-px bg-gold my-5" />
+                  <p className="type-body-sm text-white/85 leading-[1.9] mb-3">{HYOHEKI_LEAD}</p>
+                  <p className="type-body-sm text-white/60 leading-[1.9]">{HYOHEKI_BODY}</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

@@ -418,6 +418,7 @@
     "photoOnly": true,
     "pair": [
       {
+        "label": "Before",
         "eyecatch": {
           "url": "/works/interior-17.webp",
           "width": 1477,
@@ -430,6 +431,7 @@
         }
       },
       {
+        "label": "After",
         "eyecatch": {
           "url": "/works/interior-16.webp",
           "width": 1477,
@@ -463,6 +465,7 @@
     "photoOnly": true,
     "pair": [
       {
+        "label": "Before",
         "eyecatch": {
           "url": "/works/interior-19.webp",
           "width": 1108,
@@ -475,6 +478,7 @@
         }
       },
       {
+        "label": "After",
         "eyecatch": {
           "url": "/works/interior-18.webp",
           "width": 1477,

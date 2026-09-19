@@ -8,7 +8,7 @@
 // 環境変数 MICROCMS_SERVICE_DOMAIN / MICROCMS_API_KEY が未設定の間は静的写真だけを返す。
 // 設定した瞬間から自動的に2層のマージ表示になり、コード変更は要らない。
 
-import { staticWorksByCategory, isStaticWorkId, type PairImage } from "./staticWorks";
+import { splitStaticWorks, isStaticWorkId, type PairImage } from "./staticWorks";
 import { SERVICE_CATEGORIES } from "./serviceCategories";
 
 export type Post = {
@@ -125,9 +125,12 @@ export async function getPostList(
     category,
   }: { limit?: number; offset?: number; category?: string } = {}
 ): Promise<PostListResponse> {
-  const statics = staticWorksByCategory(category);
+  // 並びは「組（施工前後）→ microCMS の記事 → 残りの静的写真」。
+  // 3つを1本の並びとみなし、offset / limit はその通し番号に対して効かせる。
+  const { pairs, singles } = splitStaticWorks(category);
 
   if (!isMicroCMSConfigured) {
+    const statics = [...pairs, ...singles];
     return {
       contents: statics.slice(offset, offset + limit),
       totalCount: statics.length,
@@ -136,9 +139,15 @@ export async function getPostList(
     };
   }
 
+  // 先頭の組から取れるぶんを取り、足りない分を microCMS に要求する
+  const head = pairs.slice(offset, offset + limit);
+  const cmsLimit = limit - head.length;
+  const cmsOffset = Math.max(0, offset - pairs.length);
+
   const params: Record<string, string> = {
-    limit: String(limit),
-    offset: String(offset),
+    // 取る必要が無くても totalCount は要るので最低1件は要求し、あとで捨てる
+    limit: String(Math.max(cmsLimit, 1)),
+    offset: String(cmsOffset),
     // 存在しないフィールド名を混ぜてもmicroCMSは無視するだけなので、
     // 現行スキーマ(image)と将来の拡張(title/eyecatch/tags)をまとめて要求している
     fields: "id,title,image,eyecatch,category,tags,publishedAt",
@@ -151,18 +160,18 @@ export async function getPostList(
     endpoint,
     params
   );
-  const cmsContents = cms.contents.map(normalizeCmsWork);
+  const cmsContents = cms.contents.slice(0, cmsLimit).map(normalizeCmsWork);
 
-  // microCMS記事を先に並べ、要求件数に足りない分を静的写真で埋める。
-  // offset が microCMS の総件数を超えていれば、その超過分が静的写真側の開始位置になる。
-  const shortfall = limit - cmsContents.length;
-  const staticStart = Math.max(0, offset - cms.totalCount);
+  // まだ足りなければ残りの静的写真で埋める。
+  // offset が「組＋microCMS の総件数」を超えていれば、その超過分が静的写真側の開始位置になる。
+  const shortfall = limit - head.length - cmsContents.length;
+  const staticStart = Math.max(0, offset - pairs.length - cms.totalCount);
   const filler =
-    shortfall > 0 ? statics.slice(staticStart, staticStart + shortfall) : [];
+    shortfall > 0 ? singles.slice(staticStart, staticStart + shortfall) : [];
 
   return {
-    contents: [...cmsContents, ...filler],
-    totalCount: cms.totalCount + statics.length,
+    contents: [...head, ...cmsContents, ...filler],
+    totalCount: pairs.length + cms.totalCount + singles.length,
     offset,
     limit,
   };

@@ -42,6 +42,21 @@ export function staticWorksByCategory(category?: string): StaticWork[] {
     : STATIC_WORKS;
 }
 
+// 一覧の並びは「2枚1組（施工前後） → microCMS の記事 → 残りの静的写真」。
+// 施工前後の対比は一覧の看板なので先頭に置く（2026-09-19 ユーザー指示）。
+// microCMS 側の件数・ページングに関わる合成は microcms.ts の getPostList が行うため、
+// ここでは静的写真を「先頭に出す組」と「後ろに回す単品」に分けるだけ。
+export function splitStaticWorks(category?: string): {
+  pairs: StaticWork[];
+  singles: StaticWork[];
+} {
+  const all = staticWorksByCategory(category);
+  return {
+    pairs: all.filter((w) => w.pair),
+    singles: all.filter((w) => !w.pair),
+  };
+}
+
 export function isStaticWorkId(id: string): boolean {
   return id.startsWith("static-");
 }
