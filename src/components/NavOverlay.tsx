@@ -3,7 +3,7 @@ import { useEffect } from "react";
 
 // "/#xxx" 形式にしておくと /works などの下層ページからでもトップの各セクションに戻れる
 // 並び順はトップページの実際のセクション順（app/page.tsx）に合わせている
-//   Hero → service → about → look → order → works → contact
+//   Hero → service → about → look → order → works → contact → flow（contact内）→ tel
 // TOP はトップページの先頭。ロゴもリンクだが、下層ページでは気づかれにくいため明示する。
 // LOOK・ORDER はパララックスの視覚演出（装飾）なのでメニューには載せない
 // （2026-09-13 レビューで、セクションではなく装飾として扱うことにした）。
@@ -15,6 +15,7 @@ const links = [
   { label: "ABOUT",    href: "/#about" },
   { label: "WORKS",    href: "/#works" },
   { label: "CONTACT",  href: "/#contact" },
+  { label: "FLOW",     href: "/#flow" },
   { label: "TEL",      href: "/#contact-tel" },
   { label: "COMPANY",  href: "/company" },
 ];
