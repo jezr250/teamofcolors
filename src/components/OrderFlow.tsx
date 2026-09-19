@@ -32,7 +32,7 @@ export default function OrderFlow() {
     // scroll-mt はヘッダー（固定）に見出しが隠れないための余白
     <div id="flow" className="max-w-3xl mx-auto px-6 md:px-12 scroll-mt-24">
       <div className="text-center mb-12">
-        {/* 金の小ラベル＝セクション名（ハンバーガーメニューの FLOW と一致させる） */}
+        {/* 金の小ラベル＝セクション名（ハンバーガーメニューの ORDER PROCESS と一致させる） */}
         <p className="type-label text-gold mb-4">Order Process</p>
         <h2 className="type-section-ja silver-grad">発注フロー</h2>
       </div>

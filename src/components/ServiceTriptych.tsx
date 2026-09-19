@@ -85,7 +85,7 @@ export default function ServiceTriptych() {
             <p className="text-[10px] uppercase tracking-[0.35em] text-gold mb-2">
               {cat.en}
             </p>
-            <p className="type-card-title font-bold text-white">{cat.name}</p>
+            <p className="type-heading italic silver-grad">{cat.name}</p>
           </div>
         </div>
       </a>
@@ -136,7 +136,8 @@ export default function ServiceTriptych() {
                     <p className="text-[10px] uppercase tracking-[0.35em] text-gold mb-2">
                       {HYOHEKI.en}
                     </p>
-                    <p className="type-card-title font-bold text-white">{HYOHEKI.name}</p>
+                    {/* タイルだけ読みを添える（先方の構成例どおり）。一覧のタブや見出しは「氷壁」のまま */}
+                    <p className="type-heading italic silver-grad">{HYOHEKI.name}（ひょうへき）</p>
                   </div>
                 </div>
               </a>

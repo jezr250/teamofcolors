@@ -82,7 +82,7 @@ export default function WorksSection() {
           {projects.map((project, i) => (
             <article
               key={project.title}
-              className="stagger-item relative bg-[#0a0a0a] overflow-hidden"
+              className="stagger-item relative bg-[#0a0a0a] overflow-hidden flex flex-col"
               style={{ "--stagger-delay": `${i * 0.1}s` } as React.CSSProperties}
             >
               {/* 画像 — reveal-clip アニメーション */}
@@ -97,20 +97,22 @@ export default function WorksSection() {
                 <div className="absolute inset-0 bg-black/15" />
               </div>
 
-              <div className="p-6 md:p-5 lg:p-8">
+              {/* 本文は flex で伸ばし、工期・技法の行を常にカードの底に揃える。
+                  見出しがタブレット幅で2行になっても3枚の下線位置が揃うようにするため */}
+              <div className="p-6 md:p-5 lg:p-8 flex flex-col flex-1">
                 {/* 分類タグ（金の細枠）と場所 */}
                 <div className="flex flex-wrap items-center justify-between gap-2 mb-6">
-                  <span className="type-meta uppercase tracking-[0.25em] text-gold whitespace-nowrap
-                                   border border-gold/50 px-3 py-1">
+                  <span className="text-[11px] lg:text-[12px] uppercase tracking-[0.2em] text-gold whitespace-nowrap
+                                   border border-gold/50 px-2 lg:px-3 py-1">
                     {project.tag}
                   </span>
-                  <span className="type-body-sm text-white/60">{project.place}</span>
+                  <span className="text-[12px] text-white/60">{project.place}</span>
                 </div>
 
-                <h3 className="type-card-title font-bold text-white/90 mb-3">
+                <h3 className="text-[15px] lg:text-base font-bold text-white/90 mb-3 leading-relaxed">
                   {project.title}
                 </h3>
-                <p className="type-body-sm text-white/60 leading-[1.9]">
+                <p className="type-body-sm text-white/60 leading-[1.9] flex-1">
                   {project.desc}
                 </p>
 

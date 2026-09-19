@@ -15,7 +15,7 @@ const links = [
   { label: "ABOUT",    href: "/#about" },
   { label: "WORKS",    href: "/#works" },
   { label: "CONTACT",  href: "/#contact" },
-  { label: "FLOW",     href: "/#flow" },
+  { label: "ORDER PROCESS", href: "/#flow" }, // 発注フロー。金の小ラベルと同じ語にしている
   { label: "TEL",      href: "/#contact-tel" },
   { label: "COMPANY",  href: "/company" },
 ];
