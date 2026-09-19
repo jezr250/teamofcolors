@@ -94,7 +94,7 @@ body {
 
      段階（スマホ → PC）:
        .type-display     48 → 72px   銀の大見出し・欧文
-       .type-display-ja  28 → 44px   銀の大見出し・和文
+       .type-display-ja  24 → 32px   銀の大見出し・和文
        .type-heading     20 → 28px   中見出し（理念の一文、サービス名）
        .type-card-title  16px        カードの見出し
        .type-label       14 → 15px   金の小ラベル＝セクション名
@@ -125,16 +125,17 @@ body {
     line-height: 1.05;
   }
 
-  /* 銀の大見出し（和文）。和文は全角なので同じ px でも欧文の倍近い幅になる。
-     欧文と同じ48pxで「モルタル造形制作」を出すと400pxを超え、スマホ幅（本文領域327px）で
-     必ず2行に折り返していた。28pxなら8文字でも約240pxに収まり1行で入る。
+  /* 銀の大見出し（和文）。和文は全角なので同じ px でも欧文の倍近い幅になるため、
+     欧文（48→72px）よりかなり小さくする。2026-09-20 に 28→44px から 24→32px へ下げた
+     （先方の構成例の「事業内容・仕上げ技法」「施工実績」「発注フロー」が 28px 程度の
+     控えめな見出しで、会社概要ページの「会社概要」「企業理念」もこれに揃えた）。
      また Cormorant に和文グリフは無く明朝にフォールバックするため、italic を当てると
      擬似斜体になって汚い。ここでは italic にしない */
   .type-display-ja {
     font-family: var(--font-cormorant), Georgia, serif;
-    font-size: clamp(1.75rem, 6vw, 2.75rem); /* 28 → 44px */
-    letter-spacing: 0.06em;
-    line-height: 1.35;
+    font-size: clamp(1.5rem, 3vw, 2rem); /* 24 → 32px */
+    letter-spacing: 0.08em;
+    line-height: 1.4;
   }
 
   /* 中見出し。折り返すときに1行目だけ長くならないよう text-wrap: balance を効かせる
