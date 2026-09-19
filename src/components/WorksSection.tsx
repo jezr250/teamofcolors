@@ -8,8 +8,9 @@ import Image from "next/image";
 // 工期・技法」を持つ読み物で、リンクやボタンは持たない（先方指示：画像は既存のもの、
 // 文言へのリンクやアクション等の設置は不要）。
 //
-// 文言は構成例の画像から起こしたもの。2枚目だけ先方が見出し・説明・工期を差し替えている
-// （店舗内装および造作什器仕上げ → 店舗内装仕上げ壁面等のペイント、2 WEEKS → 1 WEEK）。
+// 文言は構成例の画像から起こしたもの。先方の差し替え指示は2点:
+//   ① 2枚目の見出し・説明（店舗内装および造作什器仕上げ → 店舗内装仕上げ壁面等のペイント）
+//   ② 3枚目（個人邸）の工期 3 DAYS → 1 WEEK（PDF の矢印は右カードの DURATION を指している）
 // 写真は旧構成で使っていた public/works-*.webp をそのまま流用。
 const projects = [
   {
@@ -27,7 +28,7 @@ const projects = [
     place: "Kanagawa",
     title: "店舗内装仕上げ壁面等のペイント",
     desc: "空間全体の世界観を統一するため、什器・家具に合う壁面のトータルペイントを実施。",
-    duration: "1 Week",
+    duration: "2 Weeks",
     tech: "Interior",
     img: "/works-2.webp",
     alt: "造作棚と壁面を同じ色調で仕上げた店舗内装",
@@ -37,7 +38,7 @@ const projects = [
     place: "Yokohama",
     title: "個人邸・外構門壁エイジング",
     desc: "無機質なブロック塀の素地から、数百年経過したような風化石積みの質感へ劇的に変化。",
-    duration: "3 Days",
+    duration: "1 Week",
     tech: "Aging",
     img: "/works-3.webp",
     alt: "風化した石積みを再現したエイジング塗装の門壁",
