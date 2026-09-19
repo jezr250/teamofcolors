@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import OrderFlow from "./OrderFlow";
 import {
   SITE_BUSINESS_HOURS,
   SITE_CLOSED_DAYS,
@@ -64,6 +65,13 @@ export default function Contact() {
             お問い合わせ・ご相談はお気軽に。<br />
             担当者より折り返しご連絡いたします。
           </p>
+          {/* 2026-09-17 の修正依頼 16。ご依頼の流れを先に見たい人向けに、
+              このセクション内の発注フロー（#flow）へ送る */}
+          <a href="#flow"
+             className="inline-block mt-6 type-body-sm tracking-[0.1em] text-gold gold-hover
+                        hover:text-gold-light transition-colors">
+            発注フローはこちら →
+          </a>
         </div>
 
         {sent ? (
@@ -132,7 +140,14 @@ export default function Contact() {
             </button>
           </form>
         )}
+      </div>
 
+      {/* 発注フロー（修正依頼 15）。フォームより少し広い幅で、フォームと TEL の間に置く */}
+      <div className="mt-20 pt-16 border-t border-white/8">
+        <OrderFlow />
+      </div>
+
+      <div className="max-w-2xl mx-auto px-6 md:px-12">
         {/* TEL */}
         <div id="contact-tel" className="mt-12 pt-10 border-t border-white/8 text-center">
           {/* 金の小ラベル＝セクション名（ハンバーガーメニューの「TEL」と一致させる）。

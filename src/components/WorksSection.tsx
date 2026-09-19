@@ -2,18 +2,47 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 
-// トップの代表実績5件（ハードコード・実施工写真 public/works-*.webp）。
-// 5サービスを1枚ずつ、serviceCategories.ts と同じ並び順で出している。
-// ラベルはサービス名のみ（架空の物件名は付けず、実画像との齟齬をなくす）。
-// 写真は Service タイルと重複しないものを選び、同じ画が上下で二度出ないようにしている。
-// カードの遷移先はそのカテゴリで絞り込んだ実績一覧（/works?category=xxx）。
-// id は serviceCategories.ts のカテゴリIDと一致させること。
+// トップの「施工実績」。2026-09-17 の修正依頼 11 で、Service タイルと同じ一覧
+// （/works?category=xxx）へ飛ぶだけだった旧5枚構成を、先方が示した構成例
+// （64968.jpg）どおりの3枚に置き換えた。各カードは「分類タグ・場所・見出し・説明・
+// 工期・技法」を持つ読み物で、リンクやボタンは持たない（先方指示：画像は既存のもの、
+// 文言へのリンクやアクション等の設置は不要）。
+//
+// 文言は構成例の画像から起こしたもの。先方の差し替え指示は2点:
+//   ① 2枚目の見出し・説明（店舗内装および造作什器仕上げ → 店舗内装仕上げ壁面等のペイント）
+//   ② 3枚目（個人邸）の工期 3 DAYS → 1 WEEK（PDF の矢印は右カードの DURATION を指している）
+// 写真は旧構成で使っていた public/works-*.webp をそのまま流用。
 const projects = [
-  { id: "mortar",   category: "モルタル造形制作",       img: "/works-1.webp", alt: "岩壁を背にした厨房" },
-  { id: "interior", category: "内装・インテリア塗装",   img: "/works-2.webp", alt: "アーチ窓と造作棚のある店舗内装" },
-  { id: "aging",    category: "エイジング塗装",         img: "/works-3.webp", alt: "石肌を再現したエイジング壁面" },
-  { id: "special",  category: "特殊塗装",               img: "/works-4.webp", alt: "凹凸のある特殊塗装の壁面" },
-  { id: "hyoheki",  category: "氷壁",                   img: "/works-5.webp", alt: "氷壁で仕上げた通路" },
+  {
+    tag: "Commercial",
+    place: "Tokyo",
+    title: "飲食店の立体モルタル岩壁造形",
+    desc: "下地から厚み150mmのダイナミックな造形。照明の陰影を生かしたリアルな岩肌を表現。",
+    duration: "5 Days",
+    tech: "Sculpture",
+    img: "/works-1.webp",
+    alt: "岩壁を背にした飲食店の厨房",
+  },
+  {
+    tag: "Shop Interior",
+    place: "Kanagawa",
+    title: "店舗内装仕上げ壁面等のペイント",
+    desc: "空間全体の世界観を統一するため、什器・家具に合う壁面のトータルペイントを実施。",
+    duration: "2 Weeks",
+    tech: "Interior",
+    img: "/works-2.webp",
+    alt: "造作棚と壁面を同じ色調で仕上げた店舗内装",
+  },
+  {
+    tag: "Residence",
+    place: "Yokohama",
+    title: "個人邸・外構門壁エイジング",
+    desc: "無機質なブロック塀の素地から、数百年経過したような風化石積みの質感へ劇的に変化。",
+    duration: "1 Week",
+    tech: "Aging",
+    img: "/works-3.webp",
+    alt: "風化した石積みを再現したエイジング塗装の門壁",
+  },
 ];
 
 export default function WorksSection() {
@@ -40,37 +69,21 @@ export default function WorksSection() {
   return (
     <section id="works" className="py-24 bg-[#0a0a0a]" ref={ref}>
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        {/* ヘッダー — Artizan風 */}
-        <div className="reveal flex items-end justify-between mb-12 pb-6 border-b border-white/5">
-          <div>
-            {/* 金の小ラベル＝セクション名（ハンバーガーメニューの語と一致させる）。
-              着地した位置がどこか分かるようにするための目印なので、
-              気の利いた別の言葉に置き換えないこと。銀の大見出しがコピー担当 */}
-            <p className="type-label text-gold mb-3">Works</p>
-            <h2 className="type-display silver-grad">
-              WORKS
-            </h2>
-          </div>
-          <a href="/works"
-            className="hidden md:block type-meta tracking-[0.3em] text-white/60
-                       hover:text-gold transition-colors gold-hover">
-            ALL PROJECTS →
-          </a>
+        {/* 見出し。構成例に合わせて中央寄せの和文にした。
+            金の小ラベル＝セクション名（ハンバーガーメニューの語と一致させる）。
+            着地した位置がどこか分かるようにするための目印なので、
+            気の利いた別の言葉に置き換えないこと */}
+        <div className="reveal text-center mb-14">
+          <p className="type-label text-gold mb-4">Works</p>
+          <h2 className="type-display-ja silver-grad">施工実績</h2>
         </div>
 
-      </div>
-
-      {/* プロジェクトグリッド。
-          lg以上だけ画面幅いっぱいにする（Serviceタイルと同じ扱い）。5列をコンテナ幅
-          （最大1280px）に収めると1枚236pxまで痩せるので、端まで使って幅を稼ぐため。
-          lg未満は従来どおりコンテナ内の1列のまま（モバイルの見え方は変えない）。 */}
-      <div className="max-w-7xl lg:max-w-none mx-auto px-6 md:px-12 lg:px-0">
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-px bg-white/5">
+        {/* 3枚のカード。md 以上は先方の構成例どおり3列、それ未満は1列 */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/5">
           {projects.map((project, i) => (
-            <a
-              key={project.id}
-              href={`/works?category=${project.id}`}
-              className="stagger-item group relative block bg-[#0a0a0a] overflow-hidden cursor-pointer"
+            <article
+              key={project.title}
+              className="stagger-item relative bg-[#0a0a0a] overflow-hidden flex flex-col"
               style={{ "--stagger-delay": `${i * 0.1}s` } as React.CSSProperties}
             >
               {/* 画像 — reveal-clip アニメーション */}
@@ -79,30 +92,46 @@ export default function WorksSection() {
                   src={project.img}
                   alt={project.alt}
                   fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-106"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 20vw"
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 33vw"
                 />
-                <div className="absolute inset-0 bg-black/15 group-hover:bg-black/5 transition-colors duration-300" />
+                <div className="absolute inset-0 bg-black/15" />
               </div>
 
-              {/* テキスト — サービス名のみ */}
-              <div className="p-5 md:p-6">
-                <p className="type-meta uppercase tracking-[0.25em] text-gold mb-2">
-                  Category
-                </p>
-                <h3 className="type-card-title text-white/90
-                               group-hover:text-gold group-active:text-gold transition-colors">
-                  {project.category}
+              {/* 本文は flex で伸ばし、工期・技法の行を常にカードの底に揃える。
+                  見出しがタブレット幅で2行になっても3枚の下線位置が揃うようにするため */}
+              <div className="p-6 md:p-5 lg:p-8 flex flex-col flex-1">
+                {/* 分類タグ（金の細枠）と場所 */}
+                <div className="flex flex-wrap items-center justify-between gap-2 mb-6">
+                  <span className="type-meta uppercase text-gold whitespace-nowrap
+                                   border border-gold/50 px-2 lg:px-3 py-1">
+                    {project.tag}
+                  </span>
+                  <span className="text-[11px] lg:text-[12px] text-white/60">{project.place}</span>
+                </div>
+
+                {/* md 以上は .works-card-title（globals.css）で列幅に応じて縮め、常に1行 */}
+                <h3 className="works-card-title font-bold text-white/90 mb-3 leading-relaxed">
+                  {project.title}
                 </h3>
-              </div>
-            </a>
-          ))}
-      </div>
-      </div>
+                <p className="text-[12px] lg:text-[13px] text-white/60 leading-[1.9] flex-1">
+                  {project.desc}
+                </p>
 
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        {/* モバイル用 全件一覧リンク（ヘッダー右のリンクはmd以上のみ表示のため） */}
-        <div className="mt-10 text-center md:hidden">
+                {/* 工期と技法。値だけ白にして読み取りやすくする */}
+                <div className="mt-6 pt-4 border-t border-white/10
+                                flex flex-wrap items-center justify-between gap-x-4 gap-y-1
+                                type-meta uppercase tracking-[0.15em] text-white/45">
+                  <span className="whitespace-nowrap">Duration: <span className="text-white/75">{project.duration}</span></span>
+                  <span className="whitespace-nowrap">Tech: <span className="text-white/75">{project.tech}</span></span>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        {/* 全件一覧への入口。カードにはリンクを置かない方針なので、ここだけが /works への導線 */}
+        <div className="reveal mt-12 text-center">
           <a href="/works"
             className="inline-block border border-white/35 text-white/75 type-meta
                        tracking-[0.3em] px-8 py-3

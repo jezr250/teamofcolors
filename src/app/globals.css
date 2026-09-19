@@ -94,8 +94,9 @@ body {
 
      段階（スマホ → PC）:
        .type-display     48 → 72px   銀の大見出し・欧文
-       .type-display-ja  28 → 44px   銀の大見出し・和文
-       .type-heading     20 → 28px   中見出し（理念の一文、サービス名）
+       .type-display-ja  24 → 32px   銀の大見出し・和文
+       .type-heading     20 → 28px   中見出し（サービス名）
+       .type-heading-sm  18 → 22px   小さめの中見出し（理念の一文。和文大見出し32pxとの差を保つ）
        .type-card-title  16px        カードの見出し
        .type-label       14 → 15px   金の小ラベル＝セクション名
        .type-body        15px        本文
@@ -125,25 +126,37 @@ body {
     line-height: 1.05;
   }
 
-  /* 銀の大見出し（和文）。和文は全角なので同じ px でも欧文の倍近い幅になる。
-     欧文と同じ48pxで「モルタル造形制作」を出すと400pxを超え、スマホ幅（本文領域327px）で
-     必ず2行に折り返していた。28pxなら8文字でも約240pxに収まり1行で入る。
+  /* 銀の大見出し（和文）。和文は全角なので同じ px でも欧文の倍近い幅になるため、
+     欧文（48→72px）よりかなり小さくする。2026-09-20 に 28→44px から 24→32px へ下げた
+     （先方の構成例の「事業内容・仕上げ技法」「施工実績」「発注フロー」が 28px 程度の
+     控えめな見出しで、会社概要ページの「会社概要」「企業理念」もこれに揃えた）。
      また Cormorant に和文グリフは無く明朝にフォールバックするため、italic を当てると
      擬似斜体になって汚い。ここでは italic にしない */
   .type-display-ja {
-    font-family: var(--font-cormorant), Georgia, serif;
-    font-size: clamp(1.75rem, 6vw, 2.75rem); /* 28 → 44px */
-    letter-spacing: 0.06em;
-    line-height: 1.35;
+    /* 欧文グリフは Cormorant、和文は Noto Serif JP（Web フォント）。端末の明朝には頼らない */
+    font-family: var(--font-cormorant), var(--font-noto-serif), "Hiragino Mincho ProN", "Yu Mincho", serif;
+    font-size: clamp(1.5rem, 3vw, 2rem); /* 24 → 32px */
+    letter-spacing: 0.08em;
+    line-height: 1.4;
   }
 
   /* 中見出し。折り返すときに1行目だけ長くならないよう text-wrap: balance を効かせる
      （企業ページの理念の一文が中途半端に折れていたため） */
   .type-heading {
-    font-family: var(--font-cormorant), Georgia, serif;
+    font-family: var(--font-cormorant), var(--font-noto-serif), "Hiragino Mincho ProN", "Yu Mincho", serif;
     font-size: clamp(1.25rem, 3.2vw, 1.75rem); /* 20 → 28px */
     letter-spacing: 0.06em;
     line-height: 1.7;
+    text-wrap: balance;
+  }
+
+  /* 小さめの中見出し。和文大見出しを 32px に下げた（2026-09-20）ため、その直下に置く
+     理念の一文が type-heading（28px）では見出しと差が無くなった。一段下げた段階 */
+  .type-heading-sm {
+    font-family: var(--font-cormorant), var(--font-noto-serif), "Hiragino Mincho ProN", "Yu Mincho", serif;
+    font-size: clamp(1.125rem, 2.4vw, 1.375rem); /* 18 → 22px */
+    letter-spacing: 0.06em;
+    line-height: 1.8;
     text-wrap: balance;
   }
 
@@ -216,7 +229,8 @@ body {
 }
 .nav-overlay__panel {
   width: 100%;
-  max-width: 480px;
+  /* 480px だと最長の項目 ORDER PROCESS（約8.4em）が入らず折れるので少し広げた（2026-09-20） */
+  max-width: 560px;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -244,7 +258,14 @@ body {
 .nav-overlay__item {
   display: block;
   font-family: var(--font-bebas), sans-serif;
-  font-size: min(clamp(2.8rem, 6vw, 4.5rem), 8vh);
+  /* 3つ目の上限はパネルの内側幅 ÷ 最長項目「ORDER PROCESS」の幅（字間込みで約8.4em）。
+     どの画面幅でも全項目が1行に収まる（2026-09-20 指摘） */
+  font-size: min(
+    clamp(2.8rem, 6vw, 4.5rem),
+    8vh,
+    calc((min(100vw, 560px) - 2 * clamp(24px, 8vw, 60px)) / 8.4)
+  );
+  white-space: nowrap;
   letter-spacing: 0.18em;
   color: rgba(255,255,255,0.75);
   line-height: 1.2;
@@ -297,17 +318,60 @@ body {
   background:
     linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.15) 45%, rgba(0,0,0,0) 70%),
     rgba(0,0,0,0.38);
+  /* 文字は左下寄せ（2026-09-17 の先方構成例に合わせた。それ以前は中央寄せだった） */
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-end;
-  padding: 32px;
+  padding: 24px 28px;
   transition: background 0.4s ease;
 }
 .triptych-item:hover .triptych-overlay {
   background:
     linear-gradient(to top, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.10) 45%, rgba(0,0,0,0) 70%),
     rgba(0,0,0,0.15);
+}
+
+/* タイル名（和文の明朝・立体）。和文にイタリックは無く擬似斜体になるので当てない
+   （2026-09-20。欧文の見出しだけイタリック）。
+   スマホ（1列）は .type-heading の段階どおり。md 以上（3列）は列幅に合わせて
+   縮め、最長の「内装・インテリア塗装」（10文字）が必ず1行に収まるようにする。
+   列幅 ≒ 100vw/3 − 33px、タイル内余白 56px、10.5文字ぶん → (100vw/3 − 89px)/10.5 ≒ 3.2vw − 8.5px
+   （768px で約16px、960px 以上は 22px 止まり）。上限はスマホ（20px）と釣り合う大きさにしている
+   （28px まで許すと PC だけ目立って大きかった。2026-09-20 指摘） */
+@media (min-width: 768px) {
+  .triptych-name {
+    font-size: clamp(0.9rem, 3.2vw - 0.55rem, 1.375rem);
+    white-space: nowrap;
+  }
+}
+
+/* 施工実績カードの見出し。md 以上は列幅に合わせて縮め、最長の
+   「店舗内装仕上げ壁面等のペイント」（15文字）が1行に収まるようにする。
+   列幅 ≒ 100vw/3 − 33px、カード内余白 40px、15.5文字ぶん → 2.15vw − 4.7px
+   （768px で約12px、1024px 以上は 16px 止まり）。スマホは通常サイズで折り返す */
+.works-card-title { font-size: 0.9375rem; } /* スマホ 15px（折り返し可） */
+@media (min-width: 768px) {
+  .works-card-title {
+    font-size: clamp(0.72rem, 2.15vw - 0.3rem, 1rem);
+    white-space: nowrap;
+  }
+}
+
+/* HYOHEKI パネルの本文。サイズは Tailwind の text-[..] と競合させず、すべてここで決める
+   （md:text-[11px] を併用したら media query 同士でこちらが負け、1024px 以上で効かなかった）。
+   1024px 以上はパネル幅に連動させ、1文目「TEAM OF COLORSが独自開発した唯一無二の特殊仕上げ」
+   （実測 26.2em）が必ず1行に収まるようにする。パネル内側幅 ≒ 100vw/3 − 33px − 余白48px を
+   27文字ぶんで割る → 1.235vw − 3px（1024px で約9.7px、1300px 以上は 13px 止まり）。
+   768〜1023px は 11px で折り返す。スマホは 12px */
+.hyoheki-text { font-size: 0.75rem; }
+@media (min-width: 768px) {
+  .hyoheki-text { font-size: 0.6875rem; }
+}
+@media (min-width: 1024px) {
+  .hyoheki-text {
+    font-size: clamp(0.6rem, 1.235vw - 0.19rem, 0.8125rem);
+  }
 }
 
 /* 商標登録出願中バッジ（氷壁のタイルのみ）。オーバーレイより手前に置いて、
@@ -344,7 +408,10 @@ body {
 .parallax-img {
   position: absolute;
   inset: -15%;
-  width: 100%;
+  /* inset で左右 15% ずつはみ出させているので幅も 130%。100% だと右端 15% が
+     埋まらず黒い帯になっていた（本番でも出ていた。2026-09-20 修正） */
+  width: 130%;
+  max-width: none; /* Tailwind の preflight（img { max-width: 100% }）で 130% が潰されるのを防ぐ */
   height: 130%;
   object-fit: cover;
   will-change: transform;

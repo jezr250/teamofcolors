@@ -171,25 +171,6 @@
     "photoOnly": true
   },
   {
-    "id": "static-mortar-20",
-    "title": "モルタル造形制作",
-    "category": {
-      "id": "mortar",
-      "name": "モルタル造形制作"
-    },
-    "eyecatch": {
-      "url": "/works/mortar-20-thumb.webp",
-      "width": 600,
-      "height": 800
-    },
-    "thumb": {
-      "url": "/works/mortar-20-thumb.webp",
-      "width": 600,
-      "height": 800
-    },
-    "photoOnly": true
-  },
-  {
     "id": "static-mortar-21",
     "title": "モルタル造形制作",
     "category": {
@@ -199,12 +180,12 @@
     "eyecatch": {
       "url": "/works/mortar-21-thumb.webp",
       "width": 600,
-      "height": 800
+      "height": 692
     },
     "thumb": {
       "url": "/works/mortar-21-thumb.webp",
       "width": 600,
-      "height": 800
+      "height": 692
     },
     "photoOnly": true
   },
@@ -228,20 +209,20 @@
     "photoOnly": true
   },
   {
-    "id": "static-mortar-25",
+    "id": "static-mortar-23",
     "title": "モルタル造形制作",
     "category": {
       "id": "mortar",
       "name": "モルタル造形制作"
     },
     "eyecatch": {
-      "url": "/works/mortar-25.webp",
-      "width": 1004,
-      "height": 1600
+      "url": "/works/mortar-23-thumb.webp",
+      "width": 600,
+      "height": 800
     },
     "thumb": {
-      "url": "/works/mortar-25-thumb.webp",
-      "width": 502,
+      "url": "/works/mortar-23-thumb.webp",
+      "width": 600,
       "height": 800
     },
     "photoOnly": true
@@ -255,12 +236,12 @@
     },
     "eyecatch": {
       "url": "/works/mortar-26.webp",
-      "width": 1108,
-      "height": 1477
+      "width": 1004,
+      "height": 1600
     },
     "thumb": {
       "url": "/works/mortar-26-thumb.webp",
-      "width": 600,
+      "width": 502,
       "height": 800
     },
     "photoOnly": true
@@ -274,13 +255,13 @@
     },
     "eyecatch": {
       "url": "/works/mortar-27.webp",
-      "width": 1478,
-      "height": 1108
+      "width": 1108,
+      "height": 1477
     },
     "thumb": {
       "url": "/works/mortar-27-thumb.webp",
-      "width": 800,
-      "height": 600
+      "width": 600,
+      "height": 800
     },
     "photoOnly": true
   },
@@ -293,8 +274,8 @@
     },
     "eyecatch": {
       "url": "/works/mortar-28.webp",
-      "width": 1600,
-      "height": 1200
+      "width": 1478,
+      "height": 1108
     },
     "thumb": {
       "url": "/works/mortar-28-thumb.webp",
@@ -304,40 +285,21 @@
     "photoOnly": true
   },
   {
-    "id": "static-interior-01",
-    "title": "内装・インテリア塗装",
+    "id": "static-mortar-29",
+    "title": "モルタル造形制作",
     "category": {
-      "id": "interior",
-      "name": "内装・インテリア塗装"
+      "id": "mortar",
+      "name": "モルタル造形制作"
     },
     "eyecatch": {
-      "url": "/works/interior-01.webp",
-      "width": 1477,
-      "height": 1108
+      "url": "/works/mortar-29.webp",
+      "width": 1600,
+      "height": 1200
     },
     "thumb": {
-      "url": "/works/interior-01-thumb.webp",
+      "url": "/works/mortar-29-thumb.webp",
       "width": 800,
       "height": 600
-    },
-    "photoOnly": true
-  },
-  {
-    "id": "static-interior-03",
-    "title": "内装・インテリア塗装",
-    "category": {
-      "id": "interior",
-      "name": "内装・インテリア塗装"
-    },
-    "eyecatch": {
-      "url": "/works/interior-03.webp",
-      "width": 1108,
-      "height": 1477
-    },
-    "thumb": {
-      "url": "/works/interior-03-thumb.webp",
-      "width": 600,
-      "height": 800
     },
     "photoOnly": true
   },
@@ -357,25 +319,6 @@
       "url": "/works/interior-05-thumb.webp",
       "width": 600,
       "height": 800
-    },
-    "photoOnly": true
-  },
-  {
-    "id": "static-interior-07",
-    "title": "内装・インテリア塗装",
-    "category": {
-      "id": "interior",
-      "name": "内装・インテリア塗装"
-    },
-    "eyecatch": {
-      "url": "/works/interior-07-thumb.webp",
-      "width": 700,
-      "height": 425
-    },
-    "thumb": {
-      "url": "/works/interior-07-thumb.webp",
-      "width": 700,
-      "height": 425
     },
     "photoOnly": true
   },
@@ -437,25 +380,6 @@
     "photoOnly": true
   },
   {
-    "id": "static-interior-14",
-    "title": "内装・インテリア塗装",
-    "category": {
-      "id": "interior",
-      "name": "内装・インテリア塗装"
-    },
-    "eyecatch": {
-      "url": "/works/interior-14.webp",
-      "width": 1477,
-      "height": 1108
-    },
-    "thumb": {
-      "url": "/works/interior-14-thumb.webp",
-      "width": 800,
-      "height": 600
-    },
-    "photoOnly": true
-  },
-  {
     "id": "static-interior-15",
     "title": "内装・インテリア塗装",
     "category": {
@@ -469,6 +393,119 @@
     },
     "thumb": {
       "url": "/works/interior-15-thumb.webp",
+      "width": 800,
+      "height": 600
+    },
+    "photoOnly": true
+  },
+  {
+    "id": "static-interior-17+interior-16",
+    "title": "内装・インテリア塗装",
+    "category": {
+      "id": "interior",
+      "name": "内装・インテリア塗装"
+    },
+    "eyecatch": {
+      "url": "/works/interior-17.webp",
+      "width": 1477,
+      "height": 1108
+    },
+    "thumb": {
+      "url": "/works/interior-17-thumb.webp",
+      "width": 800,
+      "height": 600
+    },
+    "photoOnly": true,
+    "pair": [
+      {
+        "label": "Before",
+        "eyecatch": {
+          "url": "/works/interior-17.webp",
+          "width": 1477,
+          "height": 1108
+        },
+        "thumb": {
+          "url": "/works/interior-17-thumb.webp",
+          "width": 800,
+          "height": 600
+        }
+      },
+      {
+        "label": "After",
+        "eyecatch": {
+          "url": "/works/interior-16.webp",
+          "width": 1477,
+          "height": 1108
+        },
+        "thumb": {
+          "url": "/works/interior-16-thumb.webp",
+          "width": 800,
+          "height": 600
+        }
+      }
+    ]
+  },
+  {
+    "id": "static-interior-19+interior-18",
+    "title": "内装・インテリア塗装",
+    "category": {
+      "id": "interior",
+      "name": "内装・インテリア塗装"
+    },
+    "eyecatch": {
+      "url": "/works/interior-19.webp",
+      "width": 1108,
+      "height": 1477
+    },
+    "thumb": {
+      "url": "/works/interior-19-thumb.webp",
+      "width": 600,
+      "height": 800
+    },
+    "photoOnly": true,
+    "pair": [
+      {
+        "label": "Before",
+        "eyecatch": {
+          "url": "/works/interior-19.webp",
+          "width": 1108,
+          "height": 1477
+        },
+        "thumb": {
+          "url": "/works/interior-19-thumb.webp",
+          "width": 600,
+          "height": 800
+        }
+      },
+      {
+        "label": "After",
+        "eyecatch": {
+          "url": "/works/interior-18.webp",
+          "width": 1477,
+          "height": 1108
+        },
+        "thumb": {
+          "url": "/works/interior-18-thumb.webp",
+          "width": 800,
+          "height": 600
+        }
+      }
+    ]
+  },
+  {
+    "id": "static-interior-20",
+    "title": "内装・インテリア塗装",
+    "category": {
+      "id": "interior",
+      "name": "内装・インテリア塗装"
+    },
+    "eyecatch": {
+      "url": "/works/interior-20.webp",
+      "width": 1477,
+      "height": 1108
+    },
+    "thumb": {
+      "url": "/works/interior-20-thumb.webp",
       "width": 800,
       "height": 600
     },
@@ -608,7 +645,7 @@
     "photoOnly": true
   },
   {
-    "id": "static-aging-26",
+    "id": "static-aging-26+aging-27",
     "title": "エイジング塗装",
     "category": {
       "id": "aging",
@@ -616,11 +653,58 @@
     },
     "eyecatch": {
       "url": "/works/aging-26.webp",
+      "width": 1477,
+      "height": 1108
+    },
+    "thumb": {
+      "url": "/works/aging-26-thumb.webp",
+      "width": 800,
+      "height": 600
+    },
+    "photoOnly": true,
+    "pair": [
+      {
+        "label": "Before",
+        "eyecatch": {
+          "url": "/works/aging-26.webp",
+          "width": 1477,
+          "height": 1108
+        },
+        "thumb": {
+          "url": "/works/aging-26-thumb.webp",
+          "width": 800,
+          "height": 600
+        }
+      },
+      {
+        "label": "After",
+        "eyecatch": {
+          "url": "/works/aging-27.webp",
+          "width": 1477,
+          "height": 1108
+        },
+        "thumb": {
+          "url": "/works/aging-27-thumb.webp",
+          "width": 800,
+          "height": 600
+        }
+      }
+    ]
+  },
+  {
+    "id": "static-aging-28",
+    "title": "エイジング塗装",
+    "category": {
+      "id": "aging",
+      "name": "エイジング塗装"
+    },
+    "eyecatch": {
+      "url": "/works/aging-28.webp",
       "width": 1004,
       "height": 1600
     },
     "thumb": {
-      "url": "/works/aging-26-thumb.webp",
+      "url": "/works/aging-28-thumb.webp",
       "width": 502,
       "height": 800
     },
@@ -628,10 +712,10 @@
   },
   {
     "id": "static-special-04",
-    "title": "特殊塗装",
+    "title": "特殊塗装・特殊左官",
     "category": {
       "id": "special",
-      "name": "特殊塗装"
+      "name": "特殊塗装・特殊左官"
     },
     "eyecatch": {
       "url": "/works/special-04.webp",
@@ -647,10 +731,10 @@
   },
   {
     "id": "static-special-07",
-    "title": "特殊塗装",
+    "title": "特殊塗装・特殊左官",
     "category": {
       "id": "special",
-      "name": "特殊塗装"
+      "name": "特殊塗装・特殊左官"
     },
     "eyecatch": {
       "url": "/works/special-07.webp",
@@ -666,10 +750,10 @@
   },
   {
     "id": "static-special-08",
-    "title": "特殊塗装",
+    "title": "特殊塗装・特殊左官",
     "category": {
       "id": "special",
-      "name": "特殊塗装"
+      "name": "特殊塗装・特殊左官"
     },
     "eyecatch": {
       "url": "/works/special-08.webp",
@@ -685,10 +769,10 @@
   },
   {
     "id": "static-special-10",
-    "title": "特殊塗装",
+    "title": "特殊塗装・特殊左官",
     "category": {
       "id": "special",
-      "name": "特殊塗装"
+      "name": "特殊塗装・特殊左官"
     },
     "eyecatch": {
       "url": "/works/special-10.webp",
@@ -704,10 +788,10 @@
   },
   {
     "id": "static-special-11",
-    "title": "特殊塗装",
+    "title": "特殊塗装・特殊左官",
     "category": {
       "id": "special",
-      "name": "特殊塗装"
+      "name": "特殊塗装・特殊左官"
     },
     "eyecatch": {
       "url": "/works/special-11.webp",
@@ -723,10 +807,10 @@
   },
   {
     "id": "static-special-12",
-    "title": "特殊塗装",
+    "title": "特殊塗装・特殊左官",
     "category": {
       "id": "special",
-      "name": "特殊塗装"
+      "name": "特殊塗装・特殊左官"
     },
     "eyecatch": {
       "url": "/works/special-12.webp",
@@ -742,10 +826,10 @@
   },
   {
     "id": "static-special-13",
-    "title": "特殊塗装",
+    "title": "特殊塗装・特殊左官",
     "category": {
       "id": "special",
-      "name": "特殊塗装"
+      "name": "特殊塗装・特殊左官"
     },
     "eyecatch": {
       "url": "/works/special-13.webp",
@@ -761,10 +845,10 @@
   },
   {
     "id": "static-special-15",
-    "title": "特殊塗装",
+    "title": "特殊塗装・特殊左官",
     "category": {
       "id": "special",
-      "name": "特殊塗装"
+      "name": "特殊塗装・特殊左官"
     },
     "eyecatch": {
       "url": "/works/special-15.webp",
@@ -780,10 +864,10 @@
   },
   {
     "id": "static-special-17",
-    "title": "特殊塗装",
+    "title": "特殊塗装・特殊左官",
     "category": {
       "id": "special",
-      "name": "特殊塗装"
+      "name": "特殊塗装・特殊左官"
     },
     "eyecatch": {
       "url": "/works/special-17.webp",
@@ -799,10 +883,10 @@
   },
   {
     "id": "static-special-19",
-    "title": "特殊塗装",
+    "title": "特殊塗装・特殊左官",
     "category": {
       "id": "special",
-      "name": "特殊塗装"
+      "name": "特殊塗装・特殊左官"
     },
     "eyecatch": {
       "url": "/works/special-19.webp",
@@ -818,29 +902,29 @@
   },
   {
     "id": "static-special-22",
-    "title": "特殊塗装",
+    "title": "特殊塗装・特殊左官",
     "category": {
       "id": "special",
-      "name": "特殊塗装"
+      "name": "特殊塗装・特殊左官"
     },
     "eyecatch": {
       "url": "/works/special-22.webp",
-      "width": 1477,
-      "height": 1108
+      "width": 1108,
+      "height": 1477
     },
     "thumb": {
       "url": "/works/special-22-thumb.webp",
-      "width": 800,
-      "height": 600
+      "width": 600,
+      "height": 800
     },
     "photoOnly": true
   },
   {
     "id": "static-special-23",
-    "title": "特殊塗装",
+    "title": "特殊塗装・特殊左官",
     "category": {
       "id": "special",
-      "name": "特殊塗装"
+      "name": "特殊塗装・特殊左官"
     },
     "eyecatch": {
       "url": "/works/special-23.webp",
@@ -855,19 +939,19 @@
     "photoOnly": true
   },
   {
-    "id": "static-hyoheki-01",
-    "title": "氷壁",
+    "id": "static-special-24",
+    "title": "特殊塗装・特殊左官",
     "category": {
-      "id": "hyoheki",
-      "name": "氷壁"
+      "id": "special",
+      "name": "特殊塗装・特殊左官"
     },
     "eyecatch": {
-      "url": "/works/hyoheki-01-thumb.webp",
-      "width": 800,
-      "height": 600
+      "url": "/works/special-24.webp",
+      "width": 1477,
+      "height": 1108
     },
     "thumb": {
-      "url": "/works/hyoheki-01-thumb.webp",
+      "url": "/works/special-24-thumb.webp",
       "width": 800,
       "height": 600
     },
@@ -982,6 +1066,25 @@
     },
     "thumb": {
       "url": "/works/hyoheki-11-thumb.webp",
+      "width": 800,
+      "height": 600
+    },
+    "photoOnly": true
+  },
+  {
+    "id": "static-hyoheki-12",
+    "title": "氷壁",
+    "category": {
+      "id": "hyoheki",
+      "name": "氷壁"
+    },
+    "eyecatch": {
+      "url": "/works/hyoheki-12.webp",
+      "width": 1477,
+      "height": 1108
+    },
+    "thumb": {
+      "url": "/works/hyoheki-12-thumb.webp",
       "width": 800,
       "height": 600
     },
