@@ -193,20 +193,32 @@ function handlePostsRequest(string $endpoint): never
         // カテゴリー絞り込み（未指定=全件）。mainの getPostList({category}) と同じ挙動。
         $category = isset($_GET['category']) ? (string)$_GET['category'] : '';
 
+        // 並びは「2枚1組（施工前後）→ microCMS の記事 → 残りの静的写真」。
+        // 3つを1本の並びとみなし、offset / limit はその通し番号に対して効かせる
+        // （main の getPostList と同じ挙動）。
         $statics = loadStaticWorks($category);
+        $pairs   = array_values(array_filter($statics, fn($w) => !empty($w['pair'])));
+        $singles = array_values(array_filter($statics, fn($w) => empty($w['pair'])));
 
         if (!$configured) {
+            $all = array_merge($pairs, $singles);
             respondJson(200, [
-                'contents'   => array_slice($statics, $offset, $limit),
-                'totalCount' => count($statics),
+                'contents'   => array_slice($all, $offset, $limit),
+                'totalCount' => count($all),
                 'offset'     => $offset,
                 'limit'      => $limit,
             ]);
         }
 
+        // 先頭の組から取れるぶんを取り、足りない分を microCMS に要求する
+        $head      = array_slice($pairs, $offset, $limit);
+        $cmsLimit  = $limit - count($head);
+        $cmsOffset = max(0, $offset - count($pairs));
+
         $params = [
-            'limit'  => $limit,
-            'offset' => $offset,
+            // 取る必要が無くても totalCount は要るので最低1件は要求し、あとで捨てる
+            'limit'  => max($cmsLimit, 1),
+            'offset' => $cmsOffset,
             // 存在しないフィールド名を混ぜてもmicroCMSは無視するだけなので、
             // 現行スキーマ(image)と将来の拡張(title/eyecatch/tags)をまとめて要求している
             'fields' => 'id,title,image,eyecatch,category,tags,publishedAt',
@@ -222,18 +234,18 @@ function handlePostsRequest(string $endpoint): never
             throw new RuntimeException('microCMS request failed: ' . $res['status']);
         }
 
-        // microCMS記事を先に並べ、要求件数に足りない分を静的写真で埋める。
-        // offset が microCMS の総件数を超えていれば、その超過分が静的写真側の開始位置になる。
-        $cmsContents = array_map('normalizeCmsWork', $res['json']['contents'] ?? []);
+        // まだ足りなければ残りの静的写真で埋める。
+        // offset が「組＋microCMS の総件数」を超えていれば、その超過分が静的写真側の開始位置になる。
+        $cmsContents = array_map('normalizeCmsWork', array_slice($res['json']['contents'] ?? [], 0, $cmsLimit));
         $cmsTotal    = (int)($res['json']['totalCount'] ?? 0);
-        $shortfall   = $limit - count($cmsContents);
+        $shortfall   = $limit - count($head) - count($cmsContents);
         $filler      = $shortfall > 0
-            ? array_slice($statics, max(0, $offset - $cmsTotal), $shortfall)
+            ? array_slice($singles, max(0, $offset - count($pairs) - $cmsTotal), $shortfall)
             : [];
 
         respondJson(200, [
-            'contents'   => array_merge($cmsContents, $filler),
-            'totalCount' => $cmsTotal + count($statics),
+            'contents'   => array_merge($head, $cmsContents, $filler),
+            'totalCount' => count($pairs) + $cmsTotal + count($singles),
             'offset'     => $offset,
             'limit'      => $limit,
         ]);
