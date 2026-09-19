@@ -12,6 +12,12 @@
 
 import manifest from "../../public/works-manifest.json";
 
+export type PairImage = {
+  label?: string; // 各写真の左上に出す小見出し（Before / After など）
+  eyecatch: { url: string; width: number; height: number };
+  thumb: { url: string; width: number; height: number };
+};
+
 export type StaticWork = {
   id: string; // "static-mortar-03" 形式。microCMSの自動IDと衝突しないよう接頭辞を付けている
   title: string; // 架空の物件名は付けない方針なのでサービス名が入る
@@ -19,6 +25,9 @@ export type StaticWork = {
   eyecatch: { url: string; width: number; height: number }; // 拡大表示用
   thumb: { url: string; width: number; height: number }; // 一覧グリッド用
   photoOnly: boolean; // 写真のみ＝詳細ページを持たない（ライトボックスで拡大する）
+  // 2枚1組（施工前後など）。build-works-images.py が works-selection.json の pairs から作る。
+  // eyecatch / thumb には1枚目が入っているので、pair を見ない読み手には1枚の写真として通る
+  pair?: PairImage[];
   retired?: boolean; // microCMSへ移行済み。一覧から外す
 };
 

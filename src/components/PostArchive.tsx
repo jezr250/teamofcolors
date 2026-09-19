@@ -80,21 +80,45 @@ export default function PostArchive({ apiPath, detailPath, category }: Props) {
     return <p className="py-20 text-center type-body text-white/55">実績はまだありません。</p>;
   }
 
+  // 写真1枚ぶんの枠。組（pair）のカードでは2つ横に並べる
+  const photo = (img: { url: string }, alt: string, sizes: string, label?: string) => (
+    <div className="relative aspect-[4/3] overflow-hidden bg-[#141414]">
+      <Image
+        src={img.url}
+        alt={alt}
+        fill
+        className="object-cover transition-transform duration-700 group-hover:scale-106"
+        sizes={sizes}
+      />
+      <div className="absolute inset-0 bg-black/15 group-hover:bg-black/5 transition-colors duration-300" />
+      {label && (
+        <span className="absolute top-3 left-3 type-meta uppercase tracking-[0.25em]
+                         text-gold bg-black/60 px-2 py-1">
+          {label}
+        </span>
+      )}
+    </div>
+  );
+
   // カード中身は記事／写真で共通の見た目にせず、写真のほうは情報を持たせない
   const cardInner = (post: Post) => (
     <>
-      <div className="relative aspect-[4/3] overflow-hidden bg-[#141414]">
-        {(post.thumb ?? post.eyecatch) && (
-          <Image
-            src={(post.thumb ?? post.eyecatch)!.url}
-            alt={post.title}
-            fill
-            className="object-cover transition-transform duration-700 group-hover:scale-106"
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          />
-        )}
-        <div className="absolute inset-0 bg-black/15 group-hover:bg-black/5 transition-colors duration-300" />
-      </div>
+      {post.pair ? (
+        // 2枚1組（施工前後など）。カード自体を2列ぶんの幅にして、中で2枚を横に並べる。
+        // スマホ（1列）でも横並びのまま＝1枚が半分の幅になるが、前後の対比が伝わることを優先
+        <div className="grid grid-cols-2 gap-px bg-white/5">
+          {post.pair.map((p, i) =>
+            <div key={i}>
+              {photo(p.thumb, p.label ? `${post.title}（${p.label}）` : post.title,
+                     "(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 33vw", p.label)}
+            </div>
+          )}
+        </div>
+      ) : (
+        (post.thumb ?? post.eyecatch) &&
+          photo((post.thumb ?? post.eyecatch)!, post.title,
+                "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw")
+      )}
 
       <div className="p-5 md:p-6">
         {post.photoOnly ? (
@@ -146,8 +170,9 @@ export default function PostArchive({ apiPath, detailPath, category }: Props) {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/5">
         {posts.map((post) =>
           post.photoOnly ? (
-            // 遷移先も拡大表示も持たないので、ただの表示要素として置く
-            <div key={post.id} className={cardClass}>
+            // 遷移先も拡大表示も持たないので、ただの表示要素として置く。
+            // 組（pair）は2列ぶんの幅を取る（1列のスマホではそのまま全幅）
+            <div key={post.id} className={`${cardClass} ${post.pair ? "sm:col-span-2" : ""}`}>
               {cardInner(post)}
             </div>
           ) : (

@@ -15,6 +15,11 @@
 書けば救える。一覧グリッドは 4:3 の中央切り抜き（object-cover）なので、極端な横長・縦長に
 切ると一覧で主役が画面外に出る。4:3 に近い比率で切ること。
 
+2枚を1組で見せたい写真（施工前後など）は works-selection.json の "pairs" に書く。
+組にした2枚はマニフェスト上で1エントリになり、"pair" に各写真の画像とラベルが入る。
+一覧（PostArchive.tsx）はこのエントリを2列ぶんの幅のカードにして横並びで出す。
+eyecatch / thumb には1枚目を入れておくので、pair を知らない読み手にも1枚の写真として通る。
+
 マニフェストは Next（src/lib/staticWorks.ts）と Xserver の PHP
 （server/lib/microcms.php）の両方が読む唯一の実績リスト。二重管理を避けるため
 JSON 1ファイルに集約している。
@@ -93,6 +98,39 @@ def load_crops() -> dict[str, tuple[int, int, int, int]]:
     return {work_id: tuple(box) for work_id, box in data.get("crop", {}).items()}
 
 
+def load_pairs() -> list[dict]:
+    """2枚1組の指定を返す。各要素は {"ids": [id, id], "labels": [str, str] | None}。"""
+    if not SELECTION.exists():
+        return []
+    data = json.loads(SELECTION.read_text(encoding="utf-8"))
+    return data.get("pairs", [])
+
+
+def merge_pairs(entries: list[dict], pairs: list[dict]) -> list[dict]:
+    """組にした2枚を1エントリにまとめる。1枚目のエントリを書き換え、2枚目は一覧から消す。"""
+    by_id = {e["id"]: e for e in entries}
+    consumed: set[str] = set()
+    for pair in pairs:
+        ids = [f"static-{i}" for i in pair["ids"]]
+        missing = [i for i in ids if i not in by_id]
+        if missing:
+            print(f"警告: pairs に未公開または存在しない id があります: {', '.join(missing)}", file=sys.stderr)
+            continue
+        labels = pair.get("labels") or [None] * len(ids)
+        first = by_id[ids[0]]
+        first["pair"] = [
+            {
+                **({"label": label} if label else {}),
+                "eyecatch": by_id[i]["eyecatch"],
+                "thumb": by_id[i]["thumb"],
+            }
+            for i, label in zip(ids, labels)
+        ]
+        first["id"] = "static-" + "+".join(pair["ids"])
+        consumed.update(ids[1:])
+    return [e for e in entries if e["id"] not in consumed]
+
+
 def crop(im: Image.Image, box: tuple[int, int, int, int], name: str) -> Image.Image:
     """指定範囲で切り抜く。範囲が画像からはみ出していたら切らずに元のまま返す。"""
     left, top, right, bottom = box
@@ -127,6 +165,7 @@ def main() -> int:
     retired = load_retired()
     selection = load_selection()
     crops = load_crops()
+    pairs = load_pairs()
     OUT_DIR.mkdir(parents=True, exist_ok=True)
 
     entries = []
@@ -196,6 +235,8 @@ def main() -> int:
             if entry["id"] in retired:
                 entry["retired"] = True
             entries.append(entry)
+
+    entries = merge_pairs(entries, pairs)
 
     MANIFEST.write_text(
         json.dumps(entries, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"

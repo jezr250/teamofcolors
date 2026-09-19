@@ -8,7 +8,7 @@
 // 環境変数 MICROCMS_SERVICE_DOMAIN / MICROCMS_API_KEY が未設定の間は静的写真だけを返す。
 // 設定した瞬間から自動的に2層のマージ表示になり、コード変更は要らない。
 
-import { staticWorksByCategory, isStaticWorkId } from "./staticWorks";
+import { staticWorksByCategory, isStaticWorkId, type PairImage } from "./staticWorks";
 import { SERVICE_CATEGORIES } from "./serviceCategories";
 
 export type Post = {
@@ -21,6 +21,7 @@ export type Post = {
   tags?: string[]; // worksのみ使用（microCMS側は複数選択フィールド想定）
   publishedAt?: string;
   photoOnly?: boolean; // 写真のみ＝詳細ページを持たず、ライトボックスで拡大する
+  pair?: PairImage[]; // 2枚1組（静的写真のみ）。一覧で2列ぶんの幅のカードにして横並びで出す
 };
 
 export type PostListResponse = {
