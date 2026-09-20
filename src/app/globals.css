@@ -427,6 +427,40 @@ body {
 
 /* ===== Parallax ===== */
 .parallax-wrap { position: relative; overflow: hidden; }
+/* 上下の端を背景色（--black）に溶かして、前後のセクションとの切れ目を消す。
+   LOOK の上（ABOUT の黒）、LOOK と ORDER の写真どうしの境目、ORDER の下（WORKS の黒）が
+   直線で切れていて違和感があった（2026-09-20 指摘）。
+   本文は z-10 なので、画像と暗幕の上・本文の下に敷く */
+.parallax-wrap::before,
+.parallax-wrap::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 14vh;
+  z-index: 1;
+  pointer-events: none;
+}
+.parallax-wrap::before {
+  top: 0;
+  background: linear-gradient(to bottom, var(--black), rgba(10,10,10,0));
+}
+.parallax-wrap::after {
+  bottom: 0;
+  background: linear-gradient(to top, var(--black), rgba(10,10,10,0));
+}
+.parallax-img {
+  position: absolute;
+  inset: -15%;
+  /* inset で左右 15% ずつはみ出させているので幅も 130%。100% だと右端 15% が
+     埋まらず黒い帯になっていた（本番でも出ていた。2026-09-20 修正） */
+  width: 130%;
+  max-width: none; /* Tailwind の preflight（img { max-width: 100% }）で 130% が潰されるのを防ぐ */
+  height: 130%;
+  object-fit: cover;
+  will-change: transform;
+}
+
 /* ===== Scroll reveal ===== */
 .reveal {
   opacity: 0;
