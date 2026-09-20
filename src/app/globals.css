@@ -309,49 +309,50 @@ body {
   transition: transform 0.9s cubic-bezier(0.16,1,0.3,1);
 }
 .triptych-item:hover img { transform: scale(1.05); }
+/* 氷壁は写真を2マス分に敷いていて img がタイル（a.triptych-item）の外側にあるため、
+   上の :hover img が効かず1枚だけ拡大しなかった（2026-09-20 指摘）。
+   :has で外側の写真を拡大して他のタイルと動きを揃える */
+.hyoheki-wrap > img {
+  transition: transform 0.9s cubic-bezier(0.16,1,0.3,1);
+}
+.hyoheki-wrap:has(.triptych-item:hover) > img {
+  transform: scale(1.05);
+}
 .triptych-overlay {
   position: absolute;
   inset: 0;
-  /* 一様な暗幕38%に加えて、文字が乗る下半分だけ濃くする。
-     特殊塗装・内装のように白っぽい写真だと、38%だけでは銀のサービス名が背景に沈むため。
-     暗い写真では下の帯がほとんど見えないので、既存タイルの見え方は変わらない */
-  background:
-    linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.15) 45%, rgba(0,0,0,0) 70%),
-    rgba(0,0,0,0.38);
-  /* 文字は左下寄せ（2026-09-17 の先方構成例に合わせた。それ以前は中央寄せだった） */
+  /* 一律の暗幕（38%）はやめて、文字が乗る下側だけ薄いグラデーションを敷く。
+     一律に暗いと写真が沈み、スマホにはホバーが無いので明るい状態を見る機会が
+     無かった（2026-09-20 指摘）。写真は常に素の明るさで出て、可読性は
+     このグラデーションと銀文字のウエイト 500 で確保する。
+     ホバーは写真の拡大だけにして、暗幕は動かさない（PC・スマホで同じ見え方） */
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.5) 0%,
+    rgba(0,0,0,0.42) 30%,
+    rgba(0,0,0,0) 55%
+  );
+  /* 文字は左下寄せ（2026-09-17 の先方構成例に合わせた。それ以前は中央寄せだった）。
+     暗幕が文字まわりだけになったぶん、下端に寄せて写真を広く見せる */
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-end;
-  padding: 24px 28px;
-  transition: background 0.4s ease;
+  padding: 24px 24px 14px;
 }
-.triptych-item:hover .triptych-overlay {
-  background:
-    linear-gradient(to top, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.10) 45%, rgba(0,0,0,0) 70%),
-    rgba(0,0,0,0.15);
+/* 金の英語ラベルと銀のサービス名を1つのかたまりに見せる。
+   12px・0.35em だと横に伸び、行間 1.7 だと縦に間延びしていた */
+.triptych-overlay .type-meta {
+  font-size: 0.66rem;
+  letter-spacing: 0.28em;
+  margin-bottom: 3px;
 }
-
-/* スクロール中に基準線（画面の上から 45%）に重なっているタイルの見せ方。
-   スマホはホバーが無く、タップすると WORKS に遷移してしまうので、写真本来の
-   明るさを見せる機会がこれしかない（2026-09-20 指摘）。
-   一律の暗幕 38% を外して写真を素の明るさにするかわりに、サービス名が乗る
-   下端にスクリムを敷いて、明るい写真でも銀の名前が読めるようにする
-   （暗幕を完全に外すとエイジング塗装などで名前が背景に沈んで読めなかった）。
-   濃さは下端 65%。暗幕ONの下端（帯 0.55＋一律 0.38 で実効 72%）と同値にすると、
-   上が素の写真で明るいぶん落差が大きく帯だけが濃く浮いて見えるので、少し緩めている。
-   ホバーが使える 768px 以上では不要なので当てない（クラス自体は付くが効かない）。
-   基準線の位置は ServiceTriptych.tsx 側で決めている */
-@media (max-width: 767px) {
-  .triptych-item.tile-focus .triptych-overlay {
-    background: linear-gradient(
-      to top,
-      rgba(0,0,0,0.65) 0%,
-      rgba(0,0,0,0.5) 30%,
-      rgba(0,0,0,0) 55%
-    );
-    transition: background 0.5s ease;
-  }
+.triptych-overlay .triptych-name {
+  line-height: 1.35;
+  /* 細い明朝＋グラデーション塗りは写真の上で線が消えるので一段太く。
+     Noto Serif JP / Cormorant とも 500 は実装済みのウエイト
+     （600 以上は合成ボールドになって明朝が濁る） */
+  font-weight: 500;
 }
 
 /* タイル名（和文の明朝・立体）。和文にイタリックは無く擬似斜体になるので当てない

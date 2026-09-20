@@ -59,62 +59,6 @@ export default function ServiceTriptych() {
     return () => observer.disconnect();
   }, []);
 
-  // スマホにはホバーが無いので、暗幕が外れた明るい状態を見るにはタップするしかないが、
-  // タップは WORKS への画面遷移になってしまう（2026-09-20 指摘）。代わりに、
-  // 画面の上から 45% に引いた基準線に重なっているタイル1枚だけを強調し、
-  // スクロールに合わせて隣のタイルへ渡していく（スポットライトのような見せ方）。
-  // 45% は中央よりわずかに上＝視線が自然に止まる位置で、ハンバーガーメニューの
-  // Service で着地したときのモルタル造形制作（画面の 26〜49%）もここに入る。
-  // 強調の中身（写真は素のまま・名前の下だけ濃くする）は globals.css 側。
-  // 効くのは 767px 以下だけなので、ホバーできる md 以上はクラスが付いても変わらない。
-  //
-  // IntersectionObserver ではなくスクロール追従にしているのは、細い帯だと
-  // 上方向のスクロールや速いスクロールで発火しないことがあったため。
-  // rAF で間引いていて、1フレームあたり5枚ぶんの位置を見るだけなので負荷は小さい
-  useEffect(() => {
-    const tiles = Array.from(
-      ref.current?.querySelectorAll<HTMLElement>(".triptych-item") ?? []
-    );
-    if (!tiles.length) return;
-
-    let current: HTMLElement | null = null;
-    let raf = 0;
-
-    const update = () => {
-      raf = 0;
-      const line = window.innerHeight * 0.45;
-      let next: HTMLElement | null = null;
-      let nearest = Infinity;
-      tiles.forEach((tile) => {
-        const r = tile.getBoundingClientRect();
-        // 線に重なっているタイルだけが候補。境目で2枚重なったら中心が線に近いほう
-        if (r.top > line || r.bottom < line) return;
-        const distance = Math.abs((r.top + r.bottom) / 2 - line);
-        if (distance < nearest) {
-          nearest = distance;
-          next = tile;
-        }
-      });
-      if (next === current) return;
-      current?.classList.remove("tile-focus");
-      current = next;
-      (next as HTMLElement | null)?.classList.add("tile-focus");
-    };
-
-    const onScroll = () => {
-      if (!raf) raf = window.requestAnimationFrame(update);
-    };
-
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      if (raf) cancelAnimationFrame(raf);
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-    };
-  }, []);
-
   // 氷壁（最後のタイル）まで通しでフェードインさせるため、順番を i で持つ
   const tileStyle = (i: number) => ({
     transition: `opacity 0.7s ease ${i * 0.12}s, transform 0.7s ease ${i * 0.12}s`,
@@ -174,7 +118,7 @@ export default function ServiceTriptych() {
               右半分は写真を暗く透かした上に説明文（先方指示「文字は透過させる」）。
               スマホ（1列）では写真の下に説明文が続く */}
           <div
-            className="tile-item opacity-0 relative overflow-hidden bg-[#0a0a0a] md:col-span-2"
+            className="hyoheki-wrap tile-item opacity-0 relative overflow-hidden bg-[#0a0a0a] md:col-span-2"
             style={tileStyle(SERVICE_CATEGORY_LIST.length - 1)}
           >
             <Image
