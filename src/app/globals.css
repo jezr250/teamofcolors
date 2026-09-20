@@ -332,6 +332,28 @@ body {
     rgba(0,0,0,0.15);
 }
 
+/* スクロール中に基準線（画面の上から 45%）に重なっているタイルの見せ方。
+   スマホはホバーが無く、タップすると WORKS に遷移してしまうので、写真本来の
+   明るさを見せる機会がこれしかない（2026-09-20 指摘）。
+   一律の暗幕 38% を外して写真を素の明るさにするかわりに、サービス名が乗る
+   下端にスクリムを敷いて、明るい写真でも銀の名前が読めるようにする
+   （暗幕を完全に外すとエイジング塗装などで名前が背景に沈んで読めなかった）。
+   濃さは下端 65%。暗幕ONの下端（帯 0.55＋一律 0.38 で実効 72%）と同値にすると、
+   上が素の写真で明るいぶん落差が大きく帯だけが濃く浮いて見えるので、少し緩めている。
+   ホバーが使える 768px 以上では不要なので当てない（クラス自体は付くが効かない）。
+   基準線の位置は ServiceTriptych.tsx 側で決めている */
+@media (max-width: 767px) {
+  .triptych-item.tile-focus .triptych-overlay {
+    background: linear-gradient(
+      to top,
+      rgba(0,0,0,0.65) 0%,
+      rgba(0,0,0,0.5) 30%,
+      rgba(0,0,0,0) 55%
+    );
+    transition: background 0.5s ease;
+  }
+}
+
 /* タイル名（和文の明朝・立体）。和文にイタリックは無く擬似斜体になるので当てない
    （2026-09-20。欧文の見出しだけイタリック）。
    スマホ（1列）は .type-heading の段階どおり。md 以上（3列）は列幅に合わせて
@@ -405,6 +427,28 @@ body {
 
 /* ===== Parallax ===== */
 .parallax-wrap { position: relative; overflow: hidden; }
+/* 上下の端を背景色（--black）に溶かして、前後のセクションとの切れ目を消す。
+   LOOK の上（ABOUT の黒）、LOOK と ORDER の写真どうしの境目、ORDER の下（WORKS の黒）が
+   直線で切れていて違和感があった（2026-09-20 指摘）。
+   本文は z-10 なので、画像と暗幕の上・本文の下に敷く */
+.parallax-wrap::before,
+.parallax-wrap::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 14vh;
+  z-index: 1;
+  pointer-events: none;
+}
+.parallax-wrap::before {
+  top: 0;
+  background: linear-gradient(to bottom, var(--black), rgba(10,10,10,0));
+}
+.parallax-wrap::after {
+  bottom: 0;
+  background: linear-gradient(to top, var(--black), rgba(10,10,10,0));
+}
 .parallax-img {
   position: absolute;
   inset: -15%;
