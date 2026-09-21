@@ -4,7 +4,17 @@ import { prisma } from "@/lib/prisma";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { name, company, email, phone, message } = body;
+    const { name, company, email, phone, message, website, elapsed } = body;
+
+    // bot 対策（本番は api/contact.php 側が同じ判定をする。ここは開発で動きを確かめる用）。
+    // ハニーポットが埋まっている／開いてから3秒未満での送信は自動投稿とみなし、
+    // 保存せずに成功と同じ応答を返す（はじいたことをボットに教えないため）
+    if (typeof website === "string" && website.trim() !== "") {
+      return NextResponse.json({ success: true, id: 0 }, { status: 201 });
+    }
+    if (typeof elapsed === "number" && elapsed < 3000) {
+      return NextResponse.json({ success: true, id: 0 }, { status: 201 });
+    }
 
     if (!name || !email || !message) {
       return NextResponse.json(

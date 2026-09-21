@@ -617,6 +617,17 @@ body {
   filter: brightness(1.06);
 }
 
+/* ハニーポット（bot 対策）。人には見せず、自動投稿にだけ見つけさせる欄。
+   display:none / hidden 属性は無視するボットがいるので、画面の外へ出して隠す。
+   左に飛ばしても横スクロールは増えない（はみ出す向きが逆のため） */
+.honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 /* ===== 記事本文（microCMS richEditorのHTMLを描画する領域） ===== */
 .article-content {
   color: rgba(255,255,255,0.78);
