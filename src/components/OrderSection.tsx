@@ -27,6 +27,11 @@ export default function OrderSection() {
         src="/order-bg.jpg"
         alt="モルタルを塗る職人の手"
         className="parallax-img"
+        /* 元が縦位置（1108x1477）で、cover の中央切り抜きだと主役の腕（画像の上 1/3・右端）が
+           切れてしまう。PC は上下、スマホは右が切られるので、縦を上寄り・横を右端に寄せて
+           腕全体が入るようにした（2026-09-21 指摘）。LOOK と共用の .parallax-img は
+           触らず、この写真だけの指定 */
+        style={{ objectPosition: "100% 26%" }}
       />
       <div className="absolute inset-0 bg-black/55" />
 

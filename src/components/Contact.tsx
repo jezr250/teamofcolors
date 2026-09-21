@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import OrderFlow from "./OrderFlow";
 import {
   SITE_BUSINESS_HOURS,
@@ -17,6 +17,12 @@ export default function Contact() {
   const [sent, setSent] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  // bot 対策。フォームが画面に出た時刻を覚えておき、送信までの秒数をサーバーへ渡す。
+  // 自動投稿は開いた直後に送ってくるので、サーバー側で速すぎる送信をはじける
+  const openedAt = useRef(0);
+  useEffect(() => {
+    openedAt.current = Date.now();
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -29,6 +35,10 @@ export default function Contact() {
       email: data.get("email"),
       phone: data.get("phone"),
       message: data.get("message"),
+      // 以下は bot 対策用。website はハニーポット（人には見えない欄なので常に空）、
+      // elapsed はフォームを開いてから送信するまでのミリ秒
+      website: data.get("website"),
+      elapsed: Date.now() - openedAt.current,
     };
     try {
       const res = await fetch("/api/contact.php", {
@@ -81,6 +91,20 @@ export default function Contact() {
           </div>
         ) : (
           <form onSubmit={handleSubmit}>
+            {/* ハニーポット（bot 対策）。人には見えない欄で、自動投稿の多くはここまで埋める。
+                display:none だと無視するボットがいるので画面外に逃がしている。
+                ブラウザの自動入力に拾われないよう autoComplete="off" とタブ順からの除外も付ける */}
+            <div aria-hidden="true" className="honeypot">
+              <label htmlFor="website">ホームページ（この欄は入力しないでください）</label>
+              <input
+                id="website"
+                name="website"
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+              />
+            </div>
+
             {/* 入力欄 */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
               {fields.map((f) => (

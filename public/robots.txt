@@ -1,0 +1,7 @@
+# 検索エンジン向けの案内。サイト本体だけを巡回させ、
+# 問い合わせ受信などの PHP（/api/）と管理画面（/admin/）は対象から外す。
+# 行儀の悪いボットは robots.txt を読まないので、実際の防御は
+# api/contact.php 側のチェックと /admin/ の Basic 認証で行っている。
+User-agent: *
+Disallow: /api/
+Disallow: /admin/

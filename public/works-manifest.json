@@ -446,39 +446,26 @@
     ]
   },
   {
-    "id": "static-interior-19+interior-18",
+    "id": "static-interior-18+interior-19",
     "title": "内装・インテリア塗装",
     "category": {
       "id": "interior",
       "name": "内装・インテリア塗装"
     },
     "eyecatch": {
-      "url": "/works/interior-19.webp",
-      "width": 1108,
-      "height": 1477
+      "url": "/works/interior-18.webp",
+      "width": 1477,
+      "height": 1108
     },
     "thumb": {
-      "url": "/works/interior-19-thumb.webp",
-      "width": 600,
-      "height": 800
+      "url": "/works/interior-18-thumb.webp",
+      "width": 800,
+      "height": 600
     },
     "photoOnly": true,
     "pair": [
       {
         "label": "Before",
-        "eyecatch": {
-          "url": "/works/interior-19.webp",
-          "width": 1108,
-          "height": 1477
-        },
-        "thumb": {
-          "url": "/works/interior-19-thumb.webp",
-          "width": 600,
-          "height": 800
-        }
-      },
-      {
-        "label": "After",
         "eyecatch": {
           "url": "/works/interior-18.webp",
           "width": 1477,
@@ -488,6 +475,19 @@
           "url": "/works/interior-18-thumb.webp",
           "width": 800,
           "height": 600
+        }
+      },
+      {
+        "label": "After",
+        "eyecatch": {
+          "url": "/works/interior-19.webp",
+          "width": 1108,
+          "height": 1477
+        },
+        "thumb": {
+          "url": "/works/interior-19-thumb.webp",
+          "width": 600,
+          "height": 800
         }
       }
     ]
