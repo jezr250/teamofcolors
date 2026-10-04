@@ -20,6 +20,10 @@
 一覧（PostArchive.tsx）はこのエントリを2列ぶんの幅のカードにして横並びで出す。
 eyecatch / thumb には1枚目を入れておくので、pair を知らない読み手にも1枚の写真として通る。
 
+縦長の写真は一覧の 4:3 中央切り抜きだと真ん中だけが拡大されたように見える。上寄りで見せたい
+写真は works-selection.json の "thumb_top" に id を書くと、一覧用の thumb だけを上端から 4:3 に
+切り出す（Google ドライブのグリッド表示と同じアングル）。拡大表示用は切らずに全体のまま。
+
 マニフェストは Next（src/lib/staticWorks.ts）と Xserver の PHP
 （server/lib/microcms.php）の両方が読む唯一の実績リスト。二重管理を避けるため
 JSON 1ファイルに集約している。
@@ -98,6 +102,23 @@ def load_crops() -> dict[str, tuple[int, int, int, int]]:
     return {work_id: tuple(box) for work_id, box in data.get("crop", {}).items()}
 
 
+def load_thumb_top() -> set[str]:
+    """一覧用 thumb を上端基準の 4:3 で切り出す id を返す。"""
+    if not SELECTION.exists():
+        return set()
+    data = json.loads(SELECTION.read_text(encoding="utf-8"))
+    return set(data.get("thumb_top", []))
+
+
+def crop_top_4x3(im: Image.Image) -> Image.Image:
+    """縦長（4:3 より縦に長い）写真を、横幅いっぱい・上端揃えで 4:3 に切り出す。"""
+    w, h = im.size
+    target_h = round(w * 3 / 4)
+    if target_h >= h:
+        return im
+    return im.crop((0, 0, w, target_h))
+
+
 def load_pairs() -> list[dict]:
     """2枚1組の指定を返す。各要素は {"ids": [id, id], "labels": [str, str] | None}。"""
     if not SELECTION.exists():
@@ -165,6 +186,7 @@ def main() -> int:
     retired = load_retired()
     selection = load_selection()
     crops = load_crops()
+    thumb_top = load_thumb_top()
     pairs = load_pairs()
     OUT_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -198,12 +220,18 @@ def main() -> int:
                     im = crop(im, crops[work_id], src.name)
                 long_edge = max(im.size)
 
-                thumb = resize(im, THUMB_MAX)
+                thumb = resize(crop_top_4x3(im) if work_id in thumb_top else im, THUMB_MAX)
                 thumb_name = f"{work_id}-thumb.webp"
                 thumb.save(OUT_DIR / thumb_name, "WEBP", quality=QUALITY, method=6)
                 generated.add(thumb_name)
 
                 if long_edge > FULL_SKIP_UNDER:
+                    full = resize(im, FULL_MAX)
+                    full_name = f"{work_id}.webp"
+                    full.save(OUT_DIR / full_name, "WEBP", quality=QUALITY, method=6)
+                    generated.add(full_name)
+                elif work_id in thumb_top:
+                    # thumb は切り出してあるので、拡大表示には切らない版を別に用意する
                     full = resize(im, FULL_MAX)
                     full_name = f"{work_id}.webp"
                     full.save(OUT_DIR / full_name, "WEBP", quality=QUALITY, method=6)
@@ -251,9 +279,9 @@ def main() -> int:
             unknown = sorted(n for n in nums if f"{cat_id}-{n}" not in sources)
             if unknown:
                 print(f"警告: {cat_id} に存在しない番号があります: {', '.join(unknown)}", file=sys.stderr)
-    stray = sorted(work_id for work_id in crops if work_id not in sources)
+    stray = sorted(work_id for work_id in [*crops, *thumb_top] if work_id not in sources)
     if stray:
-        print(f"警告: crop に存在しない id があります: {', '.join(stray)}", file=sys.stderr)
+        print(f"警告: crop / thumb_top に存在しない id があります: {', '.join(stray)}", file=sys.stderr)
 
     # 前回生成ぶんで今回使われなかったファイルを掃除（元写真を減らした場合に残骸を残さない）
     removed = 0
